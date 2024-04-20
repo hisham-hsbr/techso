@@ -26,8 +26,9 @@
     </header><!-- End Header -->
 
     <main id="main">
+        <div style="padding-top: 50px" class="col-sm-12"></div>
 
-        <!-- ======= Breadcrumbs ======= -->
+        {{-- <!-- ======= Breadcrumbs ======= -->
         <section class="breadcrumbs">
             <div class="container">
 
@@ -40,7 +41,7 @@
                 </div>
 
             </div>
-        </section><!-- End Breadcrumbs -->
+        </section><!-- End Breadcrumbs --> --}}
 
         <section class="inner-page">
             <div class="container">

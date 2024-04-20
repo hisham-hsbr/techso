@@ -93,8 +93,9 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <img width="455" height="150" src="{{ asset('/storage/images/app/logo_black.png') }}"
-                                alt="logo_black">
+                            {{-- <img width="455" height="150" src="{{ asset('/storage/images/app/logo_black.png') }}"
+                                alt="logo_black"> --}}
+                            <x-app.application-logo-black width="455" />
                             <form method="post" action="{{ route('developer-settings.logo-black-update') }}"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -124,8 +125,9 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <img width="455" height="150" src="{{ asset('/storage/images/app/logo_white.png') }}"
-                                alt="logo_white">
+                            {{-- <img width="455" height="150" src="{{ asset('/storage/images/app/logo_white.png') }}"
+                                alt="logo_white"> --}}
+                            <x-app.application-logo-white width="455" />
                             <form method="post" action="{{ route('developer-settings.logo-white-update') }}"
                                 enctype="multipart/form-data">
                                 @csrf

@@ -37,9 +37,101 @@ class ServiceController extends Controller
         return view('back_end.techso.services.index',compact('services','createdByUsers','updatedByUsers'))->with('i');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function servicesGet()
+    {
+
+        $services = Service::all();
+        // $services = Service::orderByRaw('ISNULL(display_order), display_order ASC')->get();
+        // $services = Service::orderBy('job_number', 'DESC');
+        return Datatables::of($services)
+
+        ->setRowId(function ($service) {
+            return $service->id;
+            })
+
+            ->editColumn('status', function (Service $service) {
+
+                $active='<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
+                $inActive='<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';
+
+                $activeId = ($service->status);
+
+                    if($activeId==1){
+                        $activeId = $active;
+                    }
+                    else {
+                        $activeId = $inActive;
+                    }
+                    return $activeId;
+            })
+
+        // ->addColumn('date', function (Service $service) {
+        //     return $service->date->format('d-M-Y');
+        // })
+        ->addColumn('jobNumber', function (Service $service) {
+            return "F-".$service->job_number;
+        })
+
+
+
+        ->editColumn('jobType', function (Service $service) {
+
+            return ucwords($service->jobType->name);
+        })
+
+        ->editColumn('customerName', function (Service $service) {
+
+            return ucwords($service->customerName->name);
+        })
+
+        ->editColumn('productName', function (Service $service) {
+
+            return ucwords($service->productName->name);
+        })
+
+
+        // ----------
+
+        ->editColumn('created_by', function (Service $service) {
+
+            return ucwords($service->CreatedBy->name);
+        })
+
+        ->editColumn('updated_by', function (Service $service) {
+
+            return ucwords($service->UpdatedBy->name);
+        })
+        ->addColumn('created_at', function (Service $service) {
+            return $service->created_at->format('d-M-Y h:m');
+        })
+        ->addColumn('updated_at', function (Service $service) {
+
+            return $service->updated_at->format('d-M-Y h:m');
+        })
+
+        ->addColumn('editLink', function (Service $service) {
+
+            $editLink ='<a href="'. route('services.edit', $service->id) .'" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
+               return $editLink;
+        })
+        ->addColumn('pdfLink', function (Service $service) {
+
+            $pdfLink ='<a href="'. route('services.pdf', $service->id) .'" class="ml-2"><i class="fa-solid fa-file-pdf"></i></a>';
+               return $pdfLink;
+        })
+        ->addColumn('deleteLink', function (Service $service) {
+           $CSRFToken = "csrf_field()";
+            $deleteLink ='
+                        <button class="btn btn-link delete-Service" data-Service_id="'.$service->id.'" type="submit"><i
+                                class="fa-solid fa-trash-can text-danger"></i>
+                        </button>';
+               return $deleteLink;
+        })
+
+
+       ->rawColumns(['jobStatus','pendingStatus','jobType','workStatus','mobileModel', 'mobileComplaint','status','editLink','pdfLink','deleteLink'])
+        ->toJson();
+    }
     public function create()
     {
         $job_number = Service::max('job_number')+1;

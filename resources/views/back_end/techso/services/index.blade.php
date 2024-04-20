@@ -43,23 +43,27 @@
                                     @endcan {{-- Services Read --}}
                                 </x-layouts.div-clearfix>
                                 @can('Services Table')
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped"
+                                        style="text-overflow: ellipsis; white-space: nowrap;">
                                         <thead>
                                             <tr>
                                                 @can('Services Table')
                                                     <th>Sn</th>
                                                 @endcan
-                                                @can('Services Read Code')
-                                                    <th>code</th>
+                                                @can('Services Read Date')
+                                                    <th>Date</th>
                                                 @endcan
-                                                @can('Services Read Name')
-                                                    <th>Name</th>
+                                                @can('Services Read Job Number')
+                                                    <th>Job Number</th>
                                                 @endcan
-                                                @can('Services Read Contact Name')
-                                                    <th>Contact Name</th>
+                                                @can('Services Read Job Type')
+                                                    <th>Job Type</th>
                                                 @endcan
-                                                @can('Services Read Contact Number')
-                                                    <th>Contact Number</th>
+                                                @can('Services Read Customer Name')
+                                                    <th>Customer Name</th>
+                                                @endcan
+                                                @can('Services Read Product Name')
+                                                    <th>Product Name</th>
                                                 @endcan
                                                 @can('Services Read Status')
                                                     <th>Status</th>
@@ -92,17 +96,20 @@
                                                 @can('Services Read')
                                                     <th>Sn</th>
                                                 @endcan
-                                                @can('Services Read Code')
-                                                    <th>code</th>
+                                                @can('Services Read Date')
+                                                    <th>Date</th>
                                                 @endcan
-                                                @can('Services Read Name')
-                                                    <th>Name</th>
+                                                @can('Services Read Job Number')
+                                                    <th>Job Number</th>
                                                 @endcan
-                                                @can('Services Read Contact Name')
-                                                    <th>Contact Name</th>
+                                                @can('Services Read Job Type')
+                                                    <th>Job Type</th>
                                                 @endcan
-                                                @can('Services Read Contact Number')
-                                                    <th>Contact Number</th>
+                                                @can('Services Read Customer Name')
+                                                    <th>Customer Name</th>
+                                                @endcan
+                                                @can('Services Read Product Name')
+                                                    <th>Product Name</th>
                                                 @endcan
                                                 @can('Services Read Status')
                                                     <th>Status</th>
@@ -246,34 +253,42 @@
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Code')
+                    @can('Services Read Date')
                         {
-                            data: 'code',
-                            name: 'code',
+                            data: 'date',
+                            name: 'date',
                             width: '',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Name')
+                    @can('Services Read Job Number')
                         {
-                            data: 'name',
-                            name: 'name',
+                            data: 'jobNumber',
+                            name: 'jobNumber',
                             width: '',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Contact Name')
+                    @can('Services Read Job Type')
                         {
-                            data: 'contact_name',
-                            name: 'contact_name',
+                            data: 'jobType',
+                            name: 'jobType',
                             width: '',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Contact Number')
+                    @can('Services Read Customer Name')
                         {
-                            data: 'phone1',
-                            name: 'phone1',
+                            data: 'customerName',
+                            name: 'customerName',
+                            width: '',
+                            defaultContent: ''
+                        },
+                    @endcan
+                    @can('Services Read Product Name')
+                        {
+                            data: 'productName',
+                            name: 'productName',
                             width: '',
                             defaultContent: ''
                         },

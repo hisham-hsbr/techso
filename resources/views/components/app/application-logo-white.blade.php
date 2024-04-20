@@ -1,4 +1,4 @@
-<img src="{{ asset('/storage/images/app/logo_white.png') }}"
+<img src="{{ asset('/storage/images/app/techso_logo_name_white.png') }}"
     {{ $attributes->merge([
         'alt' => 'logo_white',
         'width' => '127',

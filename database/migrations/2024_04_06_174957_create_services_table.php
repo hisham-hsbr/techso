@@ -34,6 +34,8 @@ return new class extends Migration
 
             $table->string('complaint_details')->nullable();
 
+            $table->string('work_details')->nullable();
+
             $table->unsignedBigInteger('work_status_id')->unsigned()->index()->nullable();
             $table->foreign('work_status_id')->references('id')->on('work_statuses')->onDelete('cascade');
 
