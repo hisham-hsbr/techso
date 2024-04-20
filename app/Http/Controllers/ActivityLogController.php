@@ -40,6 +40,8 @@ class ActivitylogController extends Controller
         ->setRowId(function ($activity) {
             return $activity->id;
             })
+
+
             ->addColumn('created_at', function (Activity $activity) {
                 return $activity->created_at->format('d-M-Y h:m');
             })

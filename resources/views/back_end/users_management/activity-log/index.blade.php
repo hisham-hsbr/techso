@@ -115,7 +115,8 @@
     <x-links.footer-links-dataTable />
     <script>
         $(function() {
-            $("#example1").DataTable({
+
+            var table = $("#example1").DataTable({
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": true,
@@ -181,12 +182,21 @@
                 serverSide: true,
                 ajax: '{!! route('activityLogs.get') !!}',
 
+                // <--- colum serial number order with id
+                "columnDefs": [{
+                    searchable: false,
+                    orderable: false,
+                    targets: 0
+                }],
+                "order": [
+                    [1, 'asc']
+                ],
+                // colum serial number order with id --->
                 columns: [
                     @can('Activity Log Table')
                         {
                             data: 'id',
                             name: 'id',
-                            defaultContent: ''
                         },
                     @endcan
                     @can('Activity Log Read Log Name')
@@ -241,6 +251,22 @@
                     @endcan
                 ]
             });
+
+            // <--- colum serial number order with id
+            table.on('order.dt search.dt', function() {
+                    let i = 1;
+
+                    table
+                        .cells(null, 0, {
+                            search: 'applied',
+                            order: 'applied'
+                        })
+                        .every(function(cell) {
+                            this.data(i++);
+                        });
+                })
+                .draw();
+            // colum serial number order with id -->
             // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>

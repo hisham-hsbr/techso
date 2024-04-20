@@ -8,4 +8,5 @@ Route::get('/admin/dashboard/users', 'BackendDashboardController@fetchUsers')->n
 
 require __DIR__.'/default.php';  //default CRUD
 require __DIR__.'/settings.php';  //Settings
-require __DIR__.'/fixancare.php';  //fixancare
+require __DIR__.'/techso.php';  //Settings
+// require __DIR__.'/fixancare.php';  //fixancare

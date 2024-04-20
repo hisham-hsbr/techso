@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Fixancare\Brand;
+use App\Models\Techso\Brand;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;

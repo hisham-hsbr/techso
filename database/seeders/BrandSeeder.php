@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Fixancare\Brand;
+use App\Models\Techso\Brand;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -13,10 +13,10 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
-        Brand::create(['code' => 'vi' , 'name' => 'Vivo' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        Brand::create(['code' => 'sa' , 'name' => 'Samsung' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        Brand::create(['code' => 'ip' , 'name' => 'Iphone' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        Brand::create(['code' => 'no' , 'name' => 'Nokia' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        Brand::create(['code' => 'op' , 'name' => 'Oppo' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        Brand::create(['code' => 'de' , 'name' => 'Dell' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        Brand::create(['code' => 'ac' , 'name' => 'Acer' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        Brand::create(['code' => 'le' , 'name' => 'Lenovo' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        Brand::create(['code' => 'as' , 'name' => 'Asus' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+
     }
 }

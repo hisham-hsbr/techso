@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,18 +21,25 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(DeveloperUserSeeder::class);
-        $this->call(PermissionSeeder::class);
+        // $this->call(PermissionSeeder::class);
         $this->call(DeveloperSettingsSeeder::class);
         $this->call(AppSettingsSeeder::class);
         $this->call(AdminUserSeeder::class);
         $this->call(TimeZoneSeeder::class);
         $this->call(BloodSeeder::class);
         $this->call(CountryStateDistrictCitySeeder::class);
-        $this->call(BrandSeeder::class);
+
+        // Techso
+        $this->call(CustomerTypeSeeder::class);
+        $this->call(PromotionTypeSeeder::class);
         $this->call(JobTypeSeeder::class);
-        $this->call(JobStatusSeeder::class);
+        $this->call(BrandSeeder::class);
+        $this->call(ProductTypeSeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(ComplaintSeeder::class);
         $this->call(WorkStatusSeeder::class);
-        $this->call(MobileComplaintSeeder::class);
-        $this->call(MobileModelSeeder::class);
+        $this->call(JobStatusSeeder::class);
+        $this->call(CustomerSeeder::class);
+        $this->call(CustomerAccessoriesSeeder::class);
     }
 }

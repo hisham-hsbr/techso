@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-
 use Illuminate\Database\Seeder;
-use App\Models\Fixancare\WorkStatus;
+use App\Models\Techso\WorkStatus;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class WorkStatusSeeder extends Seeder
@@ -14,8 +13,8 @@ class WorkStatusSeeder extends Seeder
      */
     public function run(): void
     {
-        WorkStatus::create(['code' => 'fi' , 'name' => 'Fixancare' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        WorkStatus::create(['code' => 'dr' , 'name' => 'DR. Mobile' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        WorkStatus::create(['code' => 'ks' , 'name' => 'I fix KSD' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        WorkStatus::create(['code' => 'fi' , 'name' => 'Send To Khobar' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        WorkStatus::create(['code' => 'dr' , 'name' => 'Send To Dell Service' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        WorkStatus::create(['code' => 'ks' , 'name' => 'Send To Dammam' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
     }
 }

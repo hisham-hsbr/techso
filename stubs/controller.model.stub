@@ -20,12 +20,83 @@ class {{ class }} extends Controller
     {
         $this->middleware('auth');
 
+        // $this->middleware('permission:{{ model }} Read', ['only' => ['index']]);
+        // $this->middleware('permission:{{ model }} Create', ['only' => ['create','store']]);
+        // $this->middleware('permission:{{ model }} Edit', ['only' => ['Edit','Update']]);
+        // $this->middleware('permission:{{ model }} Delete', ['only' => ['destroy']]);
+
     }
 
     public function index()
     {
+        $_{{ modelVariable }}s = {{ model }}::all();
+        $createdByUsers = ${{ _modelVariable }}s->sortBy('createdBy')->pluck('createdBy')->unique();
+        $updatedByUsers = ${{ _modelVariable }}s->sortBy('updatedBy')->pluck('updatedBy')->unique();
+        return view('folder.{{ _modelVariable }}s.index',compact('{{ _modelVariable }}s','createdByUsers','updatedByUsers'))->with('i');
+    }
+
+    public function {{ modelVariable }}sGet()
+    {
+
         ${{ modelVariable }}s = {{ model }}::all();
-        return view('folder.{{ model }}s.folder',compact('{{ model }}s'))->with('i');
+        return Datatables::of(${{ modelVariable }}s)
+
+        ->setRowId(function (${{ modelVariable }}) {
+            return ${{ modelVariable }}->id;
+            })
+
+            ->editColumn('status', function ({{ model }} ${{ modelVariable }}) {
+
+                $active='<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
+                $inActive='<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';
+
+                $activeId = (${{ modelVariable }}->status);
+
+                    if($activeId==1){
+                        $activeId = $active;
+                    }
+                    else {
+                        $activeId = $inActive;
+                    }
+                    return $activeId;
+            })
+
+
+        ->editColumn('created_by', function ({{ model }} ${{ modelVariable }}) {
+
+            return ucwords(${{ modelVariable }}->CreatedBy->name);
+        })
+
+
+        ->editColumn('updated_by', function ({{ model }} ${{ modelVariable }}) {
+
+            return ucwords(${{ modelVariable }}->UpdatedBy->name);
+        })
+        ->addColumn('created_at', function ({{ model }} ${{ modelVariable }}) {
+            return ${{ modelVariable }}->created_at->format('d-M-Y h:m');
+        })
+        ->addColumn('updated_at', function ({{ model }} ${{ modelVariable }}) {
+
+            return ${{ modelVariable }}->updated_at->format('d-M-Y h:m');
+        })
+
+        ->addColumn('editLink', function ({{ model }} ${{ modelVariable }}) {
+
+            $editLink ='<a href="'. route('{{ model }}s.edit', ${{ modelVariable }}->id) .'" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
+               return $editLink;
+        })
+        ->addColumn('deleteLink', function ({{ model }} ${{ modelVariable }}) {
+           $CSRFToken = "csrf_field()";
+            $deleteLink ='
+                        <button class="btn btn-link delete-{{ modelVariable }}" data-{{ modelVariable }}_id="'.${{ modelVariable }}->id.'" type="submit"><i
+                                class="fa-solid fa-trash-can text-danger"></i>
+                        </button>';
+               return $deleteLink;
+        })
+
+
+       ->rawColumns(['status','editLink','deleteLink'])
+        ->toJson();
     }
 
     /**
@@ -33,7 +104,7 @@ class {{ class }} extends Controller
      */
     public function create()
     {
-        //
+        return view('folder.{{ modelVariable }}s.create');
     }
 
     /**
@@ -41,7 +112,31 @@ class {{ class }} extends Controller
      */
     public function store({{ storeRequest }} $request)
     {
-        //
+        $this->validate($request, [
+            'code' => 'required|unique:{{ modelVariable }}s,code',
+            'name' => 'required',
+        ]);
+        ${{ modelVariable }} = new {{ model }}();
+
+
+        ${{ modelVariable }}->code  = $request->code;
+        ${{ modelVariable }}->name = $request->name;
+
+
+        if ($request->status==0)
+            {
+                ${{ modelVariable }}->status==0;
+            }
+
+        ${{ modelVariable }}->status = $request->status;
+
+        ${{ modelVariable }}->created_by = Auth::user()->id;
+        ${{ modelVariable }}->updated_by = Auth::user()->id;
+
+        ${{ modelVariable }}->save();
+
+        return redirect()->route('{{ modelVariable }}s.index')
+                        ->with('message_store', '{{ model }} Created Successfully');
     }
 
     /**
@@ -55,24 +150,51 @@ class {{ class }} extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit({{ model }} ${{ modelVariable }})
+    public function edit($id)
     {
-        //
+        ${{ modelVariable }}s = {{ model }}::find($id);
+        return view('folder.{{ modelVariable }}s.edit',compact('{{ modelVariable }}s'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    public function update({{ updateRequest }} $request,$id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'code' => "required|unique:{{ modelVariable }}s,code,$id",
+        ]);
+        ${{ modelVariable }} = {{ model }}::find($id);
+
+
+        ${{ modelVariable }}->code  = $request->code;
+        ${{ modelVariable }}->name = $request->name;
+
+
+        if ($request->status==0)
+            {
+                ${{ modelVariable }}->status==0;
+            }
+
+        ${{ modelVariable }}->status = $request->status;
+
+        ${{ modelVariable }}->updated_by = Auth::user()->id;
+
+        ${{ modelVariable }}->save();
+
+        return redirect()->route('{{ modelVariable }}s.index')
+                        ->with('message_store', '{{ model }} Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy({{ model }} ${{ modelVariable }})
+   public function destroy($id)
     {
-        //
+        ${{ modelVariable }}  = {{ model }}::findOrFail($id);
+        ${{ modelVariable }}->delete();
+
+        return redirect()->route('{{ modelVariable }}s.index')->with('message_update', '{{ model }} Deleted Successfully');
     }
 }

@@ -1,17 +1,17 @@
 <!-- Brand Logo -->
 <a href="/" class="brand-link">
-    {{-- sidebar_mini_logo --}}
+    <!-- sidebar_mini_logo -->
     @if ($logo->data['sidebar_mini_logo'] == 1)
         <x-app.application-logo-mini width="27" />
     @endif
     <div style="padding-left: 20px">
 
     </div>
-    {{-- sidebar_logo --}}
+    <!-- sidebar_logo -->
     @if ($logo->data['sidebar_logo'] == 1)
         <x-app.application-logo-white width="112" />
     @endif
-    {{-- <span class="brand-text font-weight-light"> {{ $application->data['app_name'] }}</span> --}}
+    <!-- <span class="brand-text font-weight-light"> {{ $application->data['app_name'] }}</span> -->
 </a>
 <div style="padding:12px">
 
@@ -41,218 +41,213 @@
                 </div>
             </div>
         </div>
-    @endcan {{-- Sidebar Search Menu --}}
+    @endcan <!-- Sidebar Search Menu -->
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar nav-compact nav-child-indent flex-column" data-widget="treeview"
             role="menu" data-accordion="false">
-            {{-- Dashboard Menu Start --}}
+            <!-- Dashboard Menu Start -->
             @can('Dashboard Menu')
                 <x-sidebar.sidebar-nav-level head="Dashboard" href="{{ route('back-end.dashboard') }}" menu_open=""
                     active="{{ request()->is('admin/dashboard') ? 'active' : '' }}" menu_icon="fas fa-tachometer-alt"
                     drop_icon="" />
-            @endcan {{-- Dashboard Menu End --}}
-            {{-- profile Menu Start --}}
+            @endcan <!-- Dashboard Menu End -->
+            <!-- profile Menu Start -->
             @can('Profile Menu')
                 <x-sidebar.sidebar-nav-level head="Profile" href="{{ route('profile.edit') }}" menu_open=""
                     active="{{ request()->is('admin/profile') ? 'active' : '' }}" menu_icon="fa fa-user" drop_icon="" />
-            @endcan {{-- profile Menu End --}}
-            {{-- @can('Admin Section Menu') --}}
+            @endcan <!-- profile Menu End -->
             @canany(['Developer Settings Read'])
                 <x-sidebar.sidebar-nav-header head="Developer Section" />
 
-                {{-- Masters Menu Start --}}
+                <!-- Developer Settings Start -->
                 @canany(['Developer Settings Read'])
                     <x-sidebar.sidebar-nav-level head="Developer Settings" href="#"
                         menu_open="{{ request()->is('developer/settings*') ? 'menu-open' : '' }}"
                         active="{{ request()->is('developer/settings/*') ? 'active' : '' }} {{ request()->is('developer/settings/*') ? 'active' : '' }}"
                         menu_icon="fa fa-cogs" drop_icon="fas fa-angle-left">
-                        {{-- App Settings Menu Start --}}
+                        <!-- App Settings Menu Start -->
                         @can('App Settings Read')
                             <x-sidebar.sidebar-nav-multi-level head="App Settings" href="{{ route('app-settings.index') }}"
                                 menu_open="" active="{{ request()->is('developer/settings/app-settings*') ? 'active' : '' }}"
                                 menu_icon="fa fa-wrench" drop_icon="" />
-                        @endcan {{-- App Settings Menu End --}}
-                        {{-- Developer Settings Menu Start --}}
+                        @endcan <!-- App Settings Menu End -->
+                        <!-- Developer Settings Menu Start -->
                         @can('Developer Settings Read')
                             <x-sidebar.sidebar-nav-multi-level head="Developer Settings"
                                 href="{{ route('developer-settings.index') }}" menu_open=""
                                 active="{{ request()->is('developer/settings/developer-settings*') ? 'active' : '' }}"
                                 menu_icon="fa fa-wrench" drop_icon="" />
-                        @endcan {{-- Blood Menu End --}}
+                        @endcan <!-- Blood Menu End -->
                     </x-sidebar.sidebar-nav-level>
-                @endcanany {{-- Masters Menu End --}}
+                @endcanany <!-- Developer Settings End -->
 
-            @endcanany {{-- Masters Menu End --}}
-            {{-- @can('Admin Section Menu') --}}
+            @endcanany <!-- Masters Menu End -->
             @canany(['Admin Settings', 'User Settings', 'User Read', 'Blood Read', 'Permission Read'])
                 <x-sidebar.sidebar-nav-header head="Admin Section" />
 
-
-                {{-- Masters Menu Start --}}
+                <!-- Masters Menu Start -->
                 @canany(['Blood Read'])
                     <x-sidebar.sidebar-nav-level head="Masters" href="#"
                         menu_open="{{ request()->is('admin/masters*') ? 'menu-open' : '' }}"
                         active="{{ request()->is('admin/masters/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
                         drop_icon="fas fa-angle-left">
-                        {{-- Blood Menu Start --}}
+                        <!-- Blood Menu Start -->
                         @can('Blood Read')
                             <x-sidebar.sidebar-nav-multi-level head="Bloods" href="{{ route('bloods.index') }}" menu_open=""
                                 active="{{ request()->is('admin/masters/bloods*') ? 'active' : '' }}" menu_icon="fa fa-tint"
                                 drop_icon="" />
-                        @endcan {{-- Blood Menu End --}}
+                        @endcan <!-- Blood Menu End -->
                     </x-sidebar.sidebar-nav-level>
-                @endcanany {{-- Masters Menu End --}}
+                @endcanany <!-- Masters Menu End -->
 
-                {{-- settings Menu Start --}}
+                <!-- settings Menu Start -->
                 @canany(['Admin Settings', 'Blood Bank Settings'])
                     <x-sidebar.sidebar-nav-level head="Settings" href="#"
                         menu_open="{{ request()->is('admin/settings*') ? 'menu-open' : '' }}"
                         active="{{ request()->is('admin/settings/*') ? 'active' : '' }}" menu_icon="fa fa-cogs"
                         drop_icon="fas fa-angle-left">
-                        {{-- Admin Settings Start --}}
+                        <!-- Admin Settings Start -->
                         @can('Admin Settings')
                             <x-sidebar.sidebar-nav-multi-level head="Admin Settings" href="{{ route('admin-settings.index') }}"
                                 menu_open="" active="{{ request()->is('admin/settings/admin-settings*') ? 'active' : '' }}"
                                 menu_icon="fa fa-wrench" drop_icon="" />
-                        @endcan {{-- Admin Settings End --}}
-                        {{-- Blood Bank Settings Start --}}
+                        @endcan <!-- Admin Settings End -->
+                        <!-- Blood Bank Settings Start -->
                         @can('Blood Bank Settings')
                             <x-sidebar.sidebar-nav-multi-level head="Blood Bank Settings"
                                 href="{{ route('blood-bank-settings.index') }}" menu_open=""
                                 active="{{ request()->is('admin/settings/blood-bank-settings*') ? 'active' : '' }}"
                                 menu_icon="fa fa-wrench" drop_icon="" />
-                        @endcan {{-- Blood Bank Settings End --}}
+                        @endcan <!-- Blood Bank Settings End -->
                     </x-sidebar.sidebar-nav-level>
-                @endcanany {{-- settings Menu End --}}
+                @endcanany <!-- settings Menu End -->
 
 
-                {{-- Users Management Start --}}
+                <!-- Users Management Start -->
                 @canany(['User Read', 'Role Read', 'Permission Read', 'Activity Logs Read'])
                     <x-sidebar.sidebar-nav-level head="Users Management" href="#"
                         menu_open="{{ request()->is('admin/users-management*') ? 'menu-open' : '' }}"
                         active="{{ request()->is('admin/users-management/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
                         drop_icon="fas fa-angle-left">
-                        {{-- User Menu Start --}}
+                        <!-- User Menu Start -->
                         @can('User Read')
                             <x-sidebar.sidebar-nav-multi-level head="Users" href="{{ route('users.index') }}" menu_open=""
                                 active="{{ request()->is('admin/users-management/users*') ? 'active' : '' }}"
                                 menu_icon="fa fa-users" drop_icon="" />
-                        @endcan {{-- User Menu End --}}
-                        {{-- Role Menu --}}
+                        @endcan <!-- User Menu End -->
+                        <!-- Role Menu -->
                         @can('Role Read')
                             <x-sidebar.sidebar-nav-multi-level head="Roles" href="{{ route('roles.index') }}" menu_open=""
                                 active="{{ request()->is('admin/users-management/roles*') ? 'active' : '' }}"
                                 menu_icon="fa fa-user-secret" drop_icon="" />
-                        @endcan {{-- Role Menu End --}}
-                        {{-- Permission Menu --}}
+                        @endcan <!-- Role Menu End -->
+                        <!-- Permission Menu -->
                         @can('Permission Read')
                             <x-sidebar.sidebar-nav-multi-level head="Permission" href="{{ route('permissions.index') }}"
                                 menu_open=""
                                 active="{{ request()->is('admin/users-management/permissions*') ? 'active' : '' }}"
                                 menu_icon="fa fa-lock" drop_icon="" />
-                        @endcan {{-- Permission Menu End --}}
-                        {{-- Menu Activity Logs --}}
+                        @endcan <!-- Permission Menu End -->
+                        <!-- Menu Activity Logs -->
                         @can('Activity Logs Read')
                             <x-sidebar.sidebar-nav-multi-level head="Activity Logs" href="{{ route('activityLogs.index') }}"
                                 menu_open=""
                                 active="{{ request()->is('admin/users-management/activity-logs*') ? 'active' : '' }}"
                                 menu_icon="fa fa-history" drop_icon="" />
-                        @endcan {{-- Activity Logs Menu End --}}
+                        @endcan <!-- Activity Logs Menu End -->
                     </x-sidebar.sidebar-nav-level>
-                @endcanany {{-- Fixancare Menu --}}
-                {{-- Fixancare Start --}}
-                @canany([
-                    'Mobile Service Read',
-                    'Image Controller Read',
-                    'Mobile Complaint Read',
-                    'Job Type Read',
-                    'Work
-                    Status Read',
-                    'Job Status Read',
-                    'Mobile Model Read',
-                    'Brand Read',
-                    ])
-                    <x-sidebar.sidebar-nav-level head="Fixancare" href="#"
-                        menu_open="{{ request()->is('admin/fixancare*') ? 'menu-open' : '' }}"
-                        active="{{ request()->is('admin/fixancare/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
+                @endcanany <!-- Users Management end -->
+
+                <!-- Techso -->
+
+                <!-- techso Start -->
+                @canany(['Service Read', 'Customer Read', 'Brand Read', 'Complaint Read'])
+                    <x-sidebar.sidebar-nav-level head="Techso" href="#"
+                        menu_open="{{ request()->is('admin/techso*') ? 'menu-open' : '' }}"
+                        active="{{ request()->is('admin/techso/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
                         drop_icon="fas fa-angle-left">
-                        {{-- Mobile Service Menu Start --}}
-                        @can('Mobile Service Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Mobile service" href="{{ route('mobile-services.index') }}"
-                                menu_open="" active="{{ request()->is('admin/fixancare/mobile-service*') ? 'active' : '' }}"
+
+                        @can('Service Read')
+                            <x-sidebar.sidebar-nav-multi-level head="Service" href="{{ route('services.index') }}"
+                                menu_open="" active="{{ request()->is('admin/techso/services*') ? 'active' : '' }}"
                                 menu_icon="fa fa-toolbox" drop_icon="" />
-                        @endcan {{-- Mobile Service Menu End --}}
-                        @can('Image Controller Read')
+                        @endcan
+                        {{-- @can('Image Controller Read')
                             <x-sidebar.sidebar-nav-multi-level head="Image Controller" href="{{ route('images.index') }}"
-                                menu_open="" active="{{ request()->is('admin/fixancare/image*') ? 'active' : '' }}"
+                                menu_open="" active="{{ request()->is('admin/techso/image*') ? 'active' : '' }}"
                                 menu_icon="fa fa-images" drop_icon="" />
-                        @endcan {{-- Image Menu End --}}
+                        @endcan  --}}
 
 
-
-                        @canany([
-                            'Mobile Complaint Read',
-                            'Job Type Read',
-                            'Work Status Read',
-                            'Job Status Read',
-                            'Mobile Model
-                            Read',
-                            'Brand Read',
-                            ])
+                        <!-- techso masters Start -->
+                        @canany(['customer Read', 'Job Type Read', 'Work Status Read', 'Job Status Read', 'Complaint Read',
+                            'Brand Read'])
                             <x-sidebar.sidebar-nav-multi-level head="Masters" href="#"
-                                menu_open="{{ request()->is('admin/fixancare/masters*') ? 'menu-open' : '' }}"
-                                active="{{ request()->is('admin/fixancare/masters/*') ? 'active' : '' }}"
+                                menu_open="{{ request()->is('admin/techso/masters*') ? 'menu-open' : '' }}"
+                                active="{{ request()->is('admin/techso/masters/*') ? 'active' : '' }}"
                                 menu_icon="fa fa-folder-tree" drop_icon="fas fa-angle-left">
-                                {{-- Mobile Service Menu Start --}}
-                                @can('Job Type Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Job Type" href="{{ route('job-types.index') }}"
+
+                                @can('Customer Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Customers" href="{{ route('customers.index') }}"
                                         menu_open=""
-                                        active="{{ request()->is('admin/fixancare/masters/job-type*') ? 'active' : '' }}"
+                                        active="{{ request()->is('admin/techso/masters/customers*') ? 'active' : '' }}"
                                         menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan {{-- Job Type Menu End --}}
-                                @can('Mobile Complaint Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Mobile Complaint"
-                                        href="{{ route('mobile-complaints.index') }}" menu_open=""
-                                        active="{{ request()->is('admin/fixancare/masters/mobile-complaint*') ? 'active' : '' }}"
+                                @endcan
+                                @can('Product Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Products" href="{{ route('products.index') }}"
+                                        menu_open="" active="{{ request()->is('admin/techso/masters/products*') ? 'active' : '' }}"
                                         menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan {{-- Mobile Complaint Menu End --}}
-                                @can('Work Status Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Work Status" href="{{ route('work-statuses.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/fixancare/masters/work-status*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan {{-- Job Status Menu End --}}
-                                @can('Job Status Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Job Status" href="{{ route('job-statuses.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/fixancare/masters/job-status*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan {{-- Job Status Menu End --}}
-                                @can('Mobile Model Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Mobile Model" href="{{ route('mobile-models.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/fixancare/masters/mobile-model*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan {{-- Mobile Model Menu End --}}
+                                @endcan
                                 @can('Brand Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Brand" href="{{ route('brands.index') }}"
-                                        menu_open="" active="{{ request()->is('admin/fixancare/masters/brand*') ? 'active' : '' }}"
+                                    <x-sidebar.sidebar-nav-multi-level head="Brands" href="{{ route('brands.index') }}"
+                                        menu_open="" active="{{ request()->is('admin/techso/masters/brands*') ? 'active' : '' }}"
                                         menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan {{-- Brand Menu End --}}
+                                @endcan
+                                @can('Complaint Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Complaints" href="{{ route('complaints.index') }}"
+                                        menu_open=""
+                                        active="{{ request()->is('admin/techso/masters/complaints*') ? 'active' : '' }}"
+                                        menu_icon="fa fa-asterisk" drop_icon="" />
+                                @endcan
+                                @can('Job Status Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Job Statuses" href="{{ route('job-statuses.index') }}"
+                                        menu_open=""
+                                        active="{{ request()->is('admin/techso/masters/job-statuses*') ? 'active' : '' }}"
+                                        menu_icon="fa fa-asterisk" drop_icon="" />
+                                @endcan
+                                @can('Job Type Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Job Types" href="{{ route('job-types.index') }}"
+                                        menu_open=""
+                                        active="{{ request()->is('admin/techso/masters/job-types*') ? 'active' : '' }}"
+                                        menu_icon="fa fa-asterisk" drop_icon="" />
+                                @endcan
+                                @can('Product Type Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Product Types" href="{{ route('product-types.index') }}"
+                                        menu_open=""
+                                        active="{{ request()->is('admin/techso/masters/product-types*') ? 'active' : '' }}"
+                                        menu_icon="fa fa-asterisk" drop_icon="" />
+                                @endcan
+                                @can('Customer Accessories Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Customer Accessories"
+                                        href="{{ route('customer-accessories.index') }}" menu_open=""
+                                        active="{{ request()->is('admin/techso/masters/customer-accessories*') ? 'active' : '' }}"
+                                        menu_icon="fa fa-asterisk" drop_icon="" />
+                                @endcan
                             </x-sidebar.sidebar-nav-multi-level>
                         @endcanany
-
-
-
+                        <!-- techso masters end -->
 
                     </x-sidebar.sidebar-nav-level>
-                @endcanany {{-- Users Management Menu --}}
-            @endcanany {{-- Admin Aection Menu --}}
+                @endcanany
+                <!-- techso end -->
+
+
+            @endcanany <!-- Admin Aection Menu -->
         </ul>
     </nav>
-    <!-- /.sidebar-menu -->
+    <!-- sidebar-menu -->
 </div>
 <!-- /.sidebar -->
 <div class="sidebar-custom">
