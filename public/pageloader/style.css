@@ -2,8 +2,10 @@
     position: fixed;
     width: 100%;
     height: 100vh;
-    background: url(/pageloader/loader.png) no-repeat center center;
-    z-index: 100;
+    background: url(/storage/images/app/favicon.png) no-repeat center center;
+    /* {{ asset('/storage/images/app/favicon.png') }} */
+    /* background: url(/pageloader/loader.png) no-repeat center center; */
+    z-index: 250;
     background-size: 10%;
     /* opacity: 0.5; */
 }

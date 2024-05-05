@@ -40,9 +40,9 @@
                             <div class="row">
 
 
-                                <x-form.form-group-label-input div_class="col-sm-4" label_for="code" lable_class="required"
+                                {{-- <x-form.form-group-label-input div_class="col-sm-4" label_for="code" lable_class="required"
                                     label_name="Code" input_type="text" input_name="code" input_id="code" input_style=""
-                                    input_class="" input_value="{{ $customer->code }}" input_placeholder="Enter code" />
+                                    input_class="" input_value="{{ $customer->code }}" input_placeholder="Enter code" /> --}}
 
                                 <x-form.form-group-label-input div_class="col-sm-4" label_for="name" lable_class="required"
                                     label_name="Shop/Company Name" input_type="text" input_name="name" input_id="name"
@@ -59,14 +59,14 @@
                                     input_id="contact_name" input_style="" input_class=""
                                     input_value="{{ $customer->contact_name }}" input_placeholder="Contact Name" />
 
-                                <x-form.form-group-label-input div_class="col-sm-4" label_for="phone1" lable_class="required"
-                                    label_name="Contact Number 1" input_type="number" input_name="phone1" input_id="phone1"
-                                    input_style="" input_class="" input_value="{{ $customer->phone1 }}"
+                                <x-form.form-group-label-input div_class="col-sm-4" label_for="phone_1" lable_class="required"
+                                    label_name="Contact Number 1" input_type="number" input_name="phone_1" input_id="phone_1"
+                                    input_style="" input_class="" input_value="{{ $customer->phone_1 }}"
                                     input_placeholder="Contact Number 1" />
 
-                                <x-form.form-group-label-input div_class="col-sm-4" label_for="phone2" lable_class="required"
-                                    label_name="Contact Number 2" input_type="number" input_name="phone2" input_id="phone2"
-                                    input_style="" input_class="" input_value="{{ $customer->phone2 }}"
+                                <x-form.form-group-label-input div_class="col-sm-4" label_for="phone_2" lable_class="required"
+                                    label_name="Contact Number 2" input_type="number" input_name="phone_2" input_id="phone_2"
+                                    input_style="" input_class="" input_value="{{ $customer->phone_2 }}"
                                     input_placeholder="Contact Number 2" />
 
                                 <div class="col-sm-4">
@@ -94,8 +94,8 @@
                         <div class="card-body">
                             <!-- /.card-header -->
                             <div class="col-sm-10 pl-5 pt-2">
-                                <input type="checkbox" class="form-check-input" name="status" value="1"
-                                    id="status" @if ($customer->status == 1) {{ 'checked' }} @endif />
+                                <input type="checkbox" class="form-check-input" name="status" value="1" id="status"
+                                    @if ($customer->status == 1) {{ 'checked' }} @endif />
                                 <label class="form-check-label" for="status">Active</label>
                             </div>
                         </div>

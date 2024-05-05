@@ -12,9 +12,10 @@
         <div class="container d-flex align-items-center justify-content-between">
 
             <div class="logo">
-                {{-- <h1><a href="index.html">Selecao</a></h1> --}}
-                <a href="index.html"><img src="{{ asset('/storage/images/app/logo_white.png') }}" alt=""
-                        width="187" height="20" class="img-fluid"></a>
+                @if ($logo->data['sidebar_logo'] == 1)
+                    <x-app.application-logo-white width="112" />
+                @endif
+                </a>
             </div>
             <button class="btn btn-warning navbar-btn">Track Job</button>
             <nav id="navbar" class="navbar">

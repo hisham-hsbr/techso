@@ -3,15 +3,16 @@
 namespace App\Models\Techso;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Service extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory, LogsActivity,Notifiable;
 
      protected $fillable = [
         'name',
@@ -71,12 +72,29 @@ class Service extends Model
     {
         return $this->belongsTo(JobType::class,'job_type_id','id');
     }
-    public function productName()
+    public function product()
     {
         return $this->belongsTo(Product::class,'product_id','id');
     }
-    public function customerName()
+    public function customer()
     {
         return $this->belongsTo(Customer::class,'customer_id','id');
+    }
+    public function complaint()
+    {
+        return $this->belongsTo(Complaint::class,'complaint_id','id');
+    }
+    public function workStatus()
+    {
+        return $this->belongsTo(WorkStatus::class,'work_status_id','id');
+    }
+    public function jobStatus()
+    {
+        return $this->belongsTo(JobStatus::class,'job_status_id','id');
+    }
+    public function customerAccessories()
+    {
+        return $this->hasMany(AccessoriesCustomer::class);
+        // return $this->hasMany(AccessoriesCustomer::class,'customer_accessories_id','id');
     }
 }

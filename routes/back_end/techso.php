@@ -130,6 +130,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/show/{id}', 'show')->name('show');
         Route::patch('/update/{id}', 'update')->name('update');
         Route::post('/store', 'store')->name('store');
         Route::delete('/destroy{id}', 'destroy')->name('destroy');
@@ -138,6 +139,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/import', 'servicesImport')->name('import');
         Route::post('/upload', 'servicesUpload')->name('upload');
         Route::get('/download', 'servicesDownload')->name('download');
+        Route::post('/notification', 'serviceNotification')->name('notification');
+        Route::get('/create-notification', 'createNotification')->name('create.notification');
     });
 
 

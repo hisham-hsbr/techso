@@ -1,7 +1,7 @@
 <footer id="footer">
     <div class="container">
-        <a href="index.html"><img src="{{ asset('/storage/images/app/logo_white.png') }}" alt="" width="187"
-                height="20" class="img-fluid"></a></p>
+        <x-app.application-logo-white width="112" />
+        </p>
         <div class="social-links">
             {{-- <a href="#" target="_blank" class="twitter"><i class="bx bxl-twitter"></i></a> --}}
             <a href="https://www.facebook.com/fixancarebdk" target="_blank" class="facebook"><i

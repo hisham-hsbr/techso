@@ -26,7 +26,6 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->string('serial_number')->nullable();
-            $table->text('customer_accessories');
             $table->string('lock')->nullable();
 
             $table->unsignedBigInteger('complaint_id')->unsigned()->index()->nullable();
@@ -45,9 +44,6 @@ return new class extends Migration
             $table->foreign('job_status_id')->references('id')->on('job_statuses')->onDelete('cascade');
 
             $table->string('job_status_details')->nullable();
-
-            $table->unsignedBigInteger('customer_accessories_id')->unsigned()->index()->nullable();
-            $table->foreign('customer_accessories_id')->references('id')->on('customer_accessories')->onDelete('cascade');
 
             $table->date('delivered_date')->nullable();
             $table->decimal('payment', 15, 2)->nullable();

@@ -108,20 +108,18 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required|unique:customers,code',
+            'phone_1' => 'required|unique:customers,phone_1',
             'name' => 'required',
             'contact_name' => 'required',
-            'phone1' => 'required',
         ]);
         $customer = new Customer();
 
 
-        $customer->code  = $request->code;
         $customer->name = $request->name;
         $customer->local_name = $request->local_name;
         $customer->contact_name = $request->contact_name;
-        $customer->phone1 = $request->phone1;
-        $customer->phone2 = $request->phone2;
+        $customer->phone_1 = $request->phone_1;
+        $customer->phone_2 = $request->phone_2;
         $customer->address = $request->address;
         $customer->description = $request->description;
 
@@ -165,20 +163,18 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'code' => "required|unique:customers,code,$id",
+            'phone_1' => "required|unique:customers,phone_1,$id",
             'name' => 'required',
             'contact_name' => 'required',
-            'phone1' => 'required',
         ]);
         $customer = Customer::find($id);
 
 
-        $customer->code  = $request->code;
         $customer->name = $request->name;
         $customer->local_name = $request->local_name;
         $customer->contact_name = $request->contact_name;
-        $customer->phone1 = $request->phone1;
-        $customer->phone2 = $request->phone2;
+        $customer->phone_1 = $request->phone_1;
+        $customer->phone_2 = $request->phone_2;
         $customer->address = $request->address;
         $customer->description = $request->description;
 

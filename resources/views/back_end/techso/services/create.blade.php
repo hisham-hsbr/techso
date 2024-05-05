@@ -42,7 +42,7 @@
                                 <div class="form-group col-sm-3">
                                     <label for="job_number" class="required col-form-label">Job number</label>
                                     <input type="text" name="job_number" id="job_number" style="text-transform: uppercase"
-                                        class="form-control" value="F-{{ $job_number }}" readonly>
+                                        class="form-control" value="TJ-{{ $job_number }}" readonly>
                                 </div>
 
                                 <x-form.form-group-label-select div_class="col-sm-4" label_for="job_type_id"
