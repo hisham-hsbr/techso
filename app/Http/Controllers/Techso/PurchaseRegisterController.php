@@ -104,12 +104,9 @@ class PurchaseRegisterController extends Controller
     public function create()
     {
         $second_sales = SecondSale::all();
-        // $product_attributes = ProductAttribute::with(['productAttributeType'])
-        // // ->where('product_attribute_type_id')
-        // ->select('product_attribute_type_id', 'id', 'name')
-        // ->orderBy('product_attribute_type_id')
-        // ->get()
-        // ->groupBy(['product_attribute_type_id']);
+
+        // kjjjj
+
         $products = Product::where('status', 1)->get();
 
         // $accounts = Account::where('status', 1)->get();
@@ -119,7 +116,9 @@ class PurchaseRegisterController extends Controller
         // $accounts = Account::where('status', 1)->get()
         //     ->where('parent_id', '9')
         //     ->groupBy('parent_id');
-        $voucher_types = VoucherType::where('status', 1)->get();
+        $voucher_types = VoucherType::where('status', 1)
+            ->where('name', 'Purchase Invoice')
+            ->get();
 
         $types = ProductAttributeType::where('status', 1)->get();
         $product_attributes = ProductAttribute::where('status', 1)->get()
