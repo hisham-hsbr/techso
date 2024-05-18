@@ -3,30 +3,41 @@
 namespace App\Http\Controllers\Techso;
 
 
-use App\Models\Techso\SecondSale;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Techso\Product;
 use Yajra\Datatables\Datatables;
+use App\Models\Techso\SecondSale;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Techso\ProductAttribute;
+use App\Models\Techso\ProductAttributeType;
 
 class SecondSaleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private $head_name = 'Second Sale';
+    private $route_name = 'second-sales';
 
     public function __construct()
     {
         $this->middleware('auth');
-
     }
 
     public function index()
     {
-        $secondSales = SecondSale::all();
-        return view('folder.SecondSales.folder',compact('SecondSales'))->with('i');
+        $second_sales = SecondSale::all();
+        $createdByUsers = $second_sales->sortBy('createdBy')->pluck('createdBy')->unique();
+        $updatedByUsers = $second_sales->sortBy('updatedBy')->pluck('updatedBy')->unique();
+        return view('back_end.techso.second_sales.index')->with(
+            [
+                'head_name' => $this->head_name,
+                'route_name' => $this->route_name,
+                'second_sales' => $second_sales,
+                'createdByUsers' => $createdByUsers,
+                'updatedByUsers' => $updatedByUsers,
+            ]
+        );
     }
 
     /**
@@ -34,7 +45,37 @@ class SecondSaleController extends Controller
      */
     public function create()
     {
-        //
+        $second_sales = SecondSale::all();
+        // $product_attributes = ProductAttribute::with(['productAttributeType'])
+        // // ->where('product_attribute_type_id')
+        // ->select('product_attribute_type_id', 'id', 'name')
+        // ->orderBy('product_attribute_type_id')
+        // ->get()
+        // ->groupBy(['product_attribute_type_id']);
+        $products = Product::where('status', 1)->get();
+        $types = ProductAttributeType::where('status', 1)->get();
+        $product_attributes = ProductAttribute::where('status', 1)->get()
+            ->where('product_attribute_type_id', '<>', '1')
+            ->groupBy('product_attribute_type_id');
+
+
+        $product_price_lists = ProductAttribute::where('status', 1)->get()
+            ->where('product_attribute_type_id', '1')
+            ->groupBy('product_attribute_type_id');
+        $list_number = SecondSale::max('list_number') + 1;
+        // dd($product_attributes);
+        return view('back_end.techso.second_sales.create')->with(
+            [
+                'head_name' => $this->head_name,
+                'route_name' => $this->route_name,
+                'products' => $products,
+                'product_attributes' => $product_attributes,
+                'types' => $types,
+                'product_price_lists' => $product_price_lists,
+                'second_sales' => $second_sales,
+                'list_number' => $list_number,
+            ]
+        );
     }
 
     /**
@@ -42,7 +83,7 @@ class SecondSaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

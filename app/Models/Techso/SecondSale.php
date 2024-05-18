@@ -36,4 +36,12 @@ class SecondSale extends Model
     {
         return $this->belongsTo('App\Models\User','updated_by','id');
     }
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id','id');
+    }
+    public function productAttribute()
+    {
+        return $this->belongsTo(ProductAttribute::class,'product_attribute_id','id');
+    }
 }

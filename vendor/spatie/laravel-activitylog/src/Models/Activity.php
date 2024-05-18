@@ -2,15 +2,11 @@
 
 namespace Spatie\Activitylog\Models;
 
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\TimeZone;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Spatie\Activitylog\Contracts\Activity as ActivityContract;
 
 /**
@@ -133,37 +129,4 @@ class Activity extends Model implements ActivityContract
     {
         return $query->where('batch_uuid', $batchUuid);
     }
-
-    // --------
-
-    public function activityUser()
-    {
-        return $this->belongsTo(User::class, 'causer_id');
-    }
-    public function getCreatedAtAttribute()
-        {
-            $time_zone = Auth::user()->timeZone->time_zone;
-            return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
-        }
-
-        public function getUpdatedAtAttribute()
-        {
-            $time_zone = Auth::user()->timeZone->time_zone;
-            return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
-        }
-
-        public function createdBy()
-        {
-            return $this->belongsTo(User::class,'created_by','id');
-        }
-
-        public function updatedBy()
-        {
-            return $this->belongsTo(User::class,'updated_by','id');
-        }
-
-        public function timeZone()
-        {
-            return $this->belongsTo(TimeZone::class,'time_zone_id','id');
-        }
 }

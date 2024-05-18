@@ -57,29 +57,36 @@
                                     @endforeach
                                 </x-form.form-group-label-select>
 
-                                <x-form.form-group-label-select div_class="col-sm-4" label_for="customer_id"
-                                    lable_class="required" label_name="Customer" select_class="select2"
-                                    select_name="customer_id" select_id="customer_id">
-                                    <option disabled selected>-- Select Customer --</option>
+
+                                <div class="form-group col-sm-4">
+                                    <label for="customer_id" class="required col-form-label">Customer <a href="{{ route('customers.create') }}" target="_blank">Add</a></label>
+                                    <select class="form-control select2" name="customer_id" id="customer_idsss">
+                                        <option disabled selected>-- Select Customer --</option>
                                     @foreach ($customers as $customer)
                                         <option {{ old('customer_id') == $customer->id ? 'selected' : '' }}
                                             value="{{ $customer->id }}">
                                             {{ $customer->name }}
                                         </option>
                                     @endforeach
-                                </x-form.form-group-label-select>
+                                    </select>
+                                </div>
 
-                                <x-form.form-group-label-select div_class="col-sm-4" label_for="product_id"
-                                    lable_class="required" label_name="Product" select_class="select2" select_name="product_id"
-                                    select_id="product_id">
-                                    <option disabled selected>-- Select Product --</option>
+
+
+
+                                <div class="form-group col-sm-4">
+                                    <label for="product_id" class="required col-form-label">Product    <a href="{{ route('products.create') }}" target="_blank">  Add</a></label>
+                                    <select class="form-control select2" name="product_id" id="product_id">
+                                        <option disabled selected>-- Select Product --</option>
                                     @foreach ($products as $product)
                                         <option {{ old('product_id') == $product->id ? 'selected' : '' }}
                                             value="{{ $product->id }}">
                                             {{ $product->name }}
                                         </option>
                                     @endforeach
-                                </x-form.form-group-label-select>
+                                    </select>
+                                </div>
+
 
                                 <div class="col-sm-4"></div>
 

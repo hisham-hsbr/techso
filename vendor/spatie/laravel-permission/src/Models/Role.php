@@ -13,12 +13,6 @@ use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
 
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
-
 /**
  * @property int $id
  * @property string $name
@@ -28,28 +22,10 @@ use Spatie\Activitylog\LogOptions;
  */
 class Role extends Model implements RoleContract
 {
-    use HasPermissions,LogsActivity;
+    use HasPermissions;
     use RefreshesPermissionCache;
 
     protected $guarded = [];
-
-    //-->start laravel-activitylog
-    //only the `deleted` event will get logged automatically
-    // protected static $recordEvents = ['deleted'];
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-        ->logOnly(['name','status'])
-        // Chain fluent methods for configuration options
-
-        ->setDescriptionForEvent(fn(string $eventName) => "This Role has been {$eventName}")
-        ->useLogName('Role')
-        // ->dontLogIfAttributesChangedOnly(['email']) //By default the updated_at attribute is not ignored and will trigger an activity being logged
-        ->logOnlyDirty();
-        // ->dontSubmitEmptyLogs(); //Prevent save logs items that have no changed attribute
-    }
-
-    // <--End laravel-activitylog
 
     public function __construct(array $attributes = [])
     {
@@ -217,30 +193,5 @@ class Role extends Model implements RoleContract
         }
 
         return $this->permissions->contains($permission->getKeyName(), $permission->getKey());
-    }
-
-    // ------
-
-
-    public function getCreatedAtAttribute()
-    {
-        $time_zone = Auth::user()->timeZone->time_zone;
-        return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
-    }
-
-    public function getUpdatedAtAttribute()
-    {
-        $time_zone = Auth::user()->timeZone->time_zone;
-        return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
-    }
-
-    public function createdBy()
-    {
-        return $this->belongsTo(User::class,'created_by','id');
-    }
-
-    public function updatedBy()
-    {
-        return $this->belongsTo(User::class,'updated_by','id');
     }
 }

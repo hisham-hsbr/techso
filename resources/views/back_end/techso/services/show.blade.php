@@ -184,6 +184,8 @@
                             <a type="button" href="{{ route('services.pdf', $service->id) }}"
                                 class="btn btn-info float-right ml-1"><i class="fa-solid fa-file-pdf"></i> PDF</a>
                         @endcan
+                        <a type="button" href="{{ route('services.edit', $service->id) }}"
+                            class="btn btn-primary float-right ml-1">Edit</a>
                         <a type="button" href="{{ route('services.index') }}"
                             class="btn btn-warning float-right ml-1">Back</a>
                     </div>
