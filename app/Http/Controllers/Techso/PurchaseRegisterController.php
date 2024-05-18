@@ -105,7 +105,7 @@ class PurchaseRegisterController extends Controller
     {
         $second_sales = SecondSale::all();
 
-        // kjjjj
+        // hisha
 
         $products = Product::where('status', 1)->get();
 
