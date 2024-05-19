@@ -184,7 +184,7 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-body table-responsive p-0" style="height: 100%;">
-                                            <table class="table table-bordered" id="invoiceItems">
+                                            <table class="table table-head-fixed text-nowrap" id="example">
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 10px">#</th>
@@ -196,9 +196,9 @@
                                                         <th style="width: 40px">Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="tbodyItems">
                                                     <tr>
-                                                        <td class="item-number">1</td>
+                                                        <td></td>
                                                         <td>
                                                             <select name="product_id[]" class="form-control select2">
                                                                 <option disabled selected>-- Products --</option>
@@ -209,26 +209,21 @@
                                                                 @endforeach
                                                             </select>
                                                         </td>
-                                                        <td>
-                                                            <input type="text" name="item_quantity[]"
-                                                                class="form-control item-quantity" value="1"
-                                                                min="1">
+                                                        <td><input type="text" name="Items_quantity[]"
+                                                                class="form-control"></td>
+                                                        <td><input type="text" name="Items_amount[]" class="form-control">
                                                         </td>
-                                                        <td><input type="text" name="item-price[]"
-                                                                class="form-control item-price" value="0" min="0"
-                                                                step="0.01">
+                                                        <td><input type="text" name="Items_sum[]" class="form-control">
                                                         </td>
-                                                        <td class="item-amount">0</td>
-                                                        <td><input type="text" name="item_description[]"
-                                                                class="form-control item-description"></td>
-                                                        <td><button class="btn btn-danger remove-item">Delete</button></td>
+                                                        <td><input type="text" name="line_description[]"
+                                                                class="form-control"></td>
+                                                        <td style="text-align: :center"><a
+                                                                class="btn btn-danger removeAttribute">-</a></td>
                                                     </tr>
+
                                                 </tbody>
                                             </table>
-                                            {{-- <button class="btn btn-primary" id="addItem">Add Item</button> --}}
-                                            <span><a style="text-align: :right" id="addItem"
-                                                    class="btn btn-info addRowItem">add</a></span>
-                                            <h3 class="mt-3">Total: $<span id="totalAmount">0.00</span></h3>
+                                            <span><a style="text-align: :right" class="btn btn-info addRowItem">add</a></span>
                                         </div>
                                         <!-- /.card-body -->
                                     </div>
@@ -564,85 +559,72 @@
 
     <x-techso.validation.customer-jquery-validation />
 
-    <script>
-        $(document).ready(function() {
-            let itemIndex = 1;
 
-            function updateItemNumbers() {
-                $("#invoiceItems tbody tr").each(function(index) {
-                    $(this)
-                        .find(".item-number")
-                        .text(index + 1);
-                });
-            }
 
-            function updateTotalAmount() {
-                let totalAmount = 0;
-                $("#invoiceItems tbody tr").each(function() {
-                    const quantity =
-                        parseFloat($(this).find(".item-quantity").val()) || 0;
-                    const price = parseFloat($(this).find(".item-price").val()) || 0;
-                    const amount = quantity * price;
-                    $(this).find(".item-amount").text(amount.toFixed(2));
-                    totalAmount += amount;
-                });
-                $("#totalAmount").text(totalAmount.toFixed(2));
-            }
+    <script type="text/javascript">
+        $('.addRowItem').on('click', function() {
+            addRowItem();
+        });
 
-            $("#addItem").click(function() {
-                itemIndex++;
-                const newRow = `
-            <tr>
-                <td class="item-number">${itemIndex}</td>
-                <td>
-                    <select name="product_id[]" class="form-control select2">
-                        <option disabled selected>-- Products --</option>
-                        @foreach ($products as $product)
-                            <option value="{{ $product->id }}">
-                                {{ $product->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </td>
-                <td>
-                    <input type="text" name="item_quantity[]"
-                        class="form-control item-quantity" value="1"
-                        min="1">
-                </td>
-                <td><input type="text" name="item-price[]"
-                        class="form-control item-price" value="0" min="0"
-                        step="0.01">
-                </td>
-                <td class="item-amount">0</td>
-                <td><input type="text" name="item_description[]"
-                        class="form-control item-description"></td>
-                <td><button class="btn btn-danger remove-item">Delete</button></td>
-            </tr>
-        `;
-                $("#invoiceItems tbody").append(newRow);
-                updateTotalAmount();
-            });
+        function addRowItem() {
+            var trItem = '<tr>' +
+                '<td>' +
+                '<td>' +
+                '<select name="product_id[]" class="form-control select2">' +
+                '<option disabled selected>-- Products --</option>' +
+                '@foreach ($products as $product)' +
+                '<option value="{{ $product->id }}">' +
+                '{{ $product->name }}' +
+                ' </option>' +
+                '@endforeach' +
+                '</select>' +
+                '</td>' +
+                '<td><input type="text" name="Items_quantity[]" class="form-control"></td>' +
+                '<td><input type="text" name="Items_amount[]" class="form-control"></td>' +
+                '<td><input type="text" name="Items_sum[]" class="form-control"></td>' +
+                '<td><input type="text" name="line_description[]" class="form-control"></td>' +
+                '<td style="text-align: :center"><a  class="btn btn-danger removeIteam">-</a></td>' +
+                '</tr>';
 
-            $("#invoiceItems").on("click", ".remove-item", function() {
-                $(this).closest("tr").remove();
-                updateItemNumbers();
-                updateTotalAmount();
-            });
+            $('.tbodyItems').append(trItem);
 
-            $("#invoiceItems").on(
-                "input",
-                ".item-quantity, .item-price",
-                function() {
-                    updateTotalAmount();
-                }
-            );
+            $('.select2').select2();
 
-            // Initial calculation
-            updateTotalAmount();
+        };
+        $('.tbodyItems').on('click', '.removeIteam', function() {
+            $(this).parent().parent().remove();
         });
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            var t = $("#example").DataTable({
+                columnDefs: [{
+                    searchable: false,
+                    orderable: false,
+                    targets: 0,
+                }, ],
+                order: [
+                    [1, "asc"]
+                ],
+            });
+
+            t.on("order.dt search.dt", function() {
+                t.column(0, {
+                        search: "applied",
+                        order: "applied"
+                    })
+                    .nodes()
+                    .each(function(cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+            }).draw();
+        });
+    </script>
 
     <script type="text/javascript">
         $('.addRowAttribute').on('click', function() {

@@ -103,19 +103,8 @@ class PurchaseRegisterController extends Controller
      */
     public function create()
     {
-        $second_sales = SecondSale::all();
-
-        // hisha
-
         $products = Product::where('status', 1)->get();
-
-        // $accounts = Account::where('status', 1)->get();
-        $accounts = Account::where('parent_id', 17)
-            // ->with(['children'])
-            ->get();
-        // $accounts = Account::where('status', 1)->get()
-        //     ->where('parent_id', '9')
-        //     ->groupBy('parent_id');
+        $accounts = Account::where('parent_id', 17)->get();
         $voucher_types = VoucherType::where('status', 1)
             ->where('name', 'Purchase Invoice')
             ->get();
@@ -130,7 +119,6 @@ class PurchaseRegisterController extends Controller
             ->where('product_attribute_type_id', '1')
             ->groupBy('product_attribute_type_id');
         $list_number = SecondSale::max('list_number') + 1;
-        // dd($product_attributes);
         return view('back_end.techso.purchases.create')->with(
             [
                 'head_name' => $this->head_name,
@@ -141,7 +129,6 @@ class PurchaseRegisterController extends Controller
                 'product_attributes' => $product_attributes,
                 'types' => $types,
                 'product_price_lists' => $product_price_lists,
-                'second_sales' => $second_sales,
                 'list_number' => $list_number,
             ]
         );
