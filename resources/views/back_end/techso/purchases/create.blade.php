@@ -621,6 +621,7 @@
         `;
                 $("#invoiceItems tbody").append(newRow);
                 updateTotalAmount();
+                $('.select2').select2();
             });
 
             $("#invoiceItems").on("click", ".remove-item", function() {
