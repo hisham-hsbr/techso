@@ -90,17 +90,17 @@
                                                     <div class="form-group col-sm-4">
                                                         <label class="col-form-label">Contact Name</label>
                                                         <input type="text" class="form-control filter-input" id="contact_name"
-                                                            placeholder="Search Contact Name" data-column="4" />
+                                                            placeholder="Search Contact Name" data-column="5" />
                                                     </div>
                                                 @endcan
                                                 @can('Mobile Service Read Job Number')
                                                     <div class="form-group col-sm-4">
                                                         <label class="col-form-label">Job number</label>
-                                                        <select data-column="2" class="form-control select2 filter-select"
+                                                        <select data-column="3" class="form-control select2 filter-select"
                                                             id="job_number">
                                                             <option value="">Select Job number</option>
                                                             @foreach ($job_number as $job_number)
-                                                                <option value="{{ $job_number }}">F-{{ $job_number }}</option>
+                                                                <option value="{{ $job_number }}">TJ-{{ $job_number }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -494,6 +494,19 @@
                         });
                 })
                 .draw();
+            // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+            $('.filter-input').keyup(function() {
+                $('#example1').DataTable().column($(this).data('column'))
+                    .search($(this).val())
+                    .draw();
+            });
+
+            $('.filter-select').change(function() {
+                $('#example1').DataTable().column($(this).data('column'))
+                    .search($(this).val())
+                    .draw();
+            });
         });
     </script>
 

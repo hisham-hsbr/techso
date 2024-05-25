@@ -50,7 +50,8 @@
                                     select_name="job_type_id" select_id="job_type_id">
                                     <option disabled selected>-- Select job type --</option>
                                     @foreach ($job_types as $job_type)
-                                        <option {{ old('job_type_id') == $job_type->id ? 'selected' : '' }}
+                                        <option
+                                            {{ old('job_type_id') == $job_type->id ? 'selected' : '' }}@if ($job_type->default == 1) {{ 'selected' }} @endif
                                             value="{{ $job_type->id }}">
                                             {{ $job_type->name }}
                                         </option>
@@ -59,15 +60,17 @@
 
 
                                 <div class="form-group col-sm-4">
-                                    <label for="customer_id" class="required col-form-label">Customer <a href="{{ route('customers.create') }}" target="_blank">Add</a></label>
+                                    <label for="customer_id" class="required col-form-label">Customer <a
+                                            href="{{ route('customers.create') }}" target="_blank">Add</a></label>
                                     <select class="form-control select2" name="customer_id" id="customer_idsss">
                                         <option disabled selected>-- Select Customer --</option>
-                                    @foreach ($customers as $customer)
-                                        <option {{ old('customer_id') == $customer->id ? 'selected' : '' }}
-                                            value="{{ $customer->id }}">
-                                            {{ $customer->name }}
-                                        </option>
-                                    @endforeach
+                                        @foreach ($customers as $customer)
+                                            <option {{ old('customer_id') == $customer->id ? 'selected' : '' }}
+                                                value="{{ $customer->id }}">
+                                                {{ $customer->phone_1 }} - {{ $customer->name }} -
+                                                {{ $customer->contact_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -75,15 +78,16 @@
 
 
                                 <div class="form-group col-sm-4">
-                                    <label for="product_id" class="required col-form-label">Product    <a href="{{ route('products.create') }}" target="_blank">  Add</a></label>
+                                    <label for="product_id" class="required col-form-label">Product <a
+                                            href="{{ route('products.create') }}" target="_blank"> Add</a></label>
                                     <select class="form-control select2" name="product_id" id="product_id">
                                         <option disabled selected>-- Select Product --</option>
-                                    @foreach ($products as $product)
-                                        <option {{ old('product_id') == $product->id ? 'selected' : '' }}
-                                            value="{{ $product->id }}">
-                                            {{ $product->name }}
-                                        </option>
-                                    @endforeach
+                                        @foreach ($products as $product)
+                                            <option {{ old('product_id') == $product->id ? 'selected' : '' }}
+                                                value="{{ $product->id }}">
+                                                {{ $product->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
 

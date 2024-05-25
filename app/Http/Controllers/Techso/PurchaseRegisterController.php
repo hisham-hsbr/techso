@@ -139,6 +139,7 @@ class PurchaseRegisterController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'code' => 'required|unique:purchaseRegisters,code',
             'name' => 'required',

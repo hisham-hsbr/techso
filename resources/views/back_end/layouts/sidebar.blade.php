@@ -174,6 +174,11 @@
                                 menu_open="" active="{{ request()->is('admin/techso/services*') ? 'active' : '' }}"
                                 menu_icon="fa fa-toolbox" drop_icon="" />
                         @endcan
+                        @can('Purchase Read')
+                            <x-sidebar.sidebar-nav-multi-level head="Purchase" href="{{ route('purchases.index') }}"
+                                menu_open="" active="{{ request()->is('admin/techso/purchases*') ? 'active' : '' }}"
+                                menu_icon="fa fa-cart-shopping" drop_icon="" />
+                        @endcan
                         @can('Second Sale Read')
                             <x-sidebar.sidebar-nav-multi-level head="Second Sale" href="{{ route('second-sales.index') }}"
                                 menu_open="" active="{{ request()->is('admin/techso/second-sales*') ? 'active' : '' }}"

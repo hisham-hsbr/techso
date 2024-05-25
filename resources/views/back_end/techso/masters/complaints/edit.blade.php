@@ -48,6 +48,18 @@
                                     input_style="" input_class="" input_value="{{ $complaint->name }}"
                                     input_placeholder="Complaint Name" />
 
+                                <x-form.form-group-label-input div_class="col-sm-6" label_for="local_name"
+                                    lable_class="required" label_name="Local Name" input_type="text" input_name="local_name"
+                                    input_id="local_name" input_style="" input_class=""
+                                    input_value="{{ $complaint->local_name }}{{ old('local_name') }}"
+                                    input_placeholder="Enter local_name" />
+
+                                <div class="col-sm-10 pl-5 pt-2">
+                                    <input type="checkbox" class="form-check-input" name="default" value="1" id="default"
+                                        @if ($complaint->default == 1) {{ 'checked' }} @endif />
+                                    <label class="form-check-label" for="default">Is Default</label>
+                                </div>
+
 
                             </div>
 

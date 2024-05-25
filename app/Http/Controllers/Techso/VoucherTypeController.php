@@ -120,6 +120,19 @@ class VoucherTypeController extends Controller
 
         $voucherType->code  = $request->code;
         $voucherType->name = $request->name;
+        $voucherType->local_name = $request->local_name;
+
+        if ($request->default == 0) {
+            $voucherType->default == 0;
+        } else {
+            $default = (DB::table('voucherTypes')->where('default', 1)->first())->id;
+
+            $update_default = VoucherType::find($default);
+            $update_default->default = null;
+            $update_default->update();
+        }
+
+        $voucherType->default = $request->default;
 
 
         if ($request->status == 0) {
@@ -163,11 +176,22 @@ class VoucherTypeController extends Controller
             'name' => 'required',
             'code' => "required|unique:voucherTypes,code,$id",
         ]);
+        if ($request->default == 1) {
+            $default = (DB::table('voucherTypes')->where('default', 1)->first())->id;
+
+            $update_default = VoucherType::find($default);
+            $update_default->default = null;
+            $update_default->update();
+        }
+
+
         $voucherType = VoucherType::find($id);
 
 
         $voucherType->code  = $request->code;
         $voucherType->name = $request->name;
+        $voucherType->local_name = $request->local_name;
+        $voucherType->default = $request->default;
 
 
         if ($request->status == 0) {
