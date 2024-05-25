@@ -142,6 +142,24 @@
                                                 <div class="col-sm-4">
                                                     <div class="input-group mb-3 input-group-sm">
                                                         <div class="input-group-prepend">
+                                                            <span class="input-group-text">product</span>
+                                                        </div>
+                                                        {{-- <select id="productSelect" name="product_id" --}}
+                                                        <select name="product_id" class="form-control select2">
+                                                            <option disabled selected>-- Select product --</option>
+                                                            @foreach ($products as $product)
+                                                                <option
+                                                                    {{ old('product_id') == $product->id ? 'selected' : '' }}
+                                                                    value="{{ $product->id }}">
+                                                                    {{ $product->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <div class="input-group-prepend">
                                                             <span class="input-group-text">Supplier Invoice#</span>
                                                         </div>
                                                         <input type="text" name="supplier_invoice" class="form-control"
@@ -200,7 +218,8 @@
                                                     <tr>
                                                         <td class="item-number">1</td>
                                                         <td>
-                                                            <select name="product_id[]" class="form-control select2">
+                                                            <select id="productSelect" name="product_id[]"
+                                                                class="form-control select2">
                                                                 <option disabled selected>-- Products --</option>
                                                                 @foreach ($products as $product)
                                                                     <option value="{{ $product->id }}">
@@ -229,6 +248,7 @@
                                             <span><a style="text-align: :right" id="addItem"
                                                     class="btn btn-info addRowItem">add</a></span>
                                             <h3 class="mt-3">Total: $<span id="totalAmount">0.00</span></h3>
+                                            <div id="priceDisplay">Price: $<span id="price">0.00</span></div>
                                         </div>
                                         <!-- /.card-body -->
                                     </div>
@@ -645,6 +665,28 @@
 
 
 
+    <script>
+        $(document).ready(function() {
+            $('#productSelect').change(function() {
+
+                var productId = $(this).val();
+                alert(productId);
+
+                if (productId) {
+                    $.ajax({
+                        url: '/products/' + productId + '/price',
+                        method: 'GET',
+                        success: function(data) {
+                            $('#price').text(data.price);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+
+
     <script type="text/javascript">
         $('.addRowAttribute').on('click', function() {
             addRowAttribute();
@@ -690,7 +732,7 @@
         function addRowPriceList() {
             var trPriceList = '<tr>' +
                 '<td>' +
-                '<select name="product_attribute_id[]" class="form-control select2">' +
+                '<select id="productSelect" name="product_attribute_id[]" class="form-control select2">' +
                 '<option disabled selected>--Price List Category--</option>' +
                 '@foreach ($product_price_lists as $product_price_list)' +
                 '@foreach ($product_price_list as $product_price_list_op)' +

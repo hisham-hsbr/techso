@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Techso\ProductController;
 
 
 Route::middleware('auth')->group(function () {
@@ -109,6 +110,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/upload', 'productsUpload')->name('upload');
         Route::get('/download', 'productsDownload')->name('download');
     });
+
+    Route::get('/products/{product}/price', [ProductController::class, 'getPrice']);
 
     //customerAccessories
     Route::controller('Techso\CustomerAccessoriesController')->prefix('/admin/techso/masters/customer-accessories')->name('customer-accessories.')->group(function () {
