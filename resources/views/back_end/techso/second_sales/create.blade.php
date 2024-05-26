@@ -29,11 +29,11 @@
         }
 
         /* div.scrole-form {
-                                                        background-color: rgb(243, 248, 252);
-                                                        width: 100%;
-                                                        height: 310px;
-                                                        overflow: scroll;
-                                                    } */
+                                                                    background-color: rgb(243, 248, 252);
+                                                                    width: 100%;
+                                                                    height: 310px;
+                                                                    overflow: scroll;
+                                                                } */
     </style>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -52,7 +52,9 @@
             <div class="col-md-12">
                 <!-- general form elements -->
                 <!-- form start -->
-                <form role="form" action="" method="post" enctype="multipart/form-data" id="quickForm">
+
+                <form role="form" action="{{ route($route_name . '.store') }}" method="post"
+                    enctype="multipart/form-data" id="quickForm">
                     {{ csrf_field() }}
 
 

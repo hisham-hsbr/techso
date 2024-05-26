@@ -215,14 +215,14 @@
                                                                 class="form-control item-quantity" value="1"
                                                                 min="1">
 
-                                                            <div class="serial-numbers-container"
+                                                            {{-- <div class="serial-numbers-container"
                                                                 id="serial-numbers-container">
                                                                 <input type="text"
                                                                     class="form-control mb-2 serial-number-input"
                                                                     name="serial-number[]" placeholder="Serial Number 1">
-                                                            </div>
+                                                            </div> --}}
                                                         </td>
-                                                        <td><input type="text" name="item-price[]"
+                                                        <td><input type="text" name="item_price[]"
                                                                 class="form-control item-price" value="0" min="0"
                                                                 step="0.01">
                                                         </td>
@@ -617,15 +617,8 @@
                     <input type="number" id="item_quantity" name="item_quantity[]"
                         class="form-control item-quantity" value="1"
                         min="1">
-
-                    <div class="serial-numbers-container"
-                        id="serial-numbers-container">
-                        <input type="text"
-                            class="form-control mb-2 serial-number-input"
-                            name="serial-number[]" placeholder="Serial Number 1">
-                    </div>
                 </td>
-                <td><input type="text" name="item-price[]"
+                <td><input type="text" name="item_price[]"
                         class="form-control item-price" value="0" min="0"
                         step="0.01">
                 </td>
