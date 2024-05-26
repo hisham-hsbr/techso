@@ -1,8 +1,8 @@
 @extends('back_end.layouts.app')
 
-@section('PageHead', 'Service Create')
+@section('PageHead', 'Product Create')
 
-@section('PageTitle', 'Service Create')
+@section('PageTitle', 'Product Create')
 @section('pageNavHeader')
     <li class="breadcrumb-item"><a href="{{ route('back-end.dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route($route_name . '.index') }}">{{ $head_name }}</a></li>
@@ -15,7 +15,7 @@
     <x-links.header-link-dual-list-box />
 @endsection
 
-@section('actionTitle', 'Service Create')
+@section('actionTitle', 'Product Create')
 @section('mainContent')
     <div class="container-fluid">
 
@@ -24,7 +24,7 @@
 
             </div>
             <!-- left column -->
-            @can('Service Create')
+            @can('Product Create')
                 <div class="col-md-10">
                     <form role="form" action="{{ route($route_name . '.store') }}" method="post"
                         enctype="multipart/form-data" id="quickForm">
@@ -544,7 +544,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="">
-                    @can('Service Create')
+                    @can('Product Create')
                         <button type="submit" class="btn btn-primary float-right ml-1">Save</button>
                     @endcan
                     <a type="button" href="{{ route($route_name . '.index') }}"

@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
-    private $head_name = 'Products TS';
+    private $head_name = 'Products';
     private $route_name = 'products';
 
     public function __construct()
@@ -173,11 +173,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $this->validate($request, [
-            'code' => 'required|unique:products,code',
-            'name' => 'required',
-            'product_type_id' => 'required',
-            'brand_id' => 'required',
+            // 'code' => 'required|unique:products,code',
+            // 'name' => 'required',
+            // 'product_type_id' => 'required',
+            // 'brand_id' => 'required',
         ]);
         $product = new Product();
 
