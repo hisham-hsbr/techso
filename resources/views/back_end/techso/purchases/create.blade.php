@@ -142,24 +142,6 @@
                                                 <div class="col-sm-4">
                                                     <div class="input-group mb-3 input-group-sm">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text">product</span>
-                                                        </div>
-                                                        {{-- <select id="productSelect" name="product_id" --}}
-                                                        <select name="product_id" class="form-control select2">
-                                                            <option disabled selected>-- Select product --</option>
-                                                            @foreach ($products as $product)
-                                                                <option
-                                                                    {{ old('product_id') == $product->id ? 'selected' : '' }}
-                                                                    value="{{ $product->id }}">
-                                                                    {{ $product->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="input-group mb-3 input-group-sm">
-                                                        <div class="input-group-prepend">
                                                             <span class="input-group-text">Supplier Invoice#</span>
                                                         </div>
                                                         <input type="text" name="supplier_invoice" class="form-control"
@@ -223,15 +205,22 @@
                                                                 <option disabled selected>-- Products --</option>
                                                                 @foreach ($products as $product)
                                                                     <option value="{{ $product->id }}">
-                                                                        {{ $product->name }}
+                                                                        {{ $product->name }} - (RT-{{ $product->price }})
                                                                     </option>
                                                                 @endforeach
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" name="item_quantity[]"
+                                                            <input type="number" id="item_quantity" name="item_quantity[]"
                                                                 class="form-control item-quantity" value="1"
                                                                 min="1">
+
+                                                            <div class="serial-numbers-container"
+                                                                id="serial-numbers-container">
+                                                                <input type="text"
+                                                                    class="form-control mb-2 serial-number-input"
+                                                                    name="serial-number[]" placeholder="Serial Number 1">
+                                                            </div>
                                                         </td>
                                                         <td><input type="text" name="item-price[]"
                                                                 class="form-control item-price" value="0" min="0"
@@ -246,7 +235,7 @@
                                             </table>
                                             {{-- <button class="btn btn-primary" id="addItem">Add Item</button> --}}
                                             <span><a style="text-align: :right" id="addItem"
-                                                    class="btn btn-info addRowItem">add</a></span>
+                                                    class="btn btn-info addRowItem m-2">add</a></span>
                                             <h3 class="mt-3">Total: $<span id="totalAmount">0.00</span></h3>
                                             <div id="priceDisplay">Price: $<span id="price">0.00</span></div>
                                         </div>
@@ -619,15 +608,22 @@
                         <option disabled selected>-- Products --</option>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}">
-                                {{ $product->name }}
+                                {{ $product->name }} - (RT-{{ $product->price }})
                             </option>
                         @endforeach
                     </select>
                 </td>
                 <td>
-                    <input type="text" name="item_quantity[]"
+                    <input type="number" id="item_quantity" name="item_quantity[]"
                         class="form-control item-quantity" value="1"
                         min="1">
+
+                    <div class="serial-numbers-container"
+                        id="serial-numbers-container">
+                        <input type="text"
+                            class="form-control mb-2 serial-number-input"
+                            name="serial-number[]" placeholder="Serial Number 1">
+                    </div>
                 </td>
                 <td><input type="text" name="item-price[]"
                         class="form-control item-price" value="0" min="0"
@@ -661,6 +657,20 @@
             // Initial calculation
             updateTotalAmount();
         });
+
+        // Add event listener for quantity change
+        $("#item_quantity").on("input", function() {
+            const item_quantity = $(this).val();
+            const serialNumbersContainer = $(
+                "#serial-numbers-container"
+            );
+            serialNumbersContainer.empty();
+            for (let i = 1; i <= item_quantity; i++) {
+                serialNumbersContainer.append(
+                    `<input type="text" class="form-control mb-2 serial-number-input" name="serial-number[]" placeholder="Serial Number ${i}">`
+                );
+            }
+        });
     </script>
 
 
@@ -670,7 +680,7 @@
             $('#productSelect').change(function() {
 
                 var productId = $(this).val();
-                alert(productId);
+                // alert(productId);
 
                 if (productId) {
                     $.ajax({
