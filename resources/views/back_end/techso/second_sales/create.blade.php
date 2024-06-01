@@ -29,11 +29,11 @@
         }
 
         /* div.scrole-form {
-                                                                    background-color: rgb(243, 248, 252);
-                                                                    width: 100%;
-                                                                    height: 310px;
-                                                                    overflow: scroll;
-                                                                } */
+                                                                                    background-color: rgb(243, 248, 252);
+                                                                                    width: 100%;
+                                                                                    height: 310px;
+                                                                                    overflow: scroll;
+                                                                                } */
     </style>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -154,8 +154,6 @@
                                     <th>Account</th>
                                     <th>Amount</th>
                                     <th>Description</th>
-                                    <th>Amount</th>
-                                    <th>Description</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -183,8 +181,6 @@
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td><input type="text" name="receipt_amount[]" class="form-control-sm"></td>
-                                    <td><input type="text" name="line_description[]" class="form-control-sm"></td>
                                     <td><input type="text" name="receipt_amount[]" class="form-control-sm"></td>
                                     <td><input type="text" name="line_description[]" class="form-control-sm"></td>
                                     <td style="text-align: :center"><a class="btn btn-danger removeJob">-</a></td>
@@ -234,7 +230,7 @@
                 '<option disabled selected>--Accounts--</option>' +
                 '@foreach ($products as $product)' +
                 '<option value="{{ $product->id }}">' +
-                '{{ $product->name1 }}' +
+                '{{ $product->name }}' +
                 ' </option>' +
                 '@endforeach' +
                 '</select>' +
