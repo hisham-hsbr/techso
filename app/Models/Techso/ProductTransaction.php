@@ -3,14 +3,13 @@
 namespace App\Models\Techso;
 
 use Carbon\Carbon;
-use Spatie\Activitylog\LogOptions;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Techso\ProductTransaction;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
-class Product extends Model
+class ProductTransaction extends Model
 {
     use HasFactory, LogsActivity;
 
@@ -21,7 +20,7 @@ class Product extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        $useLogName = 'Product';
+        $useLogName = 'ProductTransaction';
         $run_seeder_disable = env('RUN_SEEDER_DISABLE');
 
         if ($run_seeder_disable == 'Y') {
@@ -40,16 +39,6 @@ class Product extends Model
                 ->useLogName($useLogName)
                 ->logOnlyDirty();
         }
-    }
-
-    public function product_type()
-    {
-        return $this->belongsTo(ProductType::class, 'product_type_id', 'id');
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
 
     public function getCreatedAtAttribute()
@@ -72,8 +61,12 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
-    public function transactions()
+    // public function product()
+    // {
+    //     return $this->belongsTo(Product::class, 'product_id', 'id');
+    // }
+    public function product()
     {
-        return $this->hasMany(ProductTransaction::class);
+        return $this->belongsTo(Product::class);
     }
 }

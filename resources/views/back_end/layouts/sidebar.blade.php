@@ -175,7 +175,7 @@
                                 menu_icon="fa fa-toolbox" drop_icon="" />
                         @endcan
                         @can('Purchase Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Purchase" href="{{ route('purchases.index') }}"
+                            <x-sidebar.sidebar-nav-multi-level head="Purchase" href="{{ route('purchase-registers.index') }}"
                                 menu_open="" active="{{ request()->is('admin/techso/purchases*') ? 'active' : '' }}"
                                 menu_icon="fa fa-cart-shopping" drop_icon="" />
                         @endcan
@@ -248,6 +248,28 @@
                             </x-sidebar.sidebar-nav-multi-level>
                         @endcanany
                         <!-- techso masters end -->
+                        <!-- techso Inventory Start -->
+                        @canany(['Stock Valuation Read', 'Stock Reports Read'])
+                            <x-sidebar.sidebar-nav-multi-level head="Inventory" href="#"
+                                menu_open="{{ request()->is('admin/techso/inventory*') ? 'menu-open' : '' }}"
+                                active="{{ request()->is('admin/techso/inventory/*') ? 'active' : '' }}"
+                                menu_icon="fa fa-folder-tree" drop_icon="fas fa-angle-left">
+
+                                @can('Stock Valuation Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Stock Valuation" href="{{ route('inventories.index') }}"
+                                        menu_open=""
+                                        active="{{ request()->is('admin/techso/inventory/stock-valuation*') ? 'active' : '' }}"
+                                        menu_icon="fa fa-asterisk" drop_icon="" />
+                                @endcan
+                                @can('Stock Reports Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Stock Reports" href="{{ route('customers.index') }}"
+                                        menu_open=""
+                                        active="{{ request()->is('admin/techso/masters/customers*') ? 'active' : '' }}"
+                                        menu_icon="fa fa-asterisk" drop_icon="" />
+                                @endcan
+                            </x-sidebar.sidebar-nav-multi-level>
+                        @endcanany
+                        <!-- techso Inventory end -->
 
                     </x-sidebar.sidebar-nav-level>
                 @endcanany

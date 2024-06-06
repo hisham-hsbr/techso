@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use {{ namespacedModel }};
 use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use {{ namespacedRequests }}
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;

@@ -3,41 +3,42 @@
 namespace App\Models\Techso;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Techso\Account;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PurchaseRegister extends Model
 {
     use HasFactory, LogsActivity;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'status'
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
-        $useLogName='PurchaseRegister';
-        $run_seeder_disable=env('RUN_SEEDER_DISABLE');
+        $useLogName = 'PurchaseRegister';
+        $run_seeder_disable = env('RUN_SEEDER_DISABLE');
 
-        if($run_seeder_disable=='Y'){
+        if ($run_seeder_disable == 'Y') {
 
             return LogOptions::defaults()
-            ->logOnly(['name','local_name','description','status','created_at','updated_at'])
-            ->setDescriptionForEvent(fn(string $eventName) => "$useLogName {$eventName}")
-            ->useLogName($useLogName)
-            ->logOnlyDirty();
+                ->logOnly(['name', 'local_name', 'description', 'status', 'created_at', 'updated_at'])
+                ->setDescriptionForEvent(fn (string $eventName) => "$useLogName {$eventName}")
+                ->useLogName($useLogName)
+                ->logOnlyDirty();
         }
-        if($run_seeder_disable=='N'){
+        if ($run_seeder_disable == 'N') {
 
             return LogOptions::defaults()
-            ->logOnly(['code','name'])
-            ->setDescriptionForEvent(fn(string $eventName) => "$useLogName {$eventName}")
-            ->useLogName($useLogName)
-            ->logOnlyDirty();
+                ->logOnly(['code', 'name'])
+                ->setDescriptionForEvent(fn (string $eventName) => "$useLogName {$eventName}")
+                ->useLogName($useLogName)
+                ->logOnlyDirty();
         }
     }
 
@@ -53,12 +54,21 @@ class PurchaseRegister extends Model
         return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
     }
 
-     public function createdBy()
+    public function createdBy()
     {
-        return $this->belongsTo('App\Models\User','created_by','id');
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User','updated_by','id');
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Account::class, 'account_id', 'id');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }

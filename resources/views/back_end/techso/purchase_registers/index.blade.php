@@ -29,26 +29,26 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            @can('Services Read')
+                            @can('Purchase Register Read')
                                 <x-layouts.div-clearfix>
-                                    @can('Services Notification')
+                                    @can('Purchase Register Notification')
                                         <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-primary btn-sm"
                                             href="{{ route('services.create.notification') }}" button_icon="fa-solid fa-paper-plane"
                                             button_name="Send Notify" />
                                     @endcan
-                                    @can('Services Create')
+                                    @can('Purchase Register Create')
                                         <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-primary btn-sm"
                                             href="{{ route($route_name . '.create') }}" button_icon="fa fa-add" button_name="Add" />
                                     @endcan {{-- Services Create End --}}
-                                    @can('Services Import')
+                                    @can('Purchase Register Import')
                                         <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-warning btn-sm"
                                             href="{{ route('services.import') }}" button_icon="fa fa-upload" button_name="Import" />
                                     @endcan {{-- Services Create End --}}
-                                    @can('Services Settings')
+                                    @can('Purchase Register Settings')
                                         <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-default btn-sm"
                                             href="" button_icon="fa fa-cog" button_name="Settings" />
                                     @endcan {{-- Services Settings End --}}
-                                    @can('Services Read')
+                                    @can('Purchase Register Read')
                                         <x-form.button button_type="" button_oneclick="Refresh()"
                                             button_class="btn btn-success btn-sm" button_icon="fa fa-refresh"
                                             button_name="Refresh" />
@@ -179,48 +179,39 @@
                                         <!-- /.card -->
                                     </div>
 
-                                    @can('Services Table')
+                                    @can('Purchase Register Table')
                                         <table id="example1" class="table table-bordered table-striped"
                                             style="text-overflow: ellipsis; white-space: nowrap;">
                                             <thead>
                                                 <tr>
-                                                    @can('Services Read')
+                                                    @can('Purchase Register Read')
                                                         <th>Sn</th>
                                                     @endcan
-                                                    @can('Services Read Action')
+                                                    @can('Purchase Register Read Action')
                                                         <th>Action</th>
                                                     @endcan
-                                                    @can('Services Read Date')
+                                                    @can('Purchase Register Read Date')
                                                         <th>Date</th>
                                                     @endcan
-                                                    @can('Services Read Job Number')
-                                                        <th>Job Number</th>
+                                                    @can('Purchase Register Read Purchase Number')
+                                                        <th>Purchase Number</th>
                                                     @endcan
-                                                    @can('Services Read Job Type')
-                                                        <th>Job Type</th>
+                                                    @can('Purchase Register Read Supplier Name')
+                                                        <th>Supplier Name</th>
                                                     @endcan
-                                                    @can('Services Read Customer Name')
-                                                        <th>Customer Name</th>
-                                                    @endcan
-                                                    @can('Services Read Product Name')
-                                                        <th>Product Name</th>
-                                                    @endcan
-                                                    @can('Services Read Serial Number')
-                                                        <th>Serial Number</th>
-                                                    @endcan
-                                                    @can('Services Read Status')
+                                                    @can('Purchase Register Read Status')
                                                         <th>Status</th>
                                                     @endcan
-                                                    @can('Services Read Created At')
+                                                    @can('Purchase Register Read Created At')
                                                         <th>Created At</th>
                                                     @endcan
-                                                    @can('Services Read Updated At')
+                                                    @can('Purchase Register Read Updated At')
                                                         <th>Updated At</th>
                                                     @endcan
-                                                    @can('Services Read Created By')
+                                                    @can('Purchase Register Read Created By')
                                                         <th>Created By</th>
                                                     @endcan
-                                                    @can('Services Read Updated By')
+                                                    @can('Purchase Register Read Updated By')
                                                         <th>Updated By</th>
                                                     @endcan
                                                 </tr>
@@ -230,43 +221,34 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    @can('Services Read')
+                                                    @can('Purchase Register Read')
                                                         <th>Sn</th>
                                                     @endcan
-                                                    @can('Services Read Action')
+                                                    @can('Purchase Register Read Action')
                                                         <th>Action</th>
                                                     @endcan
-                                                    @can('Services Read Date')
+                                                    @can('Purchase Register Read Date')
                                                         <th>Date</th>
                                                     @endcan
-                                                    @can('Services Read Job Number')
-                                                        <th>Job Number</th>
+                                                    @can('Purchase Register Read Purchase Number')
+                                                        <th>Purchase Number</th>
                                                     @endcan
-                                                    @can('Services Read Job Type')
-                                                        <th>Job Type</th>
+                                                    @can('Purchase Register Read Supplier Name')
+                                                        <th>Supplier Name</th>
                                                     @endcan
-                                                    @can('Services Read Customer Name')
-                                                        <th>Customer Name</th>
-                                                    @endcan
-                                                    @can('Services Read Product Name')
-                                                        <th>Product Name</th>
-                                                    @endcan
-                                                    @can('Services Read Serial Number')
-                                                        <th>Serial Number</th>
-                                                    @endcan
-                                                    @can('Services Read Status')
+                                                    @can('Purchase Register Read Status')
                                                         <th>Status</th>
                                                     @endcan
-                                                    @can('Services Read Created At')
+                                                    @can('Purchase Register Read Created At')
                                                         <th>Created At</th>
                                                     @endcan
-                                                    @can('Services Read Updated At')
+                                                    @can('Purchase Register Read Updated At')
                                                         <th>Updated At</th>
                                                     @endcan
-                                                    @can('Services Read Created By')
+                                                    @can('Purchase Register Read Created By')
                                                         <th>Created By</th>
                                                     @endcan
-                                                    @can('Services Read Updated By')
+                                                    @can('Purchase Register Read Updated By')
                                                         <th>Updated By</th>
                                                     @endcan
                                                 </tr>
@@ -314,7 +296,7 @@
                             "X-CSRF-TOKEN": $("input[name='_token']").val()
                         });
                         if (isReady) {
-                            fetch("/admin/techso/services/destroy" +
+                            fetch("/admin/techso/purchase-resgisters/destroy" +
                                 serviceID, {
                                     method: 'DELETE',
                                     headers: myHeaders,
@@ -339,7 +321,7 @@
                                 "showMethod": "fadeIn",
                                 "hideMethod": "fadeOut"
                             };
-                            toastr.error("Job Type Deleting.....");
+                            toastr.error("Purchase Deleting.....");
                         }
 
                     });
@@ -347,19 +329,19 @@
 
                 // "buttons": ["excel", "pdf", "print", "colvis"],
                 buttons: [
-                    @can('Services Table Export Excel')
+                    @can('Purchase Register Table Export Excel')
                         'excel',
                     @endcan
-                    @can('Services Table Export PDF')
+                    @can('Purchase Register Table Export PDF')
                         'pdf',
                     @endcan
-                    @can('Services Table Print')
+                    @can('Purchase Register Table Print')
                         'print',
                     @endcan
-                    @can('Services Table Copy')
+                    @can('Purchase Register Table Copy')
                         'copy',
                     @endcan
-                    @can('Services Table Column Visible')
+                    @can('Purchase Register Table Column Visible')
                         'colvis',
                     @endcan
                 ],
@@ -372,7 +354,7 @@
                 processing: true,
                 serverSide: true,
 
-                ajax: '{!! route('services.get') !!}',
+                ajax: '{!! route('purchase-registers.get') !!}',
                 // <--- colum serial number order with id
                 "columnDefs": [{
                     searchable: false,
@@ -385,14 +367,14 @@
                 // colum serial number order with id --->
 
                 columns: [
-                    @can('Services Read')
+                    @can('Purchase Register Read')
                         {
                             data: 'id',
                             name: 'id',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Action')
+                    @can('Purchase Register Read Action')
                         {
                             data: 'action',
                             name: 'action',
@@ -400,7 +382,7 @@
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Date')
+                    @can('Purchase Register Read Date')
                         {
                             data: 'date',
                             name: 'date',
@@ -408,54 +390,30 @@
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Job Number')
+                    @can('Purchase Register Read Purchase Number')
                         {
-                            data: 'jobNumber',
-                            name: 'jobNumber',
+                            data: 'purchaseNumber',
+                            name: 'purchaseNumber',
                             width: '',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Job Type')
+                    @can('Purchase Register Read Supplier Name')
                         {
-                            data: 'jobType',
-                            name: 'jobType',
+                            data: 'supplierName',
+                            name: 'supplierName',
                             width: '',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Customer Name')
-                        {
-                            data: 'customerName',
-                            name: 'customerName',
-                            width: '',
-                            defaultContent: ''
-                        },
-                    @endcan
-                    @can('Services Read Product Name')
-                        {
-                            data: 'productName',
-                            name: 'productName',
-                            width: '',
-                            defaultContent: ''
-                        },
-                    @endcan
-                    @can('Services Read Serial Number')
-                        {
-                            data: 'serial_number',
-                            name: 'serial_number',
-                            width: '',
-                            defaultContent: ''
-                        },
-                    @endcan
-                    @can('Services Read Status')
+                    @can('Purchase Register Read Status')
                         {
                             data: 'status',
                             name: 'status',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Created At')
+                    @can('Purchase Register Read Created At')
                         {
                             data: 'created_at',
                             name: 'created_at',
@@ -463,21 +421,21 @@
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Updated At')
+                    @can('Purchase Register Read Updated At')
                         {
                             data: 'updated_at',
                             name: 'updated_at',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Created By')
+                    @can('Purchase Register Read Created By')
                         {
                             data: 'created_by',
                             name: 'created_by',
                             defaultContent: ''
                         },
                     @endcan
-                    @can('Services Read Updated By')
+                    @can('Purchase Register Read Updated By')
                         {
                             data: 'updated_by',
                             name: 'updated_by',

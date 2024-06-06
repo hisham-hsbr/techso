@@ -45,7 +45,6 @@ class JobTypeController extends Controller
                 'job_types' => $job_types,
                 'createdByUsers' => $createdByUsers,
                 'updatedByUsers' => $updatedByUsers,
-                'i'
             ]
         );
     }

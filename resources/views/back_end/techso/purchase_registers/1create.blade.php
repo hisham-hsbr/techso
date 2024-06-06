@@ -245,21 +245,24 @@
         });
 
         function addRowReceipt() {
-            var trAccount = '<tr>' +
-                '<td>' +
-                '<select name="account_id[]" class="form-control-sm select2">' +
-                '<option disabled selected>--Accounts--</option>' +
-                '@foreach ($products as $product)' +
-                '<option value="{{ $product->id }}">' +
-                '{{ $product->name }}' +
-                ' </option>' +
-                '@endforeach' +
-                '</select>' +
-                '</td>' +
-                '<td><input type="text" name="receipt_amount[]" class="form-control-sm"></td>' +
-                '<td><input type="text" name="line_description[]" class="form-control-sm"></td>' +
-                '<td style="text-align: :center"><a  class="btn btn-danger removeJob">-</a></td>' +
-                '</tr>';
+            var trAccount =
+                `
+                <tr>
+                <td>
+                <select name="account_id[]" class="form-control-sm select2">
+                <option disabled selected>--Accounts--</option>
+                @foreach ($products as $product)
+                <option value="{{ $product->id }}">
+                {{ $product->name }}
+                 </option>
+                @endforeach
+                </select>
+                </td>
+                <td><input type="text" name="receipt_amount[]" class="form-control-sm"></td>
+                <td><input type="text" name="line_description[]" class="form-control-sm"></td>
+                <td style="text-align: :center"><a  class="btn btn-danger removeJob">-</a></td>
+                </tr>
+                `;
 
             $('.tbodyJob').append(trAccount);
 

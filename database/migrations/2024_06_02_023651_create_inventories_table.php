@@ -11,23 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->string('product_barcode_1')->nullable();
-            $table->string('product_barcode_2')->nullable();
+            $table->string('name')->unique();
             $table->string('local_name')->nullable();
-
-            $table->decimal('quantity', 15, 2)->nullable();
-            $table->decimal('price', 15, 2)->nullable();
-
-            $table->unsignedBigInteger('product_type_id')->unsigned()->index()->nullable();
-            $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('cascade');
-
-            $table->unsignedBigInteger('brand_id')->unsigned()->index()->nullable();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
-
             $table->string('description')->nullable();
             $table->string('edit_description')->nullable();
             $table->boolean('status')->nullable();
@@ -48,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('inventories');
     }
 };

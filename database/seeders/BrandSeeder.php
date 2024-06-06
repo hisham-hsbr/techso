@@ -13,10 +13,10 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
-        Brand::create(['code' => 'de' , 'name' => 'Dell' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        Brand::create(['code' => 'ac' , 'name' => 'Acer' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        Brand::create(['code' => 'le' , 'name' => 'Lenovo' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        Brand::create(['code' => 'as' , 'name' => 'Asus' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-
+        Brand::create(['code' => 'de', 'name' => 'Dell', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        Brand::create(['code' => 'ac', 'name' => 'Acer', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        Brand::create(['code' => 'le', 'name' => 'Lenovo', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        Brand::create(['code' => 'as', 'name' => 'Asus', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        Brand::create(['code' => 'HP', 'name' => 'HP', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
     }
 }
