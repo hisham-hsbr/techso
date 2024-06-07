@@ -118,10 +118,11 @@
 
                                 @can('Job Type Table')
                                     <table class="table table-striped table-bordered">
-                                        <thead class="thead-dark">
+                                        <thead class="thead-dark" style="text-overflow: ellipsis; white-space: nowrap;">
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Purchase Number</th>
+                                                <th scope="col">Date</th>
                                                 <th scope="col">Product</th>
                                                 <th scope="col">RCVD-QTY</th>
                                                 <th scope="col">RCVD-Price</th>
@@ -137,6 +138,7 @@
                                                 <tr>
                                                     <th scope="row">1</th>
                                                     <td>{{ $inventory->document_number }}</td>
+                                                    <td>{{ $inventory->date }}</td>
                                                     <td>{{ $inventory->product->name }}</td>
                                                     <td>{{ $inventory->received_quantity }}</td>
                                                     <td>{{ $inventory->received_price }}</td>
@@ -154,6 +156,10 @@
                                 @endcan {{-- Job Type Read end --}}
                             </div>
                             <!-- /.card-body -->
+                            <div class="mb-3">
+                                <a type="button" href="{{ route('inventories.stock.ledger') }}"
+                                    class="btn btn-warning float-right ml-1">Back</a>
+                            </div>
                         </div>
                         <!-- /.card -->
                     </div>

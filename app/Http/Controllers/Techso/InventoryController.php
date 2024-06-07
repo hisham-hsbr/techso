@@ -29,29 +29,59 @@ class InventoryController extends Controller
 
     public function stockLedger()
     {
-        // $inventories = ProductTransaction::all();
-        $inventories = ProductTransaction::where('product_id', '1')->get();
-        // $inventories = ProductTransaction::withSum('product', 'quantity')->get();
-
-        // $inventories =  $inventories->orderBy('date');
-
-        $balance = 0;
-        foreach ($inventories as $inventory) {
-            $balance = ($balance + $inventory->received_quantity) - $inventory->issued_quantity;
-            $inventory->balance = $balance;
-        }
-
-        $createdByUsers = $inventories->sortBy('createdBy')->pluck('createdBy')->unique();
-        $updatedByUsers = $inventories->sortBy('updatedBy')->pluck('updatedBy')->unique();
+        $products = Product::all();
 
         return view('back_end.techso.inventories.stock_ledger')->with(
             [
                 'head_name' => $this->head_name,
                 'route_name' => $this->route_name,
+                'products' => $products,
+            ]
+        );
+    }
+    public function stockLedgerReport(Request $request)
+    {
+
+        // $products = Product::all();
+        // $dateRange = $request->input('date_range');
+        // list($startDate, $endDate) = explode(' - ', $dateRange);
+        // $inventories = ProductTransaction::where('product_id', $request->product_id)
+        //     ->whereBetween('date', [$startDate, $endDate])->get();
+
+        // if ($dateRange) {
+        //     $inventories->whereBetween('date', [$startDate, $endDate]);
+        // }
+
+        // $balance = 0;
+        // foreach ($inventories as $inventory) {
+        //     $balance = ($balance + $inventory->received_quantity) - $inventory->issued_quantity;
+        //     $inventory->balance = $balance;
+        // }
+        $products = Product::all();
+        $dateRange = $request->input('date_range');
+
+        if ($dateRange) {
+            list($startDate, $endDate) = explode(' - ', $dateRange);
+            $startDate = trim($startDate);
+            $endDate = trim($endDate);
+
+            $inventories = ProductTransaction::where('product_id', $request->product_id)
+                ->whereBetween('date', [$startDate, $endDate])->get();
+
+            $balance = 0;
+            foreach ($inventories as $inventory) {
+                $balance = ($balance + $inventory->received_quantity) - $inventory->issued_quantity;
+                $inventory->balance = $balance;
+            }
+        }
+
+
+        return view('back_end.techso.inventories.stock_ledger_report')->with(
+            [
+                'head_name' => $this->head_name,
+                'route_name' => $this->route_name,
+                'products' => $products,
                 'inventories' => $inventories,
-                'createdByUsers' => $createdByUsers,
-                'updatedByUsers' => $updatedByUsers,
-                'i'
             ]
         );
         // return view('back_end.techso.inventories.stock_ledger', compact('inventories', 'createdByUsers', 'updatedByUsers'))->with('i');

@@ -186,5 +186,6 @@ Route::middleware('auth')->group(function () {
     Route::controller('Techso\InventoryController')->prefix('/admin/techso/inventory')->name('inventories.')->group(function () {
         Route::get('/stock-valuation', 'stockValuation')->name('stock.valuation');
         Route::get('/stock-ledger', 'stockLedger')->name('stock.ledger');
+        Route::get('/stock-ledger-report', 'stockLedgerReport')->name('stock.ledger.report');
     });
 });

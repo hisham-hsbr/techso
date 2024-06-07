@@ -11,6 +11,7 @@
 
 @section('headLinks')
     <x-links.header-links-dataTable />
+    <x-links.header-links-select-two />
     <!-- date-range-picker -->
     <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
 
@@ -47,41 +48,67 @@
                                     @endcan {{-- Job Type Table --}}
                                 </x-layouts.div-clearfix>
                                 <div class="row mt-2">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-8">
                                         <div class="card card-info">
 
                                             <!-- /.card-header -->
                                             <!-- form start -->
-                                            <form class="form-horizontal">
+                                            <form class="form-horizontal"
+                                                action="{{ route('inventories.stock.ledger.report') }}" method="GET">
                                                 <div class="card-body">
                                                     <div class="input-group">
-                                                        <label for="inputPassword3" class="col-sm-2 col-form-label">Date
-                                                            Range</label>
+                                                        <label for="date" class="col-sm-2 col-form-label">Date Range</label>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
                                                                 <i class="far fa-calendar-alt"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control float-right"
-                                                            id="reservation" />
+                                                        <input type="text" name="date_range" class="form-control float-right"
+                                                            id="date_range" />
                                                     </div>
                                                     <div class="input-group mt-2">
-                                                        <label for="inputPassword3"
-                                                            class="col-sm-2 col-form-label">Password</label>
-                                                        <input type="text" class="form-control float-right"
-                                                            id="reservation" />
+                                                        <label for="product_id" class="col-sm-2 col-form-label">Product</label>
+                                                        <select class="form-control float-right select2" name="product_id"
+                                                            id="product_id">
+                                                            <option disabled selected>-- Select Product --</option>
+                                                            @foreach ($products as $product)
+                                                                <option
+                                                                    {{ old('product_id') == $product->id ? 'selected' : '' }}
+                                                                    value="{{ $product->id }}">
+                                                                    {{ $product->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group mt-2">
+                                                        <label for="layout_id" class="col-sm-2 col-form-label">Layout</label>
+                                                        <select class="form-control float-right select2" name="layout_id"
+                                                            id="layout_id">
+                                                            <option disabled selected>-- Select layout --</option>
+                                                            <option value="layout_1">Plain</option>
+                                                            <option value="layout_2">Option</option>
+                                                            <option selected value="layout_3">Detail</option>
+                                                            {{-- @foreach ($products as $product)
+                                                                <option
+                                                                    {{ old('product_id') == $product->id ? 'selected' : '' }}
+                                                                    value="{{ $product->id }}">
+                                                                    {{ $product->name }}
+                                                                </option>
+                                                            @endforeach --}}
+                                                        </select>
                                                     </div>
                                                 </div>
+
                                                 <!-- /.card-body -->
                                                 <div class="card-footer">
-                                                    <button type="submit" class="btn btn-info">
-                                                        Sign in
-                                                    </button>
-                                                    <button type="submit" class="btn btn-default float-right">
-                                                        Cancel
-                                                    </button>
+                                                    @can('Service Create')
+                                                        <button type="submit"
+                                                            class="btn btn-primary float-right ml-1">Search</button>
+                                                    @endcan
+                                                    <a type="button" href="{{ route('services.index') }}"
+                                                        class="btn btn-warning float-right ml-1">Back</a>
                                                 </div>
                                             </form>
                                         </div>
@@ -107,6 +134,7 @@
 
     <x-message.message />
     <x-message.table-update />
+    <x-links.footer-link-select-two />
 
     <x-links.footer-links-dataTable />
 
@@ -325,7 +353,7 @@
         $(function() {
 
             //Date range picker
-            $("#reservation").daterangepicker();
+            $("#date_range").daterangepicker();
 
         });
     </script>
