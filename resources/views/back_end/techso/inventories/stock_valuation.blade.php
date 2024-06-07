@@ -1,8 +1,8 @@
 @extends('back_end.layouts.app')
 
-@section('PageHead', 'Job Type Index')
+@section('PageHead', 'Stock Ledger Report')
 
-@section('PageTitle', 'Job Type Index')
+@section('PageTitle', 'Stock Ledger Report')
 @section('pageNavHeader')
     <li class="breadcrumb-item"><a href="{{ route('back-end.dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route($route_name . '.index') }}">{{ $head_name }}</a></li>
@@ -14,7 +14,7 @@
 
 @endsection
 
-@section('actionTitle', 'Job Type Index')
+@section('actionTitle', 'Stock Ledger Report')
 @section('mainContent')
     <section class="content">
         <div class="container-fluid">
@@ -82,7 +82,7 @@
                                                                 placeholder="Search Name" data-column="2" />
                                                         </div>
                                                     @endcan
-                                                    @can('Job Type Read Created By')
+                                                    {{-- @can('Job Type Read Created By')
                                                         <div class="form-group col-sm-4">
                                                             <label class="col-form-label">Created By</label>
                                                             <select data-column="6" class="form-control select2 filter-select">
@@ -107,7 +107,7 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                                                    @endcan
+                                                    @endcan --}}
                                                 </div>
                                             </div>
                                             <!-- /.card-body -->
@@ -117,78 +117,23 @@
                                 @endcan
 
                                 @can('Job Type Table')
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                @can('Job Type Read')
-                                                    <th>Sn</th>
-                                                @endcan
-                                                @can('Job Type Read Code')
-                                                    <th width="10%">code</th>
-                                                @endcan
-                                                @can('Job Type Read Name')
-                                                    <th width="20%">Name</th>
-                                                @endcan
-                                                @can('Job Type Read Status')
-                                                    <th width="10%">Status</th>
-                                                @endcan
-                                                @can('Job Type Read Created At')
-                                                    <th width="20%">Created At</th>
-                                                @endcan
-                                                @can('Job Type Read Updated At')
-                                                    <th width="20%">Updated At</th>
-                                                @endcan
-                                                @can('Job Type Read Created By')
-                                                    <th width="20%">Created By</th>
-                                                @endcan
-                                                @can('Job Type Read Updated By')
-                                                    <th width="20%">Updated By</th>
-                                                @endcan
-                                                @can('Job Type Edit')
-                                                    <th>Edit</th>
-                                                @endcan
-                                                @can('Job Type Delete')
-                                                    <th>Delete</th>
-                                                @endcan
+                                                <th>Product ID</th>
+                                                <th>Product Name</th>
+                                                <th>Current Stock</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- ---- --}}
+                                            @foreach ($products as $product)
+                                                <tr>
+                                                    <td>{{ $product->id }}</td>
+                                                    <td>{{ $product->name }}</td>
+                                                    <td>{{ $product->current_stock }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                @can('Job Type Read')
-                                                    <th>Sn</th>
-                                                @endcan
-                                                @can('Job Type Read Code')
-                                                    <th width="10%">code</th>
-                                                @endcan
-                                                @can('Job Type Read Name')
-                                                    <th width="20%">Name</th>
-                                                @endcan
-                                                @can('Job Type Read Status')
-                                                    <th width="10%">Status</th>
-                                                @endcan
-                                                @can('Job Type Read Created At')
-                                                    <th width="20%">Created At</th>
-                                                @endcan
-                                                @can('Job Type Read Updated At')
-                                                    <th width="20%">Updated At</th>
-                                                @endcan
-                                                @can('Job Type Read Created By')
-                                                    <th width="20%">Created By</th>
-                                                @endcan
-                                                @can('Job Type Read Updated By')
-                                                    <th width="20%">Updated By</th>
-                                                @endcan
-                                                @can('Job Type Edit')
-                                                    <th>Edit</th>
-                                                @endcan
-                                                @can('Job Type Delete')
-                                                    <th>Delete</th>
-                                                @endcan
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                     @endcan{{-- Job Type Table end --}}
                                 @endcan {{-- Job Type Read end --}}

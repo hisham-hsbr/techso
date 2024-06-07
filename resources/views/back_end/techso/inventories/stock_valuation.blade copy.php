@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Report</title>
+    <title>Stock Valuation</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -45,7 +45,8 @@
 
             </tbody>
         </table>
-        <h1>Product Stock</h1>
+
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -64,7 +65,6 @@
                 @endforeach
             </tbody>
         </table>
-
     </div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

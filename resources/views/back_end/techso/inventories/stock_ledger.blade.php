@@ -1,8 +1,8 @@
 @extends('back_end.layouts.app')
 
-@section('PageHead', 'Job Type Index')
+@section('PageHead', 'Stock Ledger Report')
 
-@section('PageTitle', 'Job Type Index')
+@section('PageTitle', 'Stock Ledger Report')
 @section('pageNavHeader')
     <li class="breadcrumb-item"><a href="{{ route('back-end.dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route($route_name . '.index') }}">{{ $head_name }}</a></li>
@@ -11,10 +11,12 @@
 
 @section('headLinks')
     <x-links.header-links-dataTable />
+    <!-- date-range-picker -->
+    <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
 
 @endsection
 
-@section('actionTitle', 'Job Type Index')
+@section('actionTitle', 'Stock Ledger Report')
 @section('mainContent')
     <section class="content">
         <div class="container-fluid">
@@ -44,167 +46,61 @@
                                             button_name="Refresh" />
                                     @endcan {{-- Job Type Table --}}
                                 </x-layouts.div-clearfix>
-
-
-                                @can('Job Type Filter')
-                                    <div class="col-md-12">
-                                        <div class="card card-success collapsed-card">
-                                            <div class="card-header">
-
-                                                <h3 class="card-title"><i class="fa-solid fa-filter"></i> Filter</h3>
-                                                <div class="card-tools">
-                                                    {{-- <x-form.button button_type="" button_oneclick="Refresh()"
-                                                    button_class="btn btn-success btn-sm"
-                                                    button_icon="fa-solid fa-filter-circle-xmark" button_name="Refresh" /> --}}
-                                                    <button type="" class="btn btn-tool" onClick="Reset()"><i
-                                                            class="fa-solid fa-filter-circle-xmark"></i> Reset
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                                                            class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                                <!-- /.card-tools -->
-                                            </div>
-                                            <!-- /.card-header -->
-                                            <div class="card-body">
-                                                <div id="myFilter" class="row">
-                                                    @can('Job Type Read Code')
-                                                        <div class="form-group col-sm-4">
-                                                            <label class="col-form-label">Code</label>
-                                                            <input type="text" class="form-control filter-input" id="code"
-                                                                placeholder="Search Code" data-column="1" />
-                                                        </div>
-                                                    @endcan
-                                                    @can('Job Type Read Name')
-                                                        <div class="form-group col-sm-4">
-                                                            <label class="col-form-label">Name</label>
-                                                            <input type="text" class="form-control filter-input" id="name"
-                                                                placeholder="Search Name" data-column="2" />
-                                                        </div>
-                                                    @endcan
-                                                    @can('Job Type Read Created By')
-                                                        <div class="form-group col-sm-4">
-                                                            <label class="col-form-label">Created By</label>
-                                                            <select data-column="6" class="form-control select2 filter-select">
-                                                                <option value="">Select Created By</option>
-                                                                @foreach ($createdByUsers as $createdByUser)
-                                                                    <option value="{{ $createdByUser->name }}">
-                                                                        {{ $createdByUser->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    @endcan
-                                                    @can('Job Type Read Updated By')
-                                                        <div class="form-group col-sm-4">
-                                                            <label class="col-form-label">Updated By</label>
-                                                            <select data-column="7" class="form-control select2 filter-select">
-                                                                <option value="">Select Updated By</option>
-                                                                @foreach ($updatedByUsers as $updatedByUser)
-                                                                    <option value="{{ $updatedByUser->name }}">
-                                                                        {{ $updatedByUser->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    @endcan
-                                                </div>
-                                            </div>
-                                            <!-- /.card-body -->
-                                        </div>
-                                        <!-- /.card -->
+                                <div class="row mt-2">
+                                    <div class="col-sm-3">
                                     </div>
-                                @endcan
+                                    <div class="col-sm-6">
+                                        <div class="card card-info">
 
-                                @can('Job Type Table')
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                @can('Job Type Read')
-                                                    <th>Sn</th>
-                                                @endcan
-                                                @can('Job Type Read Code')
-                                                    <th width="10%">code</th>
-                                                @endcan
-                                                @can('Job Type Read Name')
-                                                    <th width="20%">Name</th>
-                                                @endcan
-                                                @can('Job Type Read Status')
-                                                    <th width="10%">Status</th>
-                                                @endcan
-                                                @can('Job Type Read Created At')
-                                                    <th width="20%">Created At</th>
-                                                @endcan
-                                                @can('Job Type Read Updated At')
-                                                    <th width="20%">Updated At</th>
-                                                @endcan
-                                                @can('Job Type Read Created By')
-                                                    <th width="20%">Created By</th>
-                                                @endcan
-                                                @can('Job Type Read Updated By')
-                                                    <th width="20%">Updated By</th>
-                                                @endcan
-                                                @can('Job Type Edit')
-                                                    <th>Edit</th>
-                                                @endcan
-                                                @can('Job Type Delete')
-                                                    <th>Delete</th>
-                                                @endcan
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{-- ---- --}}
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                @can('Job Type Read')
-                                                    <th>Sn</th>
-                                                @endcan
-                                                @can('Job Type Read Code')
-                                                    <th width="10%">code</th>
-                                                @endcan
-                                                @can('Job Type Read Name')
-                                                    <th width="20%">Name</th>
-                                                @endcan
-                                                @can('Job Type Read Status')
-                                                    <th width="10%">Status</th>
-                                                @endcan
-                                                @can('Job Type Read Created At')
-                                                    <th width="20%">Created At</th>
-                                                @endcan
-                                                @can('Job Type Read Updated At')
-                                                    <th width="20%">Updated At</th>
-                                                @endcan
-                                                @can('Job Type Read Created By')
-                                                    <th width="20%">Created By</th>
-                                                @endcan
-                                                @can('Job Type Read Updated By')
-                                                    <th width="20%">Updated By</th>
-                                                @endcan
-                                                @can('Job Type Edit')
-                                                    <th>Edit</th>
-                                                @endcan
-                                                @can('Job Type Delete')
-                                                    <th>Delete</th>
-                                                @endcan
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                    @endcan{{-- Job Type Table end --}}
-                                @endcan {{-- Job Type Read end --}}
-                            </div>
-                            <!-- /.card-body -->
+                                            <!-- /.card-header -->
+                                            <!-- form start -->
+                                            <form class="form-horizontal">
+                                                <div class="card-body">
+                                                    <div class="input-group">
+                                                        <label for="inputPassword3" class="col-sm-2 col-form-label">Date
+                                                            Range</label>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="far fa-calendar-alt"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" class="form-control float-right"
+                                                            id="reservation" />
+                                                    </div>
+                                                    <div class="input-group mt-2">
+                                                        <label for="inputPassword3"
+                                                            class="col-sm-2 col-form-label">Password</label>
+                                                        <input type="text" class="form-control float-right"
+                                                            id="reservation" />
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-body -->
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-info">
+                                                        Sign in
+                                                    </button>
+                                                    <button type="submit" class="btn btn-default float-right">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endcan
                         </div>
-                        <!-- /.card -->
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.col -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.row -->
+                <!-- /.col -->
             </div>
-            <!-- /.container-fluid -->
-        </section>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
 
-    @endsection
+@endsection
 @section('actionFooter', 'Footer')
 @section('footerLinks')
 
@@ -213,6 +109,10 @@
     <x-message.table-update />
 
     <x-links.footer-links-dataTable />
+
+    <!-- date-range-picker -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script>
         $(function() {
@@ -417,6 +317,15 @@
                     .draw();
             });
 
+
+        });
+    </script>
+
+    <script>
+        $(function() {
+
+            //Date range picker
+            $("#reservation").daterangepicker();
 
         });
     </script>

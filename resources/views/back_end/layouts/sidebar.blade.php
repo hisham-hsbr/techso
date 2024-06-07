@@ -256,15 +256,15 @@
                                 menu_icon="fa fa-folder-tree" drop_icon="fas fa-angle-left">
 
                                 @can('Stock Valuation Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Stock Valuation" href="{{ route('inventories.index') }}"
-                                        menu_open=""
+                                    <x-sidebar.sidebar-nav-multi-level head="Stock Valuation"
+                                        href="{{ route('inventories.stock.valuation') }}" menu_open=""
                                         active="{{ request()->is('admin/techso/inventory/stock-valuation*') ? 'active' : '' }}"
                                         menu_icon="fa fa-asterisk" drop_icon="" />
                                 @endcan
                                 @can('Stock Reports Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Stock Reports" href="{{ route('customers.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/techso/masters/customers*') ? 'active' : '' }}"
+                                    <x-sidebar.sidebar-nav-multi-level head="Stock Ledger"
+                                        href="{{ route('inventories.stock.ledger') }}" menu_open=""
+                                        active="{{ request()->is('admin/techso/inventory/stock-ledger*') ? 'active' : '' }}"
                                         menu_icon="fa fa-asterisk" drop_icon="" />
                                 @endcan
                             </x-sidebar.sidebar-nav-multi-level>

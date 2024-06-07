@@ -14,10 +14,8 @@ use App\Models\Techso\ProductTransaction;
 
 class InventoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
+    private $head_name = 'Products';
+    private $route_name = 'products';
     public function __construct()
     {
         $this->middleware('auth');
@@ -29,7 +27,7 @@ class InventoryController extends Controller
 
     }
 
-    public function index()
+    public function stockLedger()
     {
         // $inventories = ProductTransaction::all();
         $inventories = ProductTransaction::where('product_id', '1')->get();
@@ -43,7 +41,23 @@ class InventoryController extends Controller
             $inventory->balance = $balance;
         }
 
+        $createdByUsers = $inventories->sortBy('createdBy')->pluck('createdBy')->unique();
+        $updatedByUsers = $inventories->sortBy('updatedBy')->pluck('updatedBy')->unique();
 
+        return view('back_end.techso.inventories.stock_ledger')->with(
+            [
+                'head_name' => $this->head_name,
+                'route_name' => $this->route_name,
+                'inventories' => $inventories,
+                'createdByUsers' => $createdByUsers,
+                'updatedByUsers' => $updatedByUsers,
+                'i'
+            ]
+        );
+        // return view('back_end.techso.inventories.stock_ledger', compact('inventories', 'createdByUsers', 'updatedByUsers'))->with('i');
+    }
+    public function stockValuation()
+    {
         $products = Product::select(
             'products.id',
             'products.name',
@@ -54,14 +68,19 @@ class InventoryController extends Controller
             ->get();
 
 
-
-
-
-
-
-        $createdByUsers = $inventories->sortBy('createdBy')->pluck('createdBy')->unique();
-        $updatedByUsers = $inventories->sortBy('updatedBy')->pluck('updatedBy')->unique();
-        return view('back_end.techso.inventories.stock', compact('inventories', 'products', 'createdByUsers', 'updatedByUsers'))->with('i');
+        $createdByUsers = $products->sortBy('createdBy')->pluck('createdBy')->unique();
+        $updatedByUsers = $products->sortBy('updatedBy')->pluck('updatedBy')->unique();
+        return view('back_end.techso.inventories.stock_valuation')->with(
+            [
+                'head_name' => $this->head_name,
+                'route_name' => $this->route_name,
+                'products' => $products,
+                'createdByUsers' => $createdByUsers,
+                'updatedByUsers' => $updatedByUsers,
+                'i'
+            ]
+        );
+        // return view('back_end.techso.inventories.stock_valuation', compact('products'))->with('i');
     }
 
     public function inventoriesGet()

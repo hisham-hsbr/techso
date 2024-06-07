@@ -184,19 +184,7 @@ Route::middleware('auth')->group(function () {
 
     //Inventory
     Route::controller('Techso\InventoryController')->prefix('/admin/techso/inventory')->name('inventories.')->group(function () {
-        Route::get('/stock-valuation', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::get('/show/{id}', 'show')->name('show');
-        Route::patch('/update/{id}', 'update')->name('update');
-        Route::post('/store', 'store')->name('store');
-        Route::delete('/destroy{id}', 'destroy')->name('destroy');
-        Route::get('/get', 'purchaseRegistersGet')->name('get');
-        Route::get('/pdf/{id}', 'purchaseRegisterPDF')->name('pdf');
-        Route::get('/import', 'purchaseRegisterImport')->name('import');
-        Route::post('/upload', 'purchaseRegisterUpload')->name('upload');
-        Route::get('/download', 'purchaseRegisterDownload')->name('download');
-        Route::post('/notification', 'serviceNotification')->name('notification');
-        Route::get('/create-notification', 'createNotification')->name('create.notification');
+        Route::get('/stock-valuation', 'stockValuation')->name('stock.valuation');
+        Route::get('/stock-ledger', 'stockLedger')->name('stock.ledger');
     });
 });
