@@ -138,7 +138,7 @@
                                                 <tr>
                                                     <th scope="row">1</th>
                                                     <td>{{ $inventory->document_number }}</td>
-                                                    <td>{{ $inventory->date }}</td>
+                                                    <td>{{ Carbon\Carbon::parse($inventory->date)->format('m-M-Y') }}</td>
                                                     <td>{{ $inventory->product->name }}</td>
                                                     <td>{{ $inventory->received_quantity }}</td>
                                                     <td>{{ $inventory->received_price }}</td>
@@ -156,7 +156,7 @@
                                 @endcan {{-- Job Type Read end --}}
                             </div>
                             <!-- /.card-body -->
-                            <div class="mb-3">
+                            <div class="m-3">
                                 <a type="button" href="{{ route('inventories.stock.ledger') }}"
                                     class="btn btn-warning float-right ml-1">Back</a>
                             </div>

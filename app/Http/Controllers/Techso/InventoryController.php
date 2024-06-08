@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Techso\ProductTransaction;
+use Carbon\Carbon;
 
 class InventoryController extends Controller
 {
@@ -42,37 +43,22 @@ class InventoryController extends Controller
     public function stockLedgerReport(Request $request)
     {
 
-        // $products = Product::all();
-        // $dateRange = $request->input('date_range');
-        // list($startDate, $endDate) = explode(' - ', $dateRange);
-        // $inventories = ProductTransaction::where('product_id', $request->product_id)
-        //     ->whereBetween('date', [$startDate, $endDate])->get();
-
-        // if ($dateRange) {
-        //     $inventories->whereBetween('date', [$startDate, $endDate]);
-        // }
-
-        // $balance = 0;
-        // foreach ($inventories as $inventory) {
-        //     $balance = ($balance + $inventory->received_quantity) - $inventory->issued_quantity;
-        //     $inventory->balance = $balance;
-        // }
         $products = Product::all();
         $dateRange = $request->input('date_range');
+        list($startDate, $endDate) = explode(' - ', $dateRange);
+        $startDate = Carbon::parse($startDate);
+        $endDate = Carbon::parse($endDate);
+        $inventories = ProductTransaction::where('product_id', $request->product_id)
+            ->whereBetween('date', [$startDate, $endDate])->get();
 
         if ($dateRange) {
-            list($startDate, $endDate) = explode(' - ', $dateRange);
-            $startDate = trim($startDate);
-            $endDate = trim($endDate);
+            $inventories->whereBetween('date', [$startDate, $endDate]);
+        }
 
-            $inventories = ProductTransaction::where('product_id', $request->product_id)
-                ->whereBetween('date', [$startDate, $endDate])->get();
-
-            $balance = 0;
-            foreach ($inventories as $inventory) {
-                $balance = ($balance + $inventory->received_quantity) - $inventory->issued_quantity;
-                $inventory->balance = $balance;
-            }
+        $balance = 0;
+        foreach ($inventories as $inventory) {
+            $balance = ($balance + $inventory->received_quantity) - $inventory->issued_quantity;
+            $inventory->balance = $balance;
         }
 
 
