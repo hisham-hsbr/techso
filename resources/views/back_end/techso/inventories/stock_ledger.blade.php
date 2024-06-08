@@ -58,7 +58,7 @@
                                             <form class="form-horizontal" id="quickForm"
                                                 action="{{ route('inventories.stock.ledger.report') }}" method="GET">
                                                 <div class="card-body">
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label for="presetDateRanges">Select Date Range:</label>
                                                         <select class="form-control" id="presetDateRanges" style="width: 100%">
                                                             <option value="custom">Custom Range</option>
@@ -67,7 +67,7 @@
                                                             <option value="six_months">Last Six Months</option>
                                                             <option value="one_year">Last Year</option>
                                                         </select>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="input-group">
                                                         <label for="date" class="col-sm-2 col-form-label required">Date
                                                             Range</label>
@@ -78,6 +78,16 @@
                                                         </div>
                                                         <input type="text" name="date_range" class="form-control float-right"
                                                             id="date_range" />
+                                                        <div class="ml-2 pb-2">
+                                                            <select class="form-control m-3" id="presetDateRanges">
+                                                                <option value="custom">Custom Range</option>
+                                                                <option value="last_month">Last Month</option>
+                                                                <option value="last_week">Last Week</option>
+                                                                <option value="six_months">Last Six Months</option>
+                                                                <option value="one_year">Last Year</option>
+                                                                <option value="as_on">As on</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                     <div class="form-group input-group mt-2">
                                                         <label for="product_id"
@@ -228,6 +238,10 @@
                         break;
                     case "one_year":
                         startDate = moment().subtract(1, "years").startOf("year");
+                        endDate = moment();
+                        break;
+                    case "as_on":
+                        startDate = '01/01/2023';
                         endDate = moment();
                         break;
                     case "custom":
