@@ -9,35 +9,35 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class SecondSaleImage extends Model
+class SaleImage extends Model
 {
     use HasFactory, LogsActivity;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'status'
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
-        $useLogName='SecondSaleImage';
-        $run_seeder_disable=env('RUN_SEEDER_DISABLE');
+        $useLogName = 'SaleImage';
+        $run_seeder_disable = env('RUN_SEEDER_DISABLE');
 
-        if($run_seeder_disable=='Y'){
+        if ($run_seeder_disable == 'Y') {
 
             return LogOptions::defaults()
-            ->logOnly(['name','local_name','description','status','created_at','updated_at'])
-            ->setDescriptionForEvent(fn(string $eventName) => "$useLogName {$eventName}")
-            ->useLogName($useLogName)
-            ->logOnlyDirty();
+                ->logOnly(['name', 'local_name', 'description', 'status', 'created_at', 'updated_at'])
+                ->setDescriptionForEvent(fn (string $eventName) => "$useLogName {$eventName}")
+                ->useLogName($useLogName)
+                ->logOnlyDirty();
         }
-        if($run_seeder_disable=='N'){
+        if ($run_seeder_disable == 'N') {
 
             return LogOptions::defaults()
-            ->logOnly(['code','name'])
-            ->setDescriptionForEvent(fn(string $eventName) => "$useLogName {$eventName}")
-            ->useLogName($useLogName)
-            ->logOnlyDirty();
+                ->logOnly(['code', 'name'])
+                ->setDescriptionForEvent(fn (string $eventName) => "$useLogName {$eventName}")
+                ->useLogName($useLogName)
+                ->logOnlyDirty();
         }
     }
 
@@ -53,12 +53,12 @@ class SecondSaleImage extends Model
         return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
     }
 
-     public function createdBy()
+    public function createdBy()
     {
-        return $this->belongsTo('App\Models\User','created_by','id');
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User','updated_by','id');
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
 }

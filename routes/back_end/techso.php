@@ -146,8 +146,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/create-notification', 'createNotification')->name('create.notification');
     });
 
-    //secondSale
-    Route::controller('Techso\SecondSaleController')->prefix('/admin/techso/second-sales')->name('second-sales.')->group(function () {
+    //sale
+    Route::controller('Techso\SaleController')->prefix('/admin/techso/sales')->name('sales.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::get('/edit/{id}', 'edit')->name('edit');
@@ -155,11 +155,11 @@ Route::middleware('auth')->group(function () {
         Route::patch('/update/{id}', 'update')->name('update');
         Route::post('/store', 'store')->name('store');
         Route::delete('/destroy{id}', 'destroy')->name('destroy');
-        Route::get('/get', 'secondSaleGet')->name('get');
-        Route::get('/pdf/{id}', 'secondSalePDF')->name('pdf');
-        Route::get('/import', 'secondSaleImport')->name('import');
-        Route::post('/upload', 'secondSaleUpload')->name('upload');
-        Route::get('/download', 'secondSaleDownload')->name('download');
+        Route::get('/get', 'saleGet')->name('get');
+        Route::get('/pdf/{id}', 'salePDF')->name('pdf');
+        Route::get('/import', 'saleImport')->name('import');
+        Route::post('/upload', 'saleUpload')->name('upload');
+        Route::get('/download', 'saleDownload')->name('download');
         Route::post('/notification', 'serviceNotification')->name('notification');
         Route::get('/create-notification', 'createNotification')->name('create.notification');
     });

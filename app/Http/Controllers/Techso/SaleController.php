@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Techso;
 use Illuminate\Http\Request;
 use App\Models\Techso\Product;
 use Yajra\Datatables\Datatables;
-use App\Models\Techso\SecondSale;
+use App\Models\Techso\Sale;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Techso\ProductAttribute;
 use App\Models\Techso\ProductAttributeType;
 
-class SecondSaleController extends Controller
+class SaleController extends Controller
 {
     private $head_name = 'Second Sale';
     private $route_name = 'second-sales';
@@ -26,7 +26,7 @@ class SecondSaleController extends Controller
 
     public function index()
     {
-        $second_sales = SecondSale::all();
+        $second_sales = Sale::all();
         $createdByUsers = $second_sales->sortBy('createdBy')->pluck('createdBy')->unique();
         $updatedByUsers = $second_sales->sortBy('updatedBy')->pluck('updatedBy')->unique();
         return view('back_end.techso.second_sales.index')->with(
@@ -45,7 +45,7 @@ class SecondSaleController extends Controller
      */
     public function create()
     {
-        $second_sales = SecondSale::all();
+        $second_sales = Sale::all();
         // $product_attributes = ProductAttribute::with(['productAttributeType'])
         // // ->where('product_attribute_type_id')
         // ->select('product_attribute_type_id', 'id', 'name')
@@ -62,7 +62,7 @@ class SecondSaleController extends Controller
         $product_price_lists = ProductAttribute::where('status', 1)->get()
             ->where('product_attribute_type_id', '1')
             ->groupBy('product_attribute_type_id');
-        $list_number = SecondSale::max('list_number') + 1;
+        $list_number = Sale::max('list_number') + 1;
         // dd($product_attributes);
         return view('back_end.techso.second_sales.create')->with(
             [
@@ -89,7 +89,7 @@ class SecondSaleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SecondSale $secondSale)
+    public function show(Sale $sale)
     {
         //
     }
@@ -97,7 +97,7 @@ class SecondSaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SecondSale $secondSale)
+    public function edit(Sale $sale)
     {
         //
     }
@@ -105,7 +105,7 @@ class SecondSaleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SecondSale $secondSale)
+    public function update(Request $request, Sale $sale)
     {
         //
     }
@@ -113,7 +113,7 @@ class SecondSaleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SecondSale $secondSale)
+    public function destroy(Sale $sale)
     {
         //
     }

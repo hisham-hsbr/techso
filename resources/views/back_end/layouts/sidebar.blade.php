@@ -163,7 +163,7 @@
                 <!-- Techso -->
 
                 <!-- techso Start -->
-                @canany(['Service Read', 'Second Sale Read', 'Customer Read', 'Brand Read', 'Complaint Read'])
+                @canany(['Service Read', 'Sale Read', 'Customer Read', 'Brand Read', 'Complaint Read'])
                     <x-sidebar.sidebar-nav-level head="Techso" href="#"
                         menu_open="{{ request()->is('admin/techso*') ? 'menu-open' : '' }}"
                         active="{{ request()->is('admin/techso/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
@@ -179,9 +179,9 @@
                                 menu_open="" active="{{ request()->is('admin/techso/purchases*') ? 'active' : '' }}"
                                 menu_icon="fa fa-cart-shopping" drop_icon="" />
                         @endcan
-                        @can('Second Sale Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Second Sale" href="{{ route('second-sales.index') }}"
-                                menu_open="" active="{{ request()->is('admin/techso/second-sales*') ? 'active' : '' }}"
+                        @can('Sale Read')
+                            <x-sidebar.sidebar-nav-multi-level head="Sale" href="{{ route('sales.index') }}" menu_open=""
+                                active="{{ request()->is('admin/techso/sales*') ? 'active' : '' }}"
                                 menu_icon="fa fa-cart-shopping" drop_icon="" />
                         @endcan
                         {{-- @can('Image Controller Read')

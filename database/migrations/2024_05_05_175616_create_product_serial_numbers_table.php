@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('product_serial_numbers', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('second_sale_id')->unsigned()->index()->nullable();
-            $table->foreign('second_sale_id')->references('id')->on('second_sales')->onDelete('cascade');
+            $table->unsignedBigInteger('sale_id')->unsigned()->index()->nullable();
+            $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
 
             $table->unsignedBigInteger('product_id')->unsigned()->index()->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

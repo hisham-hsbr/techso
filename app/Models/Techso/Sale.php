@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class SecondSale extends Model
+class Sale extends Model
 {
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'status'
     ];
@@ -28,20 +28,20 @@ class SecondSale extends Model
         return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
     }
 
-     public function createdBy()
+    public function createdBy()
     {
-        return $this->belongsTo('App\Models\User','created_by','id');
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User','updated_by','id');
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
     public function product()
     {
-        return $this->belongsTo(Product::class,'product_id','id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
     public function productAttribute()
     {
-        return $this->belongsTo(ProductAttribute::class,'product_attribute_id','id');
+        return $this->belongsTo(ProductAttribute::class, 'product_attribute_id', 'id');
     }
 }
