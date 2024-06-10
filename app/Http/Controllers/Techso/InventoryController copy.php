@@ -43,8 +43,7 @@ class InventoryController extends Controller
     public function stockLedgerReport(Request $request)
     {
 
-        $products = Product::where('id', $request->product_id)->first();
-        // dd($products);
+        $products = Product::all();
 
         $dateRange = $request->input('date_range');
         list($startDate, $endDate) = explode(' - ', $dateRange);
@@ -57,29 +56,10 @@ class InventoryController extends Controller
             $inventories->whereBetween('date', [$startDate, $endDate]);
         }
 
-        $balanceQuantity = 0;
-        $balanceSum = 0;
-        $averagePrice = 0;
-        // dd($inventories);
-        foreach ($inventories as $index => $inventory) {
-            $balanceQuantity = ($balanceQuantity + $inventory->received_quantity) - $inventory->issued_quantity;
-
-            if ($index == 0) {
-                $averagePrice = ($inventory->received_price);
-            } else {
-                if ($inventory->received_price == 0) {
-                    $averagePrice = ($averagePrice * 2) / 2;
-                } else {
-
-                    $averagePrice = ((($inventory->received_quantity * $inventory->received_price) + $balanceSum) / $balanceQuantity);
-                }
-            }
-            $balanceSum = $balanceQuantity * $averagePrice;
-
-            $inventory->index = $index + 1;
-            $inventory->balanceQuantity = $balanceQuantity;
-            $inventory->balanceSum = $balanceSum;
-            $inventory->averagePrice = $averagePrice;
+        $balance = 0;
+        foreach ($inventories as $inventory) {
+            $balance = ($balance + $inventory->received_quantity) - $inventory->issued_quantity;
+            $inventory->balance = $balance;
         }
 
 
@@ -88,7 +68,6 @@ class InventoryController extends Controller
                 'head_name' => $this->head_name,
                 'route_name' => $this->route_name,
                 'products' => $products,
-                'dateRange' => $dateRange,
                 'inventories' => $inventories,
             ]
         );

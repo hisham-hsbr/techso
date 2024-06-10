@@ -155,16 +155,7 @@ class PurchaseRegisterController extends Controller
         $voucher_types = VoucherType::where('status', 1)
             ->where('name', 'Purchase Invoice')
             ->get();
-
-        $types = ProductAttributeType::where('status', 1)->get();
-        $product_attributes = ProductAttribute::where('status', 1)->get()
-            ->where('product_attribute_type_id', '<>', '1')
-            ->groupBy('product_attribute_type_id');
-
-
-        $product_price_lists = ProductAttribute::where('status', 1)->get()
-            ->where('product_attribute_type_id', '1')
-            ->groupBy('product_attribute_type_id');
+        $editDays = auth()->user()->settings['purchase_edit_days'];
         $list_number = PurchaseRegister::max('purchase_number') + 1;
         return view('back_end.techso.purchase_registers.create')->with(
             [
@@ -173,9 +164,7 @@ class PurchaseRegisterController extends Controller
                 'products' => $products,
                 'accounts' => $accounts,
                 'voucher_types' => $voucher_types,
-                'product_attributes' => $product_attributes,
-                'types' => $types,
-                'product_price_lists' => $product_price_lists,
+                'editDays' => $editDays,
                 'list_number' => $list_number,
             ]
         );
@@ -252,7 +241,7 @@ class PurchaseRegisterController extends Controller
 
 
         return redirect()->route('purchase-registers.index')
-            ->with('message_store', 'PurchaseRegister Created Successfully');
+            ->with('message_store', 'Purchase Created Successfully');
     }
 
     /**

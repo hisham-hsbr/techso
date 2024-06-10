@@ -465,7 +465,7 @@
             }
         })
     </script>
-    <script>
+    {{-- <script>
         var checkid = '{{ $key }}';
         var checkclass = '{{ $key }}';
 
@@ -482,7 +482,7 @@
                 $("#checkall' + checkid").prop("checked", true)
             }
         })
-    </script>
+    </script> --}}
     <!-- Bootstrap4 Duallistbox -->
     <script
         src="{{ asset('back_end_links/adminLinks/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}">

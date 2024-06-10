@@ -61,10 +61,10 @@ class ProductTransaction extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
-    // public function product()
-    // {
-    //     return $this->belongsTo(Product::class, 'product_id', 'id');
-    // }
+    public function voucherType()
+    {
+        return $this->belongsTo(VoucherType::class, 'voucher_type_id', 'id');
+    }
     public function product()
     {
         return $this->belongsTo(Product::class);

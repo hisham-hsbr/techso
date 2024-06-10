@@ -16,13 +16,16 @@ return new class extends Migration
             $table->id();
             $table->date('date');
 
+            $table->unsignedBigInteger('voucher_type_id')->unsigned()->index()->nullable();
+            $table->foreign('voucher_type_id')->references('id')->on('voucher_types')->onDelete('cascade');
+
             $table->unsignedBigInteger('purchase_register_id')->unsigned()->index()->nullable();
             $table->foreign('purchase_register_id')->references('id')->on('purchase_registers')->onDelete('cascade');
 
-            $table->string('document_number');
+            $table->unsignedBigInteger('sale_register_id')->unsigned()->index()->nullable();
+            $table->foreign('sale_register_id')->references('id')->on('sale_registers')->onDelete('cascade');
 
-            $table->unsignedBigInteger('voucher_type_id')->unsigned()->index()->nullable();
-            $table->foreign('voucher_type_id')->references('id')->on('voucher_types')->onDelete('cascade');
+            $table->string('document_number');
 
             $table->unsignedBigInteger('account_id')->unsigned()->index()->nullable();
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');

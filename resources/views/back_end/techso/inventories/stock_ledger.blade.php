@@ -1,8 +1,8 @@
 @extends('back_end.layouts.app')
 
-@section('PageHead', 'Stock Ledger Report')
+@section('PageHead', 'Stock Ledger')
 
-@section('PageTitle', 'Stock Ledger Report')
+@section('PageTitle', 'Stock Ledger')
 @section('pageNavHeader')
     <li class="breadcrumb-item"><a href="{{ route('back-end.dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route($route_name . '.index') }}">{{ $head_name }}</a></li>
@@ -17,7 +17,7 @@
 
 @endsection
 
-@section('actionTitle', 'Stock Ledger Report')
+@section('actionTitle', 'Stock Ledger')
 @section('mainContent')
     <section class="content">
         <div class="container-fluid">
@@ -58,16 +58,6 @@
                                             <form class="form-horizontal" id="quickForm"
                                                 action="{{ route('inventories.stock.ledger.report') }}" method="GET">
                                                 <div class="card-body">
-                                                    {{-- <div class="form-group">
-                                                        <label for="presetDateRanges">Select Date Range:</label>
-                                                        <select class="form-control" id="presetDateRanges" style="width: 100%">
-                                                            <option value="custom">Custom Range</option>
-                                                            <option value="last_month">Last Month</option>
-                                                            <option value="last_week">Last Week</option>
-                                                            <option value="six_months">Last Six Months</option>
-                                                            <option value="one_year">Last Year</option>
-                                                        </select>
-                                                    </div> --}}
                                                     <div class="input-group">
                                                         <label for="date" class="col-sm-2 col-form-label required">Date
                                                             Range</label>
@@ -81,11 +71,11 @@
                                                         <div class="ml-2 pb-2">
                                                             <select class="form-control m-3" id="presetDateRanges">
                                                                 <option value="custom">Custom Range</option>
+                                                                <option value="as_on">As on</option>
                                                                 <option value="last_month">Last Month</option>
                                                                 <option value="last_week">Last Week</option>
                                                                 <option value="six_months">Last Six Months</option>
                                                                 <option value="one_year">Last Year</option>
-                                                                <option value="as_on">As on</option>
                                                             </select>
                                                         </div>
                                                     </div>

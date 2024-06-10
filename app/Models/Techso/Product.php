@@ -76,4 +76,28 @@ class Product extends Model
     {
         return $this->hasMany(ProductTransaction::class);
     }
+
+    public function getCurrentStockAttribute()
+    {
+        return $this->transactions->sum('received_quantity') - $this->transactions->sum('issued_quantity');
+    }
+
+    public function getAveragePriceAttribute()
+    {
+        $totalReceivedQuantity = $this->transactions->sum('received_quantity');
+        if ($totalReceivedQuantity == 0) {
+            return 0;
+        }
+        $totalReceivedPrice = $this->transactions->sum(function ($transaction) {
+            return $transaction->received_quantity * $transaction->received_price;
+        });
+        return $totalReceivedPrice / $totalReceivedQuantity;
+    }
+
+    public function resetAveragePriceIfStockZero()
+    {
+        if ($this->current_stock == 0) {
+            $this->transactions()->delete();
+        }
+    }
 }

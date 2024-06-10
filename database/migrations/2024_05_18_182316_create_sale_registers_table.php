@@ -13,10 +13,19 @@ return new class extends Migration
     {
         Schema::create('sale_registers', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('local_name')->nullable();
-            $table->string('description')->nullable();
-            $table->string('edit_description')->nullable();
+            $table->date('date');
+            $table->string('sale_number')->unique();
+
+            $table->unsignedBigInteger('voucher_type_id')->unsigned()->index()->nullable();
+            $table->foreign('voucher_type_id')->references('id')->on('voucher_types')->onDelete('cascade');
+
+            $table->unsignedBigInteger('account_id')->unsigned()->index()->nullable();
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+
+            $table->string('voucher_narration')->nullable();
+            $table->string('voucher_remarks')->nullable();
+            $table->string('voucher_description')->nullable();
+
             $table->boolean('status')->nullable();
 
             // default

@@ -16,9 +16,6 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('attribute_name');
 
-            $table->unsignedBigInteger('sale_id')->unsigned()->index()->nullable();
-            $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
-
             $table->unsignedBigInteger('product_attribute_id')->unsigned()->index()->nullable();
             $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
 

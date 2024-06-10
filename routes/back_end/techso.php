@@ -147,7 +147,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //sale
-    Route::controller('Techso\SaleController')->prefix('/admin/techso/sales')->name('sales.')->group(function () {
+    Route::controller('Techso\SaleRegisterController')->prefix('/admin/techso/sales')->name('sales-registers.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::get('/edit/{id}', 'edit')->name('edit');
@@ -155,11 +155,11 @@ Route::middleware('auth')->group(function () {
         Route::patch('/update/{id}', 'update')->name('update');
         Route::post('/store', 'store')->name('store');
         Route::delete('/destroy{id}', 'destroy')->name('destroy');
-        Route::get('/get', 'saleGet')->name('get');
-        Route::get('/pdf/{id}', 'salePDF')->name('pdf');
-        Route::get('/import', 'saleImport')->name('import');
-        Route::post('/upload', 'saleUpload')->name('upload');
-        Route::get('/download', 'saleDownload')->name('download');
+        Route::get('/get', 'saleRegisterGet')->name('get');
+        Route::get('/pdf/{id}', 'saleRegisterPDF')->name('pdf');
+        Route::get('/import', 'saleRegisterImport')->name('import');
+        Route::post('/upload', 'saleRegisterUpload')->name('upload');
+        Route::get('/download', 'saleRegisterDownload')->name('download');
         Route::post('/notification', 'serviceNotification')->name('notification');
         Route::get('/create-notification', 'createNotification')->name('create.notification');
     });

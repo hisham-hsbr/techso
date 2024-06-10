@@ -123,6 +123,7 @@
                                                 <th>Product ID</th>
                                                 <th>Product Name</th>
                                                 <th>Current Stock</th>
+                                                <th>Avarage Price</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -131,6 +132,7 @@
                                                     <td>{{ $product->id }}</td>
                                                     <td>{{ $product->name }}</td>
                                                     <td>{{ $product->current_stock }}</td>
+                                                    <td>{{ $product->average_price }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

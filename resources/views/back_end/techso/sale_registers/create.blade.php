@@ -67,10 +67,10 @@
                                     <div class="col-sm-4">
                                         <div class="input-group mb-3 input-group-sm">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text">Purchase Number#</span>
+                                                <span class="input-group-text">Sales Number#</span>
                                             </div>
-                                            <input type="text" name="purchase_number" class="form-control"
-                                                value="TSP-{{ $list_number }}" readonly placeholder="">
+                                            <input type="text" name="sale_number" class="form-control"
+                                                value="TSS-{{ $list_number }}" readonly placeholder="">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -81,7 +81,7 @@
                                             <select name="voucher_type_id" class="form-control select2">
                                                 <option disabled selected>--Voucher Type--</option>
                                                 @foreach ($voucher_types as $voucher_type)
-                                                    <option {{ $voucher_type->name == 'Purchase Invoice' ? 'selected' : '' }}
+                                                    <option {{ $voucher_type->name == 'Sales Invoice' ? 'selected' : '' }}
                                                         value="{{ $voucher_type->id }}">
                                                         {{ $voucher_type->name }}
                                                     </option>
@@ -103,15 +103,6 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="input-group mb-3 input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Supplier Invoice#</span>
-                                            </div>
-                                            <input type="text" name="supplier_invoice" class="form-control" value=""
-                                                placeholder="">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -145,7 +136,7 @@
                             </div>
                             <div class="row">
                                 <div class="table-responsive-sm scrole-tree">
-                                    <table class="table table-bordered" id="purchaseTable">
+                                    <table class="table table-bordered" id="saleTable">
                                         <thead>
                                             <tr>
                                                 <th>SiNo</th>
@@ -332,7 +323,7 @@
 
         function updateSubtotal() {
             let subtotal = 0;
-            $("#purchaseTable tbody .total").each(function() {
+            $("#saleTable tbody .total").each(function() {
                 subtotal += parseFloat($(this).text()) || 0;
             });
             $("#subTotal").val(subtotal.toFixed(2));

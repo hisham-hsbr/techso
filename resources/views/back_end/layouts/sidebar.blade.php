@@ -180,8 +180,8 @@
                                 menu_icon="fa fa-cart-shopping" drop_icon="" />
                         @endcan
                         @can('Sale Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Sale" href="{{ route('sales.index') }}" menu_open=""
-                                active="{{ request()->is('admin/techso/sales*') ? 'active' : '' }}"
+                            <x-sidebar.sidebar-nav-multi-level head="Sale" href="{{ route('sales-registers.index') }}"
+                                menu_open="" active="{{ request()->is('admin/techso/sales*') ? 'active' : '' }}"
                                 menu_icon="fa fa-cart-shopping" drop_icon="" />
                         @endcan
                         {{-- @can('Image Controller Read')
