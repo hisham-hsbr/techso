@@ -2,8 +2,9 @@
 
     <div class="logo">
         {{-- <h1><a href="index.html">Selecao</a></h1> --}}
-        <a href="/"><img src="{{ asset('/storage/images/app/logo_white.png') }}" alt="" width="187"
-                height="20" class="img-fluid"></a>
+        {{-- <a href="/"><img src="{{ asset('/storage/images/app/logo_white.png') }}" alt="" width="187"
+                height="20" class="img-fluid"></a> --}}
+        <x-app.application-logo-white width="150" />
     </div>
     <a href="/job" class="btn btn-warning navbar-btn">Track Job</a>
     <i class="fa-solid fa-magnifying-glass"></i>

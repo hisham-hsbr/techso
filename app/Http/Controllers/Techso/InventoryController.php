@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Techso;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Techso\Product;
 use App\Models\Techso\Inventory;
 use Yajra\Datatables\Datatables;
+use App\Models\Techso\VoucherType;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Techso\ProductTransaction;
-use Carbon\Carbon;
 
 class InventoryController extends Controller
 {
@@ -31,12 +32,14 @@ class InventoryController extends Controller
     public function stockLedger()
     {
         $products = Product::all();
+        $voucher_types = VoucherType::all();
 
         return view('back_end.techso.inventories.stock_ledger')->with(
             [
                 'head_name' => $this->head_name,
                 'route_name' => $this->route_name,
                 'products' => $products,
+                'voucher_types' => $voucher_types,
             ]
         );
     }
@@ -44,7 +47,8 @@ class InventoryController extends Controller
     {
 
         $products = Product::where('id', $request->product_id)->first();
-        // dd($products);
+
+        // dd($voucher_type);
 
         $dateRange = $request->input('date_range');
         list($startDate, $endDate) = explode(' - ', $dateRange);
@@ -56,6 +60,10 @@ class InventoryController extends Controller
         if ($dateRange) {
             $inventories->whereBetween('date', [$startDate, $endDate]);
         }
+
+
+        $voucher_types = $inventories->sortBy('voucherType')->pluck('voucherType')->unique();
+        $document_numbers = $inventories->sortBy('document_number')->pluck('document_number')->unique();
 
         $balanceQuantity = 0;
         $balanceSum = 0;
@@ -90,21 +98,14 @@ class InventoryController extends Controller
                 'products' => $products,
                 'dateRange' => $dateRange,
                 'inventories' => $inventories,
+                'voucher_types' => $voucher_types,
+                'document_numbers' => $document_numbers,
             ]
         );
         // return view('back_end.techso.inventories.stock_ledger', compact('inventories', 'createdByUsers', 'updatedByUsers'))->with('i');
     }
     public function stockValuation()
     {
-        // $products = Product::select(
-        //     'products.id',
-        //     'products.name',
-        //     DB::raw('COALESCE(SUM(product_transactions.received_quantity), 0) - COALESCE(SUM(product_transactions.issued_quantity), 0) as current_stock')
-        // )
-        //     ->leftJoin('product_transactions', 'products.id', '=', 'product_transactions.product_id')
-        //     ->groupBy('products.id', 'products.name')
-        //     ->get();
-
 
         $products = Product::with('transactions')->get();
 
@@ -126,16 +127,11 @@ class InventoryController extends Controller
             // echo "Product ID: {$product->id}, Current Stock: {$product->current_stock}, Average Price: {$product->average_price}\n";
         });
 
-
-        $createdByUsers = $products->sortBy('createdBy')->pluck('createdBy')->unique();
-        $updatedByUsers = $products->sortBy('updatedBy')->pluck('updatedBy')->unique();
         return view('back_end.techso.inventories.stock_valuation')->with(
             [
                 'head_name' => $this->head_name,
                 'route_name' => $this->route_name,
                 'products' => $products,
-                'createdByUsers' => $createdByUsers,
-                'updatedByUsers' => $updatedByUsers,
                 'i'
             ]
         );
