@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('local_name')->nullable();
             $table->string('type');
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('is_default')->nullable();
 
             $table->string('description')->nullable();
             $table->string('edit_description')->nullable();

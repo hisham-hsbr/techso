@@ -54,27 +54,27 @@
                     drop_icon="" />
             @endcan <!-- Dashboard Menu End -->
             <!-- profile Menu Start -->
-            @can('Profile Menu')
+            @can('User Profile Read')
                 <x-sidebar.sidebar-nav-level head="Profile" href="{{ route('profile.edit') }}" menu_open=""
                     active="{{ request()->is('admin/profile') ? 'active' : '' }}" menu_icon="fa fa-user" drop_icon="" />
             @endcan <!-- profile Menu End -->
-            @canany(['Developer Settings Read'])
+            @canany(['Developer Settings'])
                 <x-sidebar.sidebar-nav-header head="Developer Section" />
 
                 <!-- Developer Settings Start -->
-                @canany(['Developer Settings Read'])
+                @canany(['Developer Settings'])
                     <x-sidebar.sidebar-nav-level head="Developer Settings" href="#"
                         menu_open="{{ request()->is('developer/settings*') ? 'menu-open' : '' }}"
                         active="{{ request()->is('developer/settings/*') ? 'active' : '' }} {{ request()->is('developer/settings/*') ? 'active' : '' }}"
                         menu_icon="fa fa-cogs" drop_icon="fas fa-angle-left">
                         <!-- App Settings Menu Start -->
-                        @can('App Settings Read')
+                        @can('App Settings')
                             <x-sidebar.sidebar-nav-multi-level head="App Settings" href="{{ route('app-settings.index') }}"
                                 menu_open="" active="{{ request()->is('developer/settings/app-settings*') ? 'active' : '' }}"
                                 menu_icon="fa fa-wrench" drop_icon="" />
                         @endcan <!-- App Settings Menu End -->
                         <!-- Developer Settings Menu Start -->
-                        @can('Developer Settings Read')
+                        @can('Developer Settings')
                             <x-sidebar.sidebar-nav-multi-level head="Developer Settings"
                                 href="{{ route('developer-settings.index') }}" menu_open=""
                                 active="{{ request()->is('developer/settings/developer-settings*') ? 'active' : '' }}"

@@ -134,6 +134,56 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- ------------ --}}
+                            <div class="pb-4">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default">
+                                    Price Checker
+                                </button>
+                            </div>
+                            <div class="modal fade" id="modal-default">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Price Checker</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Placeholders for price and quantity -->
+                                            <div>
+                                                <p>Price: <span id="price">N/A</span></p>
+                                                <p>Quantity: <span id="quantity">N/A</span></p>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <select id="productSelect" class="form-control select2" required>
+                                                    <option selected>-- Products --</option>
+                                                    @foreach ($products as $product)
+                                                        <option value="{{ $product['id'] }}"
+                                                            data-price="{{ $product['average_cost'] }}"
+                                                            data-quantity="{{ $product['total_balance'] }}">
+                                                            {{ $product['name'] }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            {{-- ----------------- --}}
+
                             <div class="row">
                                 <div class="table-responsive-sm scrole-tree">
                                     <table class="table table-bordered" id="saleTable">
@@ -156,8 +206,10 @@
                                                         <select name="product_id[]" class="form-control select2" required>
                                                             <option disabled selected>-- Products --</option>
                                                             @foreach ($products as $product)
-                                                                <option value="{{ $product->id }}">
-                                                                    {{ $product->name }}
+                                                                <option value="{{ $product['id'] }}"
+                                                                    data-price="{{ $product['average_cost'] }}"
+                                                                    data-quantity="{{ $product['total_balance'] }}">
+                                                                    {{ $product['name'] }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -280,13 +332,16 @@
                 <td class="item-number">${itemIndex}</td>
                 <td>
                 <div class="form-group">
-                <select name="product_id[]" class="form-control select2">
-                <option disabled selected>-- Products --</option>
-                @foreach ($products as $product)
-                <option value="{{ $product->id }}">
-                {{ $product->name }}
-                 </option>
-                @endforeach
+                <select name="product_id[]" class="form-control select2"
+                    required>
+                    <option disabled selected>-- Products --</option>
+                    @foreach ($products as $product)
+                        <option value="{{ $product['id'] }}"
+                            data-price="{{ $product['average_cost'] }}"
+                            data-quantity="{{ $product['total_balance'] }}">
+                            {{ $product['name'] }}
+                        </option>
+                    @endforeach
                 </select>
                 </div>
                 </td>
@@ -342,6 +397,25 @@
 
         $("#tax, #discount").on("input", function() {
             updateTotal();
+        });
+    </script>
+
+    {{-- price checker --}}
+    <script>
+        $(document).ready(function() {
+            // Initialize Select2
+            $('#productSelect').select2();
+
+            // Handle change event
+            $('#productSelect').on('change', function() {
+                var selectedOption = $(this).find(':selected');
+                var price = selectedOption.data('price');
+                var quantity = selectedOption.data('quantity');
+
+                // Update the placeholders
+                $('#price').text(price);
+                $('#quantity').text(quantity);
+            });
         });
     </script>
 

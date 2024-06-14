@@ -32,16 +32,16 @@
                                         <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-default"
                                             href="{{ route('users.create') }}" button_icon="fa fa-cog" button_name="Settings" />
                                     @endcan {{-- User Settings End --}}
-                                    @can('User Table')
+                                    @can('User Read')
                                         <x-form.button button_type="" button_oneclick="Refresh()" button_class="btn btn-success"
                                             button_icon="fa fa-refresh" button_name="Refresh" />
-                                    @endcan {{-- User Table --}}
+                                    @endcan {{-- User Read --}}
                                 </x-layouts.div-clearfix>
-                                @can('User Table')
+                                @can('User Read')
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                @can('User Table')
+                                                @can('User Read')
                                                     <th>Sn</th>
                                                 @endcan
                                                 @can('User Read First Name')
@@ -111,7 +111,7 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                @can('User Table')
+                                                @can('User Read')
                                                     <th>Sn</th>
                                                 @endcan
                                                 @can('User Read First Name')
@@ -177,7 +177,7 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-                                @endcan {{-- User Table End --}}
+                                @endcan {{-- User Read End --}}
                             @endcan {{-- User Menu End --}}
                         </div>
                         <!-- /.card-body -->
@@ -238,19 +238,19 @@
 
                 // "buttons": ["excel", "pdf", "print", "colvis"],
                 buttons: [
-                    @can('User Table Export Excel')
+                    @can('User Read Export Excel')
                         'excel',
                     @endcan
-                    @can('User Table Export PDF')
+                    @can('User Read Export PDF')
                         'pdf',
                     @endcan
-                    @can('User Table Print')
+                    @can('User Read Print')
                         'print',
                     @endcan
-                    @can('User Table Copy')
+                    @can('User Read Copy')
                         'copy',
                     @endcan
-                    @can('User Table Column Visible')
+                    @can('User Read Column Visible')
                         'colvis',
                     @endcan
                 ],
@@ -271,7 +271,7 @@
                 ajax: '{!! route('users.get') !!}',
 
                 columns: [
-                    @can('User Table')
+                    @can('User Read')
                         {
                             data: 'id',
                             name: 'id',

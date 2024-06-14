@@ -156,6 +156,49 @@ class SaleRegisterController extends Controller
             ->get();
         $list_number = SaleRegister::max('sale_number') + 1;
         $editDays = auth()->user()->settings['sale_edit_days'];
+
+
+
+        // // Fetch products with their average cost
+        // $products = Product::with('transactions')
+        //     ->get()
+        //     ->map(function ($product) {
+        //         // Calculate average cost
+        //         $totalQuantity = $product->transactions->sum('received_quantity');
+        //         $totalCost = $product->transactions->sum(function ($transaction) {
+        //             return $transaction->received_quantity * $transaction->received_price;
+        //         });
+
+        //         $averageCost = $totalQuantity > 0 ? $totalCost / $totalQuantity : 0;
+
+        //         return [
+        //             'id' => $product->id,
+        //             'name' => $product->name,
+        //             'average_cost' => $averageCost,
+        //         ];
+        //     });
+
+        $products = Product::with('transactions')
+            ->get()
+            ->map(function ($product) {
+                $totalReceived = $product->transactions->sum('received_quantity');
+                $totalIssued = $product->transactions->sum('issued_quantity');
+                $totalReceivedCost = $product->transactions->sum(function ($transaction) {
+                    return $transaction->received_quantity * $transaction->received_price;
+                });
+
+                $averageCost = $totalReceived > 0 ? $totalReceivedCost / $totalReceived : 0;
+                $totalBalance = $totalReceived - $totalIssued;
+
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'average_cost' => $averageCost,
+                    'total_balance' => $totalBalance,
+                ];
+            });
+
+
         return view('back_end.techso.sale_registers.create')->with(
             [
                 'head_name' => $this->head_name,

@@ -18,7 +18,7 @@
 @section('actionTitle', 'Profile')
 @section('mainContent')
     <div class="container-fluid">
-        @can('User Menu')
+        @can('User Profile Read')
             <div class="row">
                 <div class="col-md-1">
 
@@ -301,15 +301,13 @@
                                             <label class="form-check-label" for="default_status">Default Status
                                                 (Active)</label>
                                         </div>
-                                        @can('User Create')
-                                            <div class="col-sm-4 pl-5 pt-2">
-                                                <input type="checkbox" class="form-check-input" name="default_time_zone"
-                                                    value="1" id="default_time_zone"
-                                                    @if (Auth::user()->settings['default_time_zone'] == 1) {{ 'checked' }} @endif />
-                                                <label class="form-check-label" for="default_time_zone">Default Time Zone
-                                                    (Current)</label>
-                                            </div>
-                                        @endcan
+                                        <div class="col-sm-4 pl-5 pt-2">
+                                            <input type="checkbox" class="form-check-input" name="default_time_zone"
+                                                value="1" id="default_time_zone"
+                                                @if (Auth::user()->settings['default_time_zone'] == 1) {{ 'checked' }} @endif />
+                                            <label class="form-check-label" for="default_time_zone">Default Time Zone
+                                                (Current)</label>
+                                        </div>
 
                                         <br>
                                         <br>
@@ -348,7 +346,7 @@
 
 
                         <div class="">
-                            @can('Profile Update')
+                            @can('User Profile Update')
                                 <button type="submit" class="btn btn-primary float-right ml-1">Update</button>
                             @endcan
                             <a type="button" href="{{ route('back-end.dashboard') }}"

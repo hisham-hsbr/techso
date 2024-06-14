@@ -19,7 +19,7 @@
 @section('actionTitle', 'Admin Settings')
 @section('mainContent')
     <div class="container-fluid">
-        @can('A Menu')
+        @can('Admin Settings')
             <div class="row">
 
                 <div class="col-md-12">
