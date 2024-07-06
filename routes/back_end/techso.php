@@ -184,8 +184,19 @@ Route::middleware('auth')->group(function () {
 
     //Inventory
     Route::controller('Techso\InventoryController')->prefix('/admin/techso/inventory')->name('inventories.')->group(function () {
+        Route::get('/fetch.data', 'fetchData')->name('fetch.data');
         Route::get('/stock-valuation', 'stockValuation')->name('stock.valuation');
         Route::get('/stock-ledger', 'stockLedger')->name('stock.ledger');
         Route::get('/stock-ledger-report', 'stockLedgerReport')->name('stock.ledger.report');
     });
+    //Financial
+    Route::controller('Techso\FinancialController')->prefix('/admin/techso/financial')->name('financial.')->group(function () {
+        Route::get('/ledgers', 'ledgerIndex')->name('ledger.index');
+        Route::get('/ledgers/create', 'ledgerCreate')->name('ledger.create');
+        Route::get('/stock-ledger', 'stockLedger')->name('stock.ledger');
+        Route::get('/stock-ledger-report', 'stockLedgerReport')->name('stock.ledger.report');
+    });
+
+
+    Route::get('/fetch.products', 'Techso\ProductController@fetchProducts')->name('fetch.products');
 });

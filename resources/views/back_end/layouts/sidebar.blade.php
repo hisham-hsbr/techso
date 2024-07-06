@@ -270,6 +270,63 @@
                             </x-sidebar.sidebar-nav-multi-level>
                         @endcanany
                         <!-- techso Inventory end -->
+                        <!-- techso financial Start -->
+                        @canany(['Ledger Read', 'Stock Reports Read'])
+                            <x-sidebar.sidebar-nav-multi-level head="financial" href="#"
+                                menu_open="{{ request()->is('admin/techso/financial*') ? 'menu-open' : '' }}"
+                                active="{{ request()->is('admin/techso/financial/*') ? 'active' : '' }}"
+                                menu_icon="fa-solid fa-coins" drop_icon="fas fa-angle-left">
+
+                                <x-sidebar.sidebar-nav-multi-level head="Transection" href="#"
+                                    menu_open="{{ request()->is('admin/techso/financial*') ? 'menu-open' : '' }}"
+                                    active="{{ request()->is('admin/techso/financial/*') ? 'active' : '' }}"
+                                    menu_icon="fa-solid fa-down-left-and-up-right-to-center" drop_icon="fas fa-angle-left">
+
+                                    <x-sidebar.sidebar-nav-multi-level head="Cash and Bank" href="#"
+                                        menu_open="{{ request()->is('admin/techso/financial*') ? 'menu-open' : '' }}"
+                                        active="{{ request()->is('admin/techso/financial/*') ? 'active' : '' }}"
+                                        menu_icon="fa-solid fa-money-bills" drop_icon="fas fa-angle-left">
+
+                                        @can('Receipts Read')
+                                            <x-sidebar.sidebar-nav-multi-level head="Receipts"
+                                                href="{{ route('inventories.stock.valuation') }}" menu_open=""
+                                                active="{{ request()->is('admin/techso/financial/stock-valuation*') ? 'active' : '' }}"
+                                                menu_icon="fa-solid fa-receipt" drop_icon="" />
+                                        @endcan
+                                        @can('Cash Payment Read')
+                                            <x-sidebar.sidebar-nav-multi-level head="Cash Payment"
+                                                href="{{ route('inventories.stock.ledger') }}" menu_open=""
+                                                active="{{ request()->is('admin/techso/financial/stock-ledger*') ? 'active' : '' }}"
+                                                menu_icon="fa-solid fa-money-bill-wave" drop_icon="" />
+                                        @endcan
+                                    </x-sidebar.sidebar-nav-multi-level>
+
+                                    {{-- @can('Ledger Read')
+                                        <x-sidebar.sidebar-nav-multi-level head="Ledger"
+                                            href="{{ route('inventories.stock.valuation') }}" menu_open=""
+                                            active="{{ request()->is('admin/techso/financial/stock-valuation*') ? 'active' : '' }}"
+                                            menu_icon="fa-solid fa-file-invoice-dollar" drop_icon="" />
+                                    @endcan --}}
+                                    @can('Stock Reports Read')
+                                        <x-sidebar.sidebar-nav-multi-level head="Stock Ledger"
+                                            href="{{ route('inventories.stock.ledger') }}" menu_open=""
+                                            active="{{ request()->is('admin/techso/financial/stock-ledger*') ? 'active' : '' }}"
+                                            menu_icon="fa fa-asterisk" drop_icon="" />
+                                    @endcan
+                                </x-sidebar.sidebar-nav-multi-level>
+
+
+
+
+                                @can('Ledger Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Ledger"
+                                        href="{{ route('inventories.stock.valuation') }}" menu_open=""
+                                        active="{{ request()->is('admin/techso/financial/stock-valuation*') ? 'active' : '' }}"
+                                        menu_icon="fa-solid fa-file-invoice-dollar" drop_icon="" />
+                                @endcan
+                            </x-sidebar.sidebar-nav-multi-level>
+                        @endcanany
+                        <!-- techso financial end -->
 
                     </x-sidebar.sidebar-nav-level>
                 @endcanany

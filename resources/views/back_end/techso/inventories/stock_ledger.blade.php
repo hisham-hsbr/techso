@@ -10,10 +10,26 @@
 @endsection
 
 @section('headLinks')
-    <x-links.header-links-dataTable />
+    <x-links.header-links-datatable />
     <x-links.header-links-select-two />
-    <!-- date-range-picker -->
-    <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <x-links.header-link-date-range-picker />
+
+
+    <style>
+        .spin {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 
 @endsection
 
@@ -64,15 +80,8 @@
                                                             class="col-sm-2 col-form-label required">Product</label>
                                                         <select class="form-control float-right select2" name="product_id"
                                                             id="product_id">
-                                                            <option disabled selected>-- Select Product --</option>
-                                                            @foreach ($products as $product)
-                                                                <option
-                                                                    {{ old('product_id') == $product->id ? 'selected' : '' }}
-                                                                    value="{{ $product->id }}">
-                                                                    {{ $product->name }}
-                                                                </option>
-                                                            @endforeach
                                                         </select>
+                                                        <i id="reload-button" class="fas fa-sync fa-3x pl-1"></i>
                                                     </div>
                                                     <div class="form-group input-group mt-2">
                                                         <label for="layout_id"
@@ -119,14 +128,16 @@
     <x-message.message />
     <x-message.table-update />
     <x-links.footer-link-select-two />
-
-    <x-links.footer-links-dataTable />
-
-    <!-- date-range-picker -->
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
+    <x-links.footer-links-datatable />
     <x-links.footer-link-jquery-validation />
+    <x-links.footer-link-date-range-picker />
+    <x-fetch.fetch-products-with-button />
+    <x-script.reload />
+
+
+
+
+
 
     <script>
         $(function() {
@@ -230,19 +241,5 @@
             });
         });
     </script>
-
-
-
-    <script>
-        $(function() {
-
-            //Date range picker
-            $("#date_range").daterangepicker();
-
-        });
-    </script>
-
-
-
 
 @endsection

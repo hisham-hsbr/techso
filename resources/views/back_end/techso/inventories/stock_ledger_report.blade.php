@@ -72,7 +72,10 @@
                                     @can('Job Type Table')
                                         <div class="container-fluid">
                                             <h4 class="text-center display-7">Product : {{ $products->name }}</h4>
-                                            <h6 class="text-center display-10">({{ $dateRange }})</h6>
+                                            {{-- <h6 class="text-center display-10">({{ $dateRange }})</h6> --}}
+                                            <h6 class="text-center display-10">
+                                                ({{ $formattedStartDate }} to {{ $formattedEndDate }})
+                                            </h6>
                                         </div>
 
                                         <table class="table table-bordered table-striped" id="example1"
@@ -100,7 +103,7 @@
                                                         <td>{{ $inventory->document_number }}</td>
                                                         <td>{{ $inventory->VoucherType->name }}</td>
                                                         <td>
-                                                            {{ Carbon\Carbon::parse($inventory->date)->format('m-M-Y') }}</td>
+                                                            {{ Carbon\Carbon::parse($inventory->date)->format('d-M-Y') }}</td>
                                                         <td style="text-align: right;">{{ $inventory->received_quantity }}</td>
                                                         <td style="text-align: right;">{{ $inventory->received_price }}</td>
                                                         <td style="text-align: right;">{{ $inventory->issued_quantity }}</td>

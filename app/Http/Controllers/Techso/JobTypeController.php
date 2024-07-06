@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Techso;
 
 use Illuminate\Http\Request;
-use App\Imports\JobTypeImport;
-use App\Models\Techso\JobType;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\JobTypeImport;
+use App\Models\Techso\JobType;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class JobTypeController extends Controller
 {

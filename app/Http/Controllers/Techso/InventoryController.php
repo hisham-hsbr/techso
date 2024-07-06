@@ -43,6 +43,12 @@ class InventoryController extends Controller
             ]
         );
     }
+
+    // public function fetchData()
+    // {
+    //     $data = Product::all(); // Replace YourModel with your actual model
+    //     return response()->json($data);
+    // }
     public function stockLedgerReport(Request $request)
     {
 
@@ -54,6 +60,16 @@ class InventoryController extends Controller
         list($startDate, $endDate) = explode(' - ', $dateRange);
         $startDate = Carbon::parse($startDate);
         $endDate = Carbon::parse($endDate);
+
+        // Define the desired date format
+        $format = 'd-M-Y';
+
+        // Format the dates
+        $formattedStartDate = $startDate->format($format);
+        $formattedEndDate = $endDate->format($format);
+
+
+
         $inventories = ProductTransaction::where('product_id', $request->product_id)
             ->whereBetween('date', [$startDate, $endDate])->get();
 
@@ -97,6 +113,8 @@ class InventoryController extends Controller
                 'route_name' => $this->route_name,
                 'products' => $products,
                 'dateRange' => $dateRange,
+                'formattedStartDate' => $formattedStartDate,
+                'formattedEndDate' => $formattedEndDate,
                 'inventories' => $inventories,
                 'voucher_types' => $voucher_types,
                 'document_numbers' => $document_numbers,

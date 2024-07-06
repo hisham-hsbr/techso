@@ -46,6 +46,12 @@ class ProductController extends Controller
         );
     }
 
+    public function fetchProducts()
+    {
+        $products = Product::all(); // Replace YourModel with your actual model
+        return response()->json($products);
+    }
+
 
     public function productsGet()
     {

@@ -27,10 +27,10 @@ class RouteServiceProvider extends ServiceProvider
     {
 
         //for view sharing from DB
-        $run_seeder_disable=env('RUN_SEEDER_DISABLE');
+        $run_seeder_disable = env('RUN_SEEDER_DISABLE');
 
-        if($run_seeder_disable=='Y'){
-            require __DIR__.'/view_share.php';
+        if ($run_seeder_disable == 'Y') {
+            require __DIR__ . '/view_share.php';
         }
 
 
