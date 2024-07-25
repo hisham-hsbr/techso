@@ -33,7 +33,8 @@ class UserController extends Controller
 
     public function index()
     {
-        if (Auth::user()->hasRole('Developer')) {
+        $user = Auth::user();
+        if ($user->hasRole('Developer')) {
             $users = User::all();
         } else {
             $users = User::where('id', '>', 2)->get();

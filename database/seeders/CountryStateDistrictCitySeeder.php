@@ -15,6 +15,9 @@ class CountryStateDistrictCitySeeder extends Seeder
     {
         CountryStateDistrictCity::create(['country' => 'India' , 'state' => 'Kerala' , 'district' => 'Alappuzha' , 'city' => 'Kidangara BO' , 'zip_code' => '686102' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
         CountryStateDistrictCity::create(['country' => 'India' , 'state' => 'Kerala' , 'district' => 'Alappuzha' , 'city' => 'Kunnamkary BO' , 'zip_code' => '686102' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        $run_test_seeder_disable = env('RUN_TEST_SEEDER_DISABLE');
+
+        if ($run_test_seeder_disable == 'Y') {
         CountryStateDistrictCity::create(['country' => 'India' , 'state' => 'Kerala' , 'district' => 'Alappuzha' , 'city' => 'Kumarankary BO' , 'zip_code' => '686103' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
         CountryStateDistrictCity::create(['country' => 'India' , 'state' => 'Kerala' , 'district' => 'Alappuzha' , 'city' => 'Eara North BO' , 'zip_code' => '686534' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
         CountryStateDistrictCity::create(['country' => 'India' , 'state' => 'Kerala' , 'district' => 'Alappuzha' , 'city' => 'Kainady BO' , 'zip_code' => '686534' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
@@ -5100,4 +5103,5 @@ class CountryStateDistrictCitySeeder extends Seeder
         CountryStateDistrictCity::create(['country' => 'India' , 'state' => 'Kerala' , 'district' => 'Wayanad' , 'city' => 'Vala Vayal BO' , 'zip_code' => '673596' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
         CountryStateDistrictCity::create(['country' => 'India' , 'state' => 'Kerala' , 'district' => 'Wayanad' , 'city' => 'Kaniyambetta BO' , 'zip_code' => '673613' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
     }
+}
 }

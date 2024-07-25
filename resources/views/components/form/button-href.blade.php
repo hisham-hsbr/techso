@@ -1,5 +1,5 @@
 @props(['button_type', 'button_oneclick', 'button_icon', 'button_name', 'href', 'button_class'])
-<a type="{{ $button_type }}" onClick="{{ $button_oneclick }}" class="{{ $button_class }} float-right ml-1 mb-1"
+<a " onClick="{{ $button_oneclick }}" class="{{ $button_class }} float-right ml-1 mb-1"
     href="{{ $href }}">
     <i class="{{ $button_icon }}" aria-hidden="true"></i> {{ $button_name }}
 </a>
