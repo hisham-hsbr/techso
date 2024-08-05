@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Spatie\Activitylog\Contracts\Activity as ActivityContract;
+use App\Models\TimeZone;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Models\User;
 
 /**
  * Spatie\Activitylog\Models\Activity.
@@ -48,11 +52,11 @@ class Activity extends Model implements ActivityContract
 
     public function __construct(array $attributes = [])
     {
-        if (! isset($this->connection)) {
+        if (!isset($this->connection)) {
             $this->setConnection(config('activitylog.database_connection'));
         }
 
-        if (! isset($this->table)) {
+        if (!isset($this->table)) {
             $this->setTable(config('activitylog.table_name'));
         }
 
@@ -80,7 +84,7 @@ class Activity extends Model implements ActivityContract
 
     public function changes(): Collection
     {
-        if (! $this->properties instanceof Collection) {
+        if (!$this->properties instanceof Collection) {
             return new Collection();
         }
 
@@ -128,5 +132,38 @@ class Activity extends Model implements ActivityContract
     public function scopeForBatch(Builder $query, string $batchUuid): Builder
     {
         return $query->where('batch_uuid', $batchUuid);
+    }
+
+    // --------
+
+    public function activityUser()
+    {
+        return $this->belongsTo(User::class, 'causer_id');
+    }
+    public function getCreatedAtAttribute()
+    {
+        $time_zone = Auth::user()->timeZone->time_zone;
+        return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
+    }
+
+    public function getUpdatedAtAttribute()
+    {
+        $time_zone = Auth::user()->timeZone->time_zone;
+        return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
+
+    public function timeZone()
+    {
+        return $this->belongsTo(TimeZone::class, 'time_zone_id', 'id');
     }
 }

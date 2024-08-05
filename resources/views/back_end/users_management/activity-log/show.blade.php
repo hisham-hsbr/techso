@@ -34,7 +34,7 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         <div class="card-body">
-                            <div style="border-style: groove;" class="form-group row p-3">
+                            <div style="border-style: groove;" class="p-3 form-group row">
                                 <div class="col-sm-6">
                                     <label class="col-sm-4">Log Name</label>
                                     <label><code>: {{ $activityLog->log_name }}</code></label>
@@ -75,7 +75,7 @@
                                 </div>
 
                                 @foreach ($activityLog->properties as $key => $value)
-                                    <div class="col-md-6 pt-2">
+                                    <div class="pt-2 col-md-6">
                                         <table class="table table-bordered">
 
                                             <thead>
@@ -110,7 +110,7 @@
                     <!-- /.card-body -->
                     <div class="">
                         <a type="button" href="{{ route('activityLogs.index') }}"
-                            class="btn btn-warning float-right ml-1">Back</a>
+                            class="float-right ml-1 btn btn-warning">Back</a>
                     </div>
                     <!-- /.card-footer -->
 

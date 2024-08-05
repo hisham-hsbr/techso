@@ -17,6 +17,10 @@
 @section('mainContent')
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
+        <p>@lang('my.app_name')</p><br>
+        <p>@lang('my.dashboard')</p><br>
+        <p>Current Language: {{ App::getLocale() }}</p>
+
         <div class="row">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
@@ -54,7 +58,7 @@
                     <div class="inner">
                         <h3 id="userc">{{ $users->count() }}</h3>
 
-                        <a class="btn btn-secondary float-right ml-1">
+                        <a class="float-right ml-1 btn btn-secondary">
                             <i type="button" onClick="Refresh()" class="fa fa-refresh" aria-hidden="true"></i>
                             Refresh
                         </a>
@@ -93,11 +97,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <i class="fas fa-chart-pie mr-1"></i>
+                            <i class="mr-1 fas fa-chart-pie"></i>
                             Sales
                         </h3>
                         <div class="card-tools">
-                            <ul class="nav nav-pills ml-auto">
+                            <ul class="ml-auto nav nav-pills">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
                                 </li>
@@ -108,7 +112,7 @@
                         </div>
                     </div><!-- /.card-header -->
                     <div class="card-body">
-                        <div class="tab-content p-0">
+                        <div class="p-0 tab-content">
                             <!-- Morris chart - Sales -->
                             <div class="chart tab-pane active" id="revenue-chart"
                                 style="position: relative; height: 300px;">
@@ -146,9 +150,9 @@
                         <div class="direct-chat-messages">
                             <!-- Message. Default to the left -->
                             <div class="direct-chat-msg">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-left">Alexander Pierce</span>
-                                    <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                <div class="clearfix direct-chat-infos">
+                                    <span class="float-left direct-chat-name">Alexander Pierce</span>
+                                    <span class="float-right direct-chat-timestamp">23 Jan 2:00 pm</span>
                                 </div>
                                 <!-- /.direct-chat-infos -->
                                 <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
@@ -162,9 +166,9 @@
 
                             <!-- Message to the right -->
                             <div class="direct-chat-msg right">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-right">Sarah Bullock</span>
-                                    <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                                <div class="clearfix direct-chat-infos">
+                                    <span class="float-right direct-chat-name">Sarah Bullock</span>
+                                    <span class="float-left direct-chat-timestamp">23 Jan 2:05 pm</span>
                                 </div>
                                 <!-- /.direct-chat-infos -->
                                 <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
@@ -178,9 +182,9 @@
 
                             <!-- Message. Default to the left -->
                             <div class="direct-chat-msg">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-left">Alexander Pierce</span>
-                                    <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
+                                <div class="clearfix direct-chat-infos">
+                                    <span class="float-left direct-chat-name">Alexander Pierce</span>
+                                    <span class="float-right direct-chat-timestamp">23 Jan 5:37 pm</span>
                                 </div>
                                 <!-- /.direct-chat-infos -->
                                 <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
@@ -194,9 +198,9 @@
 
                             <!-- Message to the right -->
                             <div class="direct-chat-msg right">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-right">Sarah Bullock</span>
-                                    <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
+                                <div class="clearfix direct-chat-infos">
+                                    <span class="float-right direct-chat-name">Sarah Bullock</span>
+                                    <span class="float-left direct-chat-timestamp">23 Jan 6:10 pm</span>
                                 </div>
                                 <!-- /.direct-chat-infos -->
                                 <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
@@ -222,7 +226,7 @@
                                         <div class="contacts-list-info">
                                             <span class="contacts-list-name">
                                                 Count Dracula
-                                                <small class="contacts-list-date float-right">2/28/2015</small>
+                                                <small class="float-right contacts-list-date">2/28/2015</small>
                                             </span>
                                             <span class="contacts-list-msg">How have you been? I was...</span>
                                         </div>
@@ -238,7 +242,7 @@
                                         <div class="contacts-list-info">
                                             <span class="contacts-list-name">
                                                 Sarah Doe
-                                                <small class="contacts-list-date float-right">2/23/2015</small>
+                                                <small class="float-right contacts-list-date">2/23/2015</small>
                                             </span>
                                             <span class="contacts-list-msg">I will be waiting for...</span>
                                         </div>
@@ -254,7 +258,7 @@
                                         <div class="contacts-list-info">
                                             <span class="contacts-list-name">
                                                 Nadia Jolie
-                                                <small class="contacts-list-date float-right">2/20/2015</small>
+                                                <small class="float-right contacts-list-date">2/20/2015</small>
                                             </span>
                                             <span class="contacts-list-msg">I'll call you back at...</span>
                                         </div>
@@ -270,7 +274,7 @@
                                         <div class="contacts-list-info">
                                             <span class="contacts-list-name">
                                                 Nora S. Vans
-                                                <small class="contacts-list-date float-right">2/10/2015</small>
+                                                <small class="float-right contacts-list-date">2/10/2015</small>
                                             </span>
                                             <span class="contacts-list-msg">Where is your new...</span>
                                         </div>
@@ -286,7 +290,7 @@
                                         <div class="contacts-list-info">
                                             <span class="contacts-list-name">
                                                 John K.
-                                                <small class="contacts-list-date float-right">1/27/2015</small>
+                                                <small class="float-right contacts-list-date">1/27/2015</small>
                                             </span>
                                             <span class="contacts-list-msg">Can I take a look at...</span>
                                         </div>
@@ -302,7 +306,7 @@
                                         <div class="contacts-list-info">
                                             <span class="contacts-list-name">
                                                 Kenneth M.
-                                                <small class="contacts-list-date float-right">1/4/2015</small>
+                                                <small class="float-right contacts-list-date">1/4/2015</small>
                                             </span>
                                             <span class="contacts-list-msg">Never mind I found...</span>
                                         </div>
@@ -335,7 +339,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <i class="ion ion-clipboard mr-1"></i>
+                            <i class="mr-1 ion ion-clipboard"></i>
                             To Do List
                         </h3>
 
@@ -359,7 +363,7 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </span>
                                 <!-- checkbox -->
-                                <div class="icheck-primary d-inline ml-2">
+                                <div class="ml-2 icheck-primary d-inline">
                                     <input type="checkbox" value="" name="todo1" id="todoCheck1">
                                     <label for="todoCheck1"></label>
                                 </div>
@@ -378,7 +382,7 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                     <i class="fas fa-ellipsis-v"></i>
                                 </span>
-                                <div class="icheck-primary d-inline ml-2">
+                                <div class="ml-2 icheck-primary d-inline">
                                     <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
                                     <label for="todoCheck2"></label>
                                 </div>
@@ -394,7 +398,7 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                     <i class="fas fa-ellipsis-v"></i>
                                 </span>
-                                <div class="icheck-primary d-inline ml-2">
+                                <div class="ml-2 icheck-primary d-inline">
                                     <input type="checkbox" value="" name="todo3" id="todoCheck3">
                                     <label for="todoCheck3"></label>
                                 </div>
@@ -410,7 +414,7 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                     <i class="fas fa-ellipsis-v"></i>
                                 </span>
-                                <div class="icheck-primary d-inline ml-2">
+                                <div class="ml-2 icheck-primary d-inline">
                                     <input type="checkbox" value="" name="todo4" id="todoCheck4">
                                     <label for="todoCheck4"></label>
                                 </div>
@@ -426,7 +430,7 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                     <i class="fas fa-ellipsis-v"></i>
                                 </span>
-                                <div class="icheck-primary d-inline ml-2">
+                                <div class="ml-2 icheck-primary d-inline">
                                     <input type="checkbox" value="" name="todo5" id="todoCheck5">
                                     <label for="todoCheck5"></label>
                                 </div>
@@ -442,7 +446,7 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                     <i class="fas fa-ellipsis-v"></i>
                                 </span>
-                                <div class="icheck-primary d-inline ml-2">
+                                <div class="ml-2 icheck-primary d-inline">
                                     <input type="checkbox" value="" name="todo6" id="todoCheck6">
                                     <label for="todoCheck6"></label>
                                 </div>
@@ -456,8 +460,8 @@
                         </ul>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer clearfix">
-                        <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add
+                    <div class="clearfix card-footer">
+                        <button type="button" class="float-right btn btn-primary"><i class="fas fa-plus"></i> Add
                             item</button>
                     </div>
                 </div>
@@ -469,9 +473,9 @@
 
                 <!-- Map card -->
                 <div class="card bg-gradient-primary">
-                    <div class="card-header border-0">
+                    <div class="border-0 card-header">
                         <h3 class="card-title">
-                            <i class="fas fa-map-marker-alt mr-1"></i>
+                            <i class="mr-1 fas fa-map-marker-alt"></i>
                             Visitors
                         </h3>
                         <!-- card tools -->
@@ -490,19 +494,19 @@
                         <div id="world-map" style="height: 250px; width: 100%;"></div>
                     </div>
                     <!-- /.card-body-->
-                    <div class="card-footer bg-transparent">
+                    <div class="bg-transparent card-footer">
                         <div class="row">
-                            <div class="col-4 text-center">
+                            <div class="text-center col-4">
                                 <div id="sparkline-1"></div>
                                 <div class="text-white">Visitors</div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-4 text-center">
+                            <div class="text-center col-4">
                                 <div id="sparkline-2"></div>
                                 <div class="text-white">Online</div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-4 text-center">
+                            <div class="text-center col-4">
                                 <div id="sparkline-3"></div>
                                 <div class="text-white">Sales</div>
                             </div>
@@ -515,9 +519,9 @@
 
                 <!-- solid sales graph -->
                 <div class="card bg-gradient-info">
-                    <div class="card-header border-0">
+                    <div class="border-0 card-header">
                         <h3 class="card-title">
-                            <i class="fas fa-th mr-1"></i>
+                            <i class="mr-1 fas fa-th"></i>
                             Sales Graph
                         </h3>
 
@@ -535,23 +539,23 @@
                             style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer bg-transparent">
+                    <div class="bg-transparent card-footer">
                         <div class="row">
-                            <div class="col-4 text-center">
+                            <div class="text-center col-4">
                                 <input type="text" class="knob" data-readonly="true" value="20"
                                     data-width="60" data-height="60" data-fgColor="#39CCCC">
 
                                 <div class="text-white">Mail-Orders</div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-4 text-center">
+                            <div class="text-center col-4">
                                 <input type="text" class="knob" data-readonly="true" value="50"
                                     data-width="60" data-height="60" data-fgColor="#39CCCC">
 
                                 <div class="text-white">Online</div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-4 text-center">
+                            <div class="text-center col-4">
                                 <input type="text" class="knob" data-readonly="true" value="30"
                                     data-width="60" data-height="60" data-fgColor="#39CCCC">
 
@@ -567,7 +571,7 @@
 
                 <!-- Calendar -->
                 <div class="card bg-gradient-success">
-                    <div class="card-header border-0">
+                    <div class="border-0 card-header">
 
                         <h3 class="card-title">
                             <i class="far fa-calendar-alt"></i>
@@ -598,7 +602,7 @@
                         <!-- /. tools -->
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body pt-0">
+                    <div class="pt-0 card-body">
                         <!--The calendar -->
                         <div id="calendar" style="width: 100%"></div>
                     </div>

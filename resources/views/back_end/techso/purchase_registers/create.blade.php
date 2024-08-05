@@ -374,7 +374,7 @@
                 var selectedDate = new Date(value);
                 var today = new Date();
                 var minDate = new Date();
-                minDate.setDate(today.getDate() - editDays);
+                minDate.setDate(today.getDate() - editDays);jinu
 
                 return this.optional(element) || selectedDate >= minDate;
             }, "Your Editing permitted only 7 days.");
