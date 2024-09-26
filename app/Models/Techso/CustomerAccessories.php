@@ -13,52 +13,63 @@ class CustomerAccessories extends Model
 {
     use HasFactory, LogsActivity;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'status'
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
-        $useLogName='CustomerAccessories';
-        $run_seeder_disable=env('RUN_SEEDER_DISABLE');
+        $useLogName = 'CustomerAccessories';
+        $run_seeder_disable = env('RUN_SEEDER_DISABLE');
 
-        if($run_seeder_disable=='Y'){
+        if ($run_seeder_disable == 'Y') {
 
             return LogOptions::defaults()
-            ->logOnly(['name','local_name','description','status','created_at','updated_at'])
-            ->setDescriptionForEvent(fn(string $eventName) => "$useLogName {$eventName}")
-            ->useLogName($useLogName)
-            ->logOnlyDirty();
+                ->logOnly(['name', 'local_name', 'description', 'status', 'created_at', 'updated_at'])
+                ->setDescriptionForEvent(fn(string $eventName) => "$useLogName {$eventName}")
+                ->useLogName($useLogName)
+                ->logOnlyDirty();
         }
-        if($run_seeder_disable=='N'){
+        if ($run_seeder_disable == 'N') {
 
             return LogOptions::defaults()
-            ->logOnly(['code','name'])
-            ->setDescriptionForEvent(fn(string $eventName) => "$useLogName {$eventName}")
-            ->useLogName($useLogName)
-            ->logOnlyDirty();
+                ->logOnly(['code', 'name'])
+                ->setDescriptionForEvent(fn(string $eventName) => "$useLogName {$eventName}")
+                ->useLogName($useLogName)
+                ->logOnlyDirty();
         }
     }
 
     public function getCreatedAtAttribute()
     {
-        $time_zone = Auth::user()->timeZone->time_zone;
-        return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
+
+        if (Auth::check() && Auth::user()->timeZone) {
+            $time_zone = Auth::user()->timeZone->time_zone;
+            return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
+        }
+
+        // Fallback if the user is not authenticated or timeZone is null
+        return $this->attributes['created_at'];
     }
 
     public function getUpdatedAtAttribute()
     {
-        $time_zone = Auth::user()->timeZone->time_zone;
-        return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
+        if (Auth::check() && Auth::user()->timeZone) {
+            $time_zone = Auth::user()->timeZone->time_zone;
+            return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
+        }
+
+        // Fallback if the user is not authenticated or timeZone is null
+        return $this->attributes['created_at'];
     }
 
-     public function createdBy()
+    public function createdBy()
     {
-        return $this->belongsTo('App\Models\User','created_by','id');
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User','updated_by','id');
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
 }
