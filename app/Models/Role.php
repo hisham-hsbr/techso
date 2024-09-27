@@ -6,11 +6,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+
 class Role extends Model
 {
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'status'
     ];
@@ -20,22 +21,33 @@ class Role extends Model
 
     public function getCreatedAtAttribute()
     {
-        $time_zone = Auth::user()->timeZone->time_zone;
-        return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
+
+        if (Auth::check() && Auth::user()->timeZone) {
+            $time_zone = Auth::user()->timeZone->time_zone;
+            return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
+        }
+
+        // Fallback if the user is not authenticated or timeZone is null
+        return $this->attributes['created_at'];
     }
 
     public function getUpdatedAtAttribute()
     {
-        $time_zone = Auth::user()->timeZone->time_zone;
-        return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
+        if (Auth::check() && Auth::user()->timeZone) {
+            $time_zone = Auth::user()->timeZone->time_zone;
+            return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
+        }
+
+        // Fallback if the user is not authenticated or timeZone is null
+        return $this->attributes['created_at'];
     }
 
     public function createdBy()
     {
-        return $this->belongsTo(User::class,'created_by','id');
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
     public function updatedBy()
     {
-        return $this->belongsTo(User::class,'updated_by','id');
+        return $this->belongsTo(User::class, 'updated_by', 'id');
     }
 }

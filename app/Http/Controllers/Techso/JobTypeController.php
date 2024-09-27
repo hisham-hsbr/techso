@@ -171,11 +171,13 @@ class JobTypeController extends Controller
         if ($request->default == 0) {
             $job_type->default == 0;
         } else {
-            $default = (DB::table('job_types')->where('default', 1)->first())->id;
-
-            $update_default = JobType::find($default);
-            $update_default->default = null;
-            $update_default->update();
+            $old_default_id = DB::table('job_types')->where('default', 1)->first();
+            if ($old_default_id == 1) {
+                $default = (DB::table('job_types')->where('default', 1)->first())->id;
+                $update_default = JobType::find($default);
+                $update_default->default = null;
+                $update_default->update();
+            }
         }
 
         $job_type->default = $request->default;

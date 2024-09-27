@@ -87,17 +87,27 @@ implements MustVerifyEmail
         'settings' => '{"personal_settings":"1","card_header":1,"card_footer":1, "sidebar_collapse":null,"dark_mode":null,"default_status":1,"default_time_zone":1,"permission_view":"list","purchase_edit_days":1,"sale_edit_days":1}'
     ];
 
-
     public function getCreatedAtAttribute()
     {
-        $time_zone = Auth::user()->timeZone->time_zone;
-        return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
+
+        if (Auth::check() && Auth::user()->timeZone) {
+            $time_zone = Auth::user()->timeZone->time_zone;
+            return Carbon::parse($this->attributes['created_at'])->setTimezone($time_zone);
+        }
+
+        // Fallback if the user is not authenticated or timeZone is null
+        return $this->attributes['created_at'];
     }
 
     public function getUpdatedAtAttribute()
     {
-        $time_zone = Auth::user()->timeZone->time_zone;
-        return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
+        if (Auth::check() && Auth::user()->timeZone) {
+            $time_zone = Auth::user()->timeZone->time_zone;
+            return Carbon::parse($this->attributes['updated_at'])->setTimezone($time_zone);
+        }
+
+        // Fallback if the user is not authenticated or timeZone is null
+        return $this->attributes['created_at'];
     }
 
     public function createdBy()
