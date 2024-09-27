@@ -41,7 +41,7 @@ implements MustVerifyEmail
                 ->logOnly(['name', 'last_name', 'dob', 'phone1', 'phone2', 'gender', 'avatar', 'email', 'status', 'blood.name', 'cityName.city', 'timeZone.time_zone', 'created_at', 'updated_at'])
                 // Chain fluent methods for configuration options
 
-                ->setDescriptionForEvent(fn (string $eventName) => "This User has been {$eventName}")
+                ->setDescriptionForEvent(fn(string $eventName) => "This User has been {$eventName}")
                 ->useLogName('User')
                 // ->dontLogIfAttributesChangedOnly(['email']) //By default the updated_at attribute is not ignored and will trigger an activity being logged
                 ->logOnlyDirty();
@@ -52,7 +52,7 @@ implements MustVerifyEmail
                 ->logOnly(['name'])
                 // Chain fluent methods for configuration options
 
-                ->setDescriptionForEvent(fn (string $eventName) => "This User has been {$eventName}")
+                ->setDescriptionForEvent(fn(string $eventName) => "This User has been {$eventName}")
                 ->useLogName('User')
                 // ->dontLogIfAttributesChangedOnly(['email']) //By default the updated_at attribute is not ignored and will trigger an activity being logged
                 ->logOnlyDirty();
