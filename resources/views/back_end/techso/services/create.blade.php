@@ -60,7 +60,7 @@
 
 
                                 <div class="form-group col-sm-4">
-                                    <label for="customer_id" class="required col-form-label">Customer <a
+                                    <label for="customer_id" class="required col-form-label">Customer Name Select<a
                                             href="{{ route('customers.create') }}" target="_blank">Add</a></label>
                                     <select class="form-control select2" name="customer_id" id="customer_idsss">
                                         <option disabled selected>-- Select Customer --</option>
@@ -238,7 +238,7 @@
 
                 <div class="card-body">
                     <!-- /.card-header -->
-                    <div class="col-sm-10 pl-5 pt-2">
+                    <div class="pt-2 pl-5 col-sm-10">
                         <input type="checkbox" class="form-check-input" name="status" value="1" id="status"
                             @if (Auth::user()->settings['default_status'] == 1) {{ 'checked' }} @endif />
                         <label class="form-check-label" for="status">Active</label>
@@ -247,9 +247,9 @@
                 <!-- /.card-body -->
                 <div class="">
                     @can('Service Create')
-                        <button type="submit" class="btn btn-primary float-right ml-1">Save</button>
+                        <button type="submit" class="float-right ml-1 btn btn-primary">Save</button>
                     @endcan
-                    <a type="button" href="{{ route('services.index') }}" class="btn btn-warning float-right ml-1">Back</a>
+                    <a type="button" href="{{ route('services.index') }}" class="float-right ml-1 btn btn-warning">Back</a>
                 </div>
                 <!-- /.card-footer -->
                 </form>
