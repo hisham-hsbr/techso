@@ -267,20 +267,33 @@ class ServiceController extends Controller
     public function create()
     {
         $job_number = Service::max('job_number') + 1;
-        $customers = Customer::where('status', 1)->get();
-        $Services = JobType::where('status', 1)->get();
         $products = Product::where('status', 1)->get();
-        $complaints = Complaint::where('status', 1)->get();
-        $work_statuses = WorkStatus::where('status', 1)->get();
-        $job_statuses = JobStatus::where('status', 1)->get();
-        $customer_accessories = CustomerAccessories::where('status', 1)->get();
+
+        $customers = Customer::where('status', 1)
+            ->select('id', 'name', 'phone_1', 'contact_name', 'default')
+            ->get();
+        $job_types = JobType::where('status', 1)
+            ->select('id', 'name', 'default')
+            ->get();
+        $complaints = Complaint::where('status', 1)
+            ->select('id', 'name', 'default')
+            ->get();
+        $work_statuses = WorkStatus::where('status', 1)
+            ->select('id', 'name', 'default')
+            ->get();
+        $job_statuses = JobStatus::where('status', 1)
+            ->select('id', 'name', 'default')
+            ->get();
+        $customer_accessories = CustomerAccessories::where('status', 1)
+            ->select('id', 'name', 'default')
+            ->get();
         return view('back_end.techso.services.create')->with(
             [
                 'head_name' => $this->head_name,
                 'route_name' => $this->route_name,
                 'job_number' => $job_number,
                 'customers' => $customers,
-                'job_types' => $Services,
+                'job_types' => $job_types,
                 'products' => $products,
                 'complaints' => $complaints,
                 'work_statuses' => $work_statuses,

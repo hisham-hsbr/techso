@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreign('promotion_type_id')->references('id')->on('promotion_types')->onDelete('cascade');
 
             $table->string('description')->nullable();
+            $table->boolean('default')->nullable();
             $table->string('edit_description')->nullable();
             $table->boolean('status')->nullable();
 

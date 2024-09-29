@@ -13,7 +13,7 @@ class ProductTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        ProductType::create(['code' => 'de', 'name' => 'Desktop', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        ProductType::create(['code' => 'de', 'name' => 'Desktop', 'description' => 'des', 'default' => '1', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
         ProductType::create(['code' => 'la', 'name' => 'Laptop', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
         ProductType::create(['code' => 'pr', 'name' => 'Printer', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
         ProductType::create(['code' => 'in', 'name' => 'Ink & Toner', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);

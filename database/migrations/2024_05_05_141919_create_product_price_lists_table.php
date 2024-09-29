@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
 
             $table->string('price_details')->nullable();
+            $table->boolean('default')->nullable();
 
             $table->boolean('status')->nullable();
 

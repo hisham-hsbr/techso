@@ -13,10 +13,10 @@ class JobStatusSeeder extends Seeder
      */
     public function run(): void
     {
-        JobStatus::create(['code' => 'pe' , 'name' => 'Pending' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        JobStatus::create(['code' => 'ws' , 'name' => 'Work started' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        JobStatus::create(['code' => 'we' , 'name' => 'Work ended' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        JobStatus::create(['code' => 'wp' , 'name' => 'Waiting for parts' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        JobStatus::create(['code' => 'de' , 'name' => 'Delivered' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        JobStatus::create(['code' => 'pe', 'name' => 'Pending', 'description' => 'des', 'default' => '1', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        JobStatus::create(['code' => 'ws', 'name' => 'Work started', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        JobStatus::create(['code' => 'we', 'name' => 'Work ended', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        JobStatus::create(['code' => 'wp', 'name' => 'Waiting for parts', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        JobStatus::create(['code' => 'de', 'name' => 'Delivered', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
     }
 }

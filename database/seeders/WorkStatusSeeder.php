@@ -13,8 +13,9 @@ class WorkStatusSeeder extends Seeder
      */
     public function run(): void
     {
-        WorkStatus::create(['code' => 'fi' , 'name' => 'Send To Khobar' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        WorkStatus::create(['code' => 'dr' , 'name' => 'Send To Dell Service' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        WorkStatus::create(['code' => 'ks' , 'name' => 'Send To Dammam' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        WorkStatus::create(['code' => 'sh', 'name' => 'Shop', 'description' => 'des', 'default' => '1', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        WorkStatus::create(['code' => 'fi', 'name' => 'Send To Khobar', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        WorkStatus::create(['code' => 'dr', 'name' => 'Send To Dell Service', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        WorkStatus::create(['code' => 'ks', 'name' => 'Send To Dammam', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
     }
 }

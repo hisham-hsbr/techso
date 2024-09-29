@@ -24,208 +24,261 @@
 
             </div>
             <!-- left column -->
-            <div class="col-md-10">
+            <div class="col-md-12">
                 @can('Service Create')
                     <form role="form" action="{{ route('services.store') }}" method="post" enctype="multipart/form-data"
                         id="quickForm">
                         {{ csrf_field() }}
                         <div class="card-body">
-                            <!-- /.card-header -->
-                            <div class="row">
 
 
-                                <x-form.form-group-label-input div_class="col-sm-4" label_for="date" lable_class="required"
-                                    label_name="Date" input_type="date" input_name="date" input_class=""
-                                    input_style="text-transform: uppercase" input_id="date"
-                                    input_value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" input_placeholder="" />
+                            <div class="card card-secondary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Basic Service</h3>
 
-                                <div class="form-group col-sm-3">
-                                    <label for="job_number" class="required col-form-label">Job number</label>
-                                    <input type="text" name="job_number" id="job_number" style="text-transform: uppercase"
-                                        class="form-control" value="TJ-{{ $job_number }}" readonly>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
                                 </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <x-form.form-group-label-input div_class="col-sm-4" label_for="date"
+                                                        lable_class="required" label_name="Date" input_type="date"
+                                                        input_name="date" input_class="" input_style="text-transform: uppercase"
+                                                        input_id="date"
+                                                        input_value="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                        input_placeholder="" />
 
-                                <x-form.form-group-label-select div_class="col-sm-4" label_for="job_type_id"
-                                    lable_class="required" label_name="Job type" select_class="select2"
-                                    select_name="job_type_id" select_id="job_type_id">
-                                    <option disabled selected>-- Select job type --</option>
-                                    @foreach ($job_types as $job_type)
-                                        <option
-                                            {{ old('job_type_id') == $job_type->id ? 'selected' : '' }}@if ($job_type->default == 1) {{ 'selected' }} @endif
-                                            value="{{ $job_type->id }}">
-                                            {{ $job_type->name }}
-                                        </option>
-                                    @endforeach
-                                </x-form.form-group-label-select>
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="job_number" class="required col-form-label">Job
+                                                            number</label>
+                                                        <input type="text" name="job_number" id="job_number"
+                                                            style="text-transform: uppercase" class="form-control"
+                                                            value="TJ-{{ $job_number }}" readonly>
+                                                    </div>
 
+                                                    <x-form.form-group-label-select div_class="col-sm-4" label_for="job_type_id"
+                                                        lable_class="required" label_name="Job type" select_class="select2"
+                                                        select_name="job_type_id" select_id="job_type_id">
+                                                        <option disabled selected>-- Select job type --</option>
+                                                        @foreach ($job_types as $job_type)
+                                                            <option value="{{ $job_type->id }}"
+                                                                {{ old('job_type_id', $job_type->default == 1 ? $job_type->id : '') == $job_type->id ? 'selected' : '' }}>
+                                                                {{ $job_type->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </x-form.form-group-label-select>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="customer_id" class="required col-form-label">Customer<a
+                                                                href="{{ route('customers.create') }}"
+                                                                target="_blank">Add</a></label>
+                                                        <select class="form-control select2" name="customer_id"
+                                                            id="customer_idsss">
+                                                            <option disabled selected>-- Select Customer --</option>
+                                                            @foreach ($customers as $customer)
+                                                                <option value="{{ $customer->id }}"
+                                                                    {{ old('customer_id', $customer->default == 1 ? $customer->id : '') == $customer->id ? 'selected' : '' }}>
+                                                                    {{ $customer->phone_1 }} - {{ $customer->name }} -
+                                                                    {{ $customer->contact_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="product_id" class="required col-form-label">Product <a
+                                                                href="{{ route('products.create') }}" target="_blank">
+                                                                Add</a></label>
+                                                        <select class="form-control select2" name="product_id" id="product_id">
+                                                            <option disabled selected>-- Select Product --</option>
+                                                            @foreach ($products as $product)
+                                                                <option
+                                                                    {{ old('product_id') == $product->id ? 'selected' : '' }}
+                                                                    value="{{ $product->id }}">
+                                                                    {{ $product->name }}
+                                                                </option>
+                                                                {{-- <option value="{{ $product->id }}"
+                                                            {{ old('product_id', $product->default == 1 ? $product->id : '') == $product->id ? 'selected' : '' }}>
+                                                            {{ $product->name }}
+                                                        </option> --}}
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <x-form.form-group-label-input div_class="col-sm-4"
+                                                        label_for="serial_number" lable_class="required"
+                                                        label_name="Serial Number" input_type="text" input_name="serial_number"
+                                                        input_class="" input_style="text-transform: uppercase"
+                                                        input_id="serial_number" input_value="{{ old('serial_number') }}"
+                                                        input_placeholder="Enter Serial Number" />
 
-                                <div class="form-group col-sm-4">
-                                    <label for="customer_id" class="required col-form-label">Customer Name Select<a
-                                            href="{{ route('customers.create') }}" target="_blank">Add</a></label>
-                                    <select class="form-control select2" name="customer_id" id="customer_idsss">
-                                        <option disabled selected>-- Select Customer --</option>
-                                        @foreach ($customers as $customer)
-                                            <option {{ old('customer_id') == $customer->id ? 'selected' : '' }}
-                                                value="{{ $customer->id }}">
-                                                {{ $customer->phone_1 }} - {{ $customer->name }} -
-                                                {{ $customer->contact_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
                                 </div>
+                                <!-- /.card-body -->
+                            </div>
 
 
+                            <div class="card card-secondary collapsed-card">
+                                <div class="card-header">
 
-
-                                <div class="form-group col-sm-4">
-                                    <label for="product_id" class="required col-form-label">Product <a
-                                            href="{{ route('products.create') }}" target="_blank"> Add</a></label>
-                                    <select class="form-control select2" name="product_id" id="product_id">
-                                        <option disabled selected>-- Select Product --</option>
-                                        @foreach ($products as $product)
-                                            <option {{ old('product_id') == $product->id ? 'selected' : '' }}
-                                                value="{{ $product->id }}">
-                                                {{ $product->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <h3 class="card-title"></i>More Details</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                                class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <!-- /.card-tools -->
                                 </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <x-form.form-group-label-input div_class="col-sm-4" label_for="lock"
+                                            lable_class="required" label_name="Lock/Password" input_type="text"
+                                            input_name="lock" input_class="" input_style="text-transform: uppercase"
+                                            input_id="lock" input_value="{{ old('lock') }}"
+                                            input_placeholder="Enter Lock/Password" />
 
-
-                                <div class="col-sm-4"></div>
-
-                                <x-form.form-group-label-input div_class="col-sm-4" label_for="serial_number"
-                                    lable_class="required" label_name="Serial Number" input_type="text"
-                                    input_name="serial_number" input_class="" input_style="text-transform: uppercase"
-                                    input_id="serial_number" input_value="{{ old('serial_number') }}"
-                                    input_placeholder="Enter Serial Number" />
-
-                                <x-form.form-group-label-input div_class="col-sm-4" label_for="lock" lable_class="required"
-                                    label_name="Lock/Password" input_type="text" input_name="lock" input_class=""
-                                    input_style="text-transform: uppercase" input_id="lock" input_value="{{ old('lock') }}"
-                                    input_placeholder="Enter Lock/Password" />
-
-                                <div class="col-sm-4"></div>
-
-                                <x-form.form-group-label-select div_class="col-sm-4" label_for="complaint_id"
-                                    lable_class="required" label_name="Complaint" select_class="select2"
-                                    select_name="complaint_id" select_id="complaint_id">
-                                    <option disabled selected>-- Select Complaint --</option>
-                                    @foreach ($complaints as $complaint)
-                                        <option {{ old('complaint_id') == $complaint->id ? 'selected' : '' }}
+                                        <x-form.form-group-label-select div_class="col-sm-4" label_for="complaint_id"
+                                            lable_class="required" label_name="Complaint" select_class="select2"
+                                            select_name="complaint_id" select_id="complaint_id">
+                                            <option disabled selected>-- Select Complaint --</option>
+                                            @foreach ($complaints as $complaint)
+                                                {{-- <option {{ old('complaint_id') == $complaint->id ? 'selected' : '' }}
                                             value="{{ $complaint->id }}">
                                             {{ $complaint->name }}
-                                        </option>
-                                    @endforeach
-                                </x-form.form-group-label-select>
-
-                                <div class="col-sm-4">
-                                    <!-- textarea -->
-                                    <div class="form-group">
-                                        <label class="required">Complaint Details</label>
-                                        <textarea name="complaint_details" value="{{ old('complaint_details') }}" class="form-control" rows="3"
-                                            placeholder="Enter address ..."></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4"></div>
-
-
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="customer_accessories">Customer Accessories</label>
-                                        <select name="customer_accessories[]" id="customer_accessories" class="duallistbox"
-                                            multiple="multiple">
-                                            @foreach ($customer_accessories as $accessories)
-                                                <option value="{{ $accessories->id }}">{{ $accessories->name }}</option>
+                                        </option> --}}
+                                                <option value="{{ $complaint->id }}"
+                                                    {{ old('complaint_id', $complaint->default == 1 ? $complaint->id : '') == $complaint->id ? 'selected' : '' }}>
+                                                    {{ $complaint->name }}
+                                                </option>
                                             @endforeach
-                                        </select>
+                                        </x-form.form-group-label-select>
+
+                                        <div class="col-sm-4">
+                                            <!-- textarea -->
+                                            <div class="form-group">
+                                                <label class="required">Complaint Details</label>
+                                                <textarea name="complaint_details" value="{{ old('complaint_details') }}" class="form-control" rows="3"
+                                                    placeholder="Enter address ..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4"></div>
+
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="customer_accessories">Customer Accessories</label>
+                                                <select name="customer_accessories[]" id="customer_accessories"
+                                                    class="duallistbox" multiple="multiple">
+                                                    @foreach ($customer_accessories as $accessories)
+                                                        <option value="{{ $accessories->id }}">{{ $accessories->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <!-- /.col -->
+
+                                        <x-form.form-group-label-select div_class="col-sm-4" label_for="work_status_id"
+                                            lable_class="required" label_name="Work Status" select_class="select2"
+                                            select_name="work_status_id" select_id="work_status_id">
+                                            <option disabled selected>-- Select Work Status --</option>
+                                            @foreach ($work_statuses as $work_status)
+                                                <option value="{{ $work_status->id }}"
+                                                    {{ old('work_status_id', $work_status->default == 1 ? $work_status->id : '') == $work_status->id ? 'selected' : '' }}>
+                                                    {{ $work_status->name }}
+                                                </option>
+                                            @endforeach
+                                        </x-form.form-group-label-select>
+
+                                        <div class="col-sm-4">
+                                            <!-- textarea -->
+                                            <div class="form-group">
+                                                <label class="required">Work Status Details</label>
+                                                <textarea name="work_status_details" value="{{ old('work_status_details') }}" class="form-control" rows="3"
+                                                    placeholder="Enter address ..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4"></div>
+
+                                        <x-form.form-group-label-select div_class="col-sm-4" label_for="job_status_id"
+                                            lable_class="required" label_name="Job Status" select_class="select2"
+                                            select_name="job_status_id" select_id="job_status_id">
+                                            <option disabled selected>-- Select Job Status --</option>
+                                            @foreach ($job_statuses as $job_status)
+                                                <option value="{{ $job_status->id }}"
+                                                    {{ old('job_status_id', $job_status->default == 1 ? $job_status->id : '') == $job_status->id ? 'selected' : '' }}>
+                                                    {{ $job_status->name }}
+                                                </option>
+                                            @endforeach
+                                        </x-form.form-group-label-select>
+
+                                        <div class="col-sm-4">
+                                            <!-- textarea -->
+                                            <div class="form-group">
+                                                <label class="required">Job Status Details</label>
+                                                <textarea name="job_status_details" value="{{ old('job_status_details') }}" class="form-control" rows="3"
+                                                    placeholder="Enter address ..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4"></div>
+
+                                        <x-form.form-group-label-input div_class="col-sm-4" label_for="delivered_date"
+                                            lable_class="required" label_name="Delivered at" input_type="date"
+                                            input_name="delivered_date" input_class=""
+                                            input_style="text-transform: uppercase" input_id="delivered_date"
+                                            input_value="{{ old('delivered_date') }}" input_placeholder="" />
+                                        <div class="col-sm-12"></div>
+
+
+                                        <x-form.form-group-label-input div_class="col-sm-2" label_for="payment"
+                                            lable_class="required" label_name="Payment" input_type="number"
+                                            input_name="payment" input_class="" input_style="text-transform: uppercase"
+                                            input_id="payment" input_value="{{ old('payment') }}"
+                                            input_placeholder="0.00" />
+
+                                        <x-form.form-group-label-input div_class="col-sm-2" label_for="advance"
+                                            lable_class="required" label_name="Advance payed" input_type="number"
+                                            input_name="advance" input_class="" input_style="text-transform: uppercase"
+                                            input_id="advance" input_value="{{ old('advance') }}"
+                                            input_placeholder="0.00" />
+
+                                        <div class="form-group col-sm-2">
+                                            <label for="balance" class="required col-form-label">Balance payment</label>
+                                            <input type="text" name="balance" id="balance"
+                                                style="text-transform: uppercase" class="form-control"
+                                                value="{{ old('balance') }}" placeholder="0.00" readonly>
+                                        </div>
+
+                                        <div class="col-sm-4"></div>
+
+                                        <div class="col-sm-4">
+                                            <!-- textarea -->
+                                            <div class="form-group">
+                                                <label class="required">Description</label>
+                                                <textarea name="description" value="{{ old('description') }}" class="form-control" rows="3"
+                                                    placeholder="Enter address ..."></textarea>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- /.form-group -->
+                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.col -->
-
-                                <x-form.form-group-label-select div_class="col-sm-4" label_for="work_status_id"
-                                    lable_class="required" label_name="Work Status" select_class="select2"
-                                    select_name="work_status_id" select_id="work_status_id">
-                                    <option disabled selected>-- Select Work Status --</option>
-                                    @foreach ($work_statuses as $work_status)
-                                        <option {{ old('work_status_id') == $work_status->id ? 'selected' : '' }}
-                                            value="{{ $work_status->id }}">
-                                            {{ $work_status->name }}
-                                        </option>
-                                    @endforeach
-                                </x-form.form-group-label-select>
-
-                                <div class="col-sm-4">
-                                    <!-- textarea -->
-                                    <div class="form-group">
-                                        <label class="required">Work Status Details</label>
-                                        <textarea name="work_status_details" value="{{ old('work_status_details') }}" class="form-control" rows="3"
-                                            placeholder="Enter address ..."></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4"></div>
-
-                                <x-form.form-group-label-select div_class="col-sm-4" label_for="job_status_id"
-                                    lable_class="required" label_name="Job Status" select_class="select2"
-                                    select_name="job_status_id" select_id="job_status_id">
-                                    <option disabled selected>-- Select Job Status --</option>
-                                    @foreach ($job_statuses as $job_status)
-                                        <option {{ old('job_status_id') == $job_status->id ? 'selected' : '' }}
-                                            value="{{ $job_status->id }}">
-                                            {{ $job_status->name }}
-                                        </option>
-                                    @endforeach
-                                </x-form.form-group-label-select>
-
-                                <div class="col-sm-4">
-                                    <!-- textarea -->
-                                    <div class="form-group">
-                                        <label class="required">Job Status Details</label>
-                                        <textarea name="job_status_details" value="{{ old('job_status_details') }}" class="form-control" rows="3"
-                                            placeholder="Enter address ..."></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4"></div>
-
-                                <x-form.form-group-label-input div_class="col-sm-4" label_for="delivered_date"
-                                    lable_class="required" label_name="Delivered at" input_type="date"
-                                    input_name="delivered_date" input_class="" input_style="text-transform: uppercase"
-                                    input_id="delivered_date" input_value="{{ old('delivered_date') }}"
-                                    input_placeholder="" />
-                                <div class="col-sm-12"></div>
-
-
-                                <x-form.form-group-label-input div_class="col-sm-2" label_for="payment"
-                                    lable_class="required" label_name="Payment" input_type="number" input_name="payment"
-                                    input_class="" input_style="text-transform: uppercase" input_id="payment"
-                                    input_value="{{ old('payment') }}" input_placeholder="0.00" />
-
-                                <x-form.form-group-label-input div_class="col-sm-2" label_for="advance"
-                                    lable_class="required" label_name="Advance payed" input_type="number"
-                                    input_name="advance" input_class="" input_style="text-transform: uppercase"
-                                    input_id="advance" input_value="{{ old('advance') }}" input_placeholder="0.00" />
-
-                                <div class="form-group col-sm-2">
-                                    <label for="balance" class="required col-form-label">Balance payment</label>
-                                    <input type="text" name="balance" id="balance" style="text-transform: uppercase"
-                                        class="form-control" value="{{ old('balance') }}" placeholder="0.00" readonly>
-                                </div>
-
-                                <div class="col-sm-4"></div>
-
-                                <div class="col-sm-4">
-                                    <!-- textarea -->
-                                    <div class="form-group">
-                                        <label class="required">Description</label>
-                                        <textarea name="description" value="{{ old('description') }}" class="form-control" rows="3"
-                                            placeholder="Enter address ..."></textarea>
-                                    </div>
-                                </div>
-
+                                <!-- /.card -->
                             </div>
 
 
@@ -277,8 +330,8 @@
 
     <x-links.footer-link-jquery-validation />
 
-    <x-techso.validation.customer-jquery-validation />
-    <script>
+    <x-techso.validation.service-jquery-validation />
+    {{-- <script>
         $(document).ready(function() {
             // Get value on keyup funtion
             $("#payment").change(function() {
@@ -303,6 +356,60 @@
                 var balance = payment - advance;
                 $('#balance').val(balance);
 
+            });
+        });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            // Custom jQuery validate method to check if payment - advance = balance
+            $.validator.addMethod("checkBalance", function(value, element) {
+                var payment = Number($("#payment").val());
+                var advance = Number($("#advance").val());
+                var balance = Number($("#balance").val());
+
+                return balance === payment - advance;
+            }, "Balance must be equal to Payment minus Advance");
+
+            // jQuery validation setup
+            $("#quickForm").validate({
+                rules: {
+                    payment: {
+                        required: true,
+                        number: true
+                    },
+                    advance: {
+                        required: true,
+                        number: true
+                    },
+                    balance: {
+                        required: true,
+                        number: true,
+                        checkBalance: true
+                    }
+                },
+                messages: {
+                    payment: {
+                        required: "Please enter the payment amount",
+                        number: "Please enter a valid number"
+                    },
+                    advance: {
+                        required: "Please enter the advance amount",
+                        number: "Please enter a valid number"
+                    },
+                    balance: {
+                        required: "Please enter the balance amount",
+                        number: "Please enter a valid number"
+                    }
+                }
+            });
+
+            // Auto-calculate balance when payment or advance changes
+            $("#payment, #advance").on('change keyup', function() {
+                var payment = Number($("#payment").val());
+                var advance = Number($("#advance").val());
+                var balance = payment - advance;
+                $('#balance').val(balance);
             });
         });
     </script>

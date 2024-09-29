@@ -13,7 +13,7 @@ class VoucherTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        VoucherType::create(['code' => 'siv' , 'name' => 'Sales Invoice', 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        VoucherType::create(['code' => 'siv' , 'name' => 'Sales Invoice', 'description' => 'des' ,'default' => '1', 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
         VoucherType::create(['code' => 'srt' , 'name' => 'Sales Return', 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
         VoucherType::create(['code' => 'pin' , 'name' => 'Purchase Invoice', 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
         VoucherType::create(['code' => 'prt' , 'name' => 'Purchase Return', 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);

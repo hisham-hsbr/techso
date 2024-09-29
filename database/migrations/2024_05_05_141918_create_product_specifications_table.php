@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->string('local_name')->nullable();
             $table->string('description')->nullable();
+            $table->boolean('default')->nullable();
             $table->string('edit_description')->nullable();
             $table->boolean('status')->nullable();
 

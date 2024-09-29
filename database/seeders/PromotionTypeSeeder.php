@@ -13,8 +13,8 @@ class PromotionTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        PromotionType::create(['code' => 'tp' , 'name' => '10 %' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        PromotionType::create(['code' => 'tfp' , 'name' => '25 %' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        PromotionType::create(['code' => 'fp' , 'name' => '50 %' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        PromotionType::create(['code' => 'tp', 'name' => '10 %', 'description' => 'des', 'default' => '1', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        PromotionType::create(['code' => 'tfp', 'name' => '25 %', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        PromotionType::create(['code' => 'fp', 'name' => '50 %', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
     }
 }

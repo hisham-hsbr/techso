@@ -13,8 +13,8 @@ class JobTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        JobType::create(['code' => 'r' , 'name' => 'Repair' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        JobType::create(['code' => 'w' , 'name' => 'Warranty' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        JobType::create(['code' => 'wa' , 'name' => 'Walking' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        JobType::create(['code' => 'r', 'name' => 'Repair', 'description' => 'des', 'default' => '1', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        JobType::create(['code' => 'w', 'name' => 'Warranty', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        JobType::create(['code' => 'wa', 'name' => 'Walking', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
     }
 }

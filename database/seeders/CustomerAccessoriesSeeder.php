@@ -13,8 +13,8 @@ class CustomerAccessoriesSeeder extends Seeder
      */
     public function run(): void
     {
-        CustomerAccessories::create(['code' => 'bg' , 'name' => 'Laptop Bag' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        CustomerAccessories::create(['code' => 'ch' , 'name' => 'Laptop Charger' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
-        CustomerAccessories::create(['code' => 'ba' , 'name' => 'Laptop Battery' , 'description' => 'des' , 'status' => '1' , 'created_by' => '1' , 'updated_by' => '1']);
+        CustomerAccessories::create(['code' => 'bg', 'name' => 'Laptop Bag', 'description' => 'des', 'default' => '1', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        CustomerAccessories::create(['code' => 'ch', 'name' => 'Laptop Charger', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+        CustomerAccessories::create(['code' => 'ba', 'name' => 'Laptop Battery', 'description' => 'des', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
     }
 }
