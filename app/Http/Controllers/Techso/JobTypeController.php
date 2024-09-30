@@ -52,11 +52,18 @@ class JobTypeController extends Controller
     public function jobTypesGet()
     {
 
-        $job_types = JobType::all();
+        // $job_types = JobType::all();
+        $job_types = JobType::orderBy('created_at', direction: 'asc')->get();
+
+
+
         return Datatables::of($job_types)
 
             ->setRowId(function ($job_type) {
                 return $job_type->id;
+            })
+            ->setRowClass(function (JobType $job_type): string {
+                return ($job_type->default == 1) ? 'text-info' : '';
             })
 
             ->editColumn('status', function (JobType $job_type) {
@@ -168,16 +175,8 @@ class JobTypeController extends Controller
         $job_type->name = $request->name;
         $job_type->local_name = $request->local_name;
 
-        if ($request->default == 0) {
-            $job_type->default == 0;
-        } else {
-            $old_default_id = DB::table('job_types')->where('default', 1)->first();
-            if ($old_default_id == 1) {
-                $default = (DB::table('job_types')->where('default', 1)->first())->id;
-                $update_default = JobType::find($default);
-                $update_default->default = null;
-                $update_default->update();
-            }
+        if ($request->default) {
+            JobType::where('default', 1)->update(['default' => null]);
         }
 
         $job_type->default = $request->default;
@@ -231,22 +230,18 @@ class JobTypeController extends Controller
             'code' => "required|unique:job_types,code,$id",
         ]);
 
-        if ($request->default == 1) {
-            $default = (DB::table('job_types')->where('default', 1)->first())->id;
-
-            $update_default = JobType::find($default);
-            $update_default->default = null;
-            $update_default->update();
-        }
-
         $job_type = JobType::find($id);
-
-
 
         $job_type->code  = $request->code;
         $job_type->name = $request->name;
 
         $job_type->local_name = $request->local_name;
+
+        if ($request->default == 0) {
+            $job_type->default = 0;
+        } else {
+            JobType::where('default', 1)->update(['default' => null]);
+        }
         $job_type->default = $request->default;
 
 

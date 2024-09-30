@@ -55,7 +55,11 @@
                                     input_style="" input_class="" input_value="{{ old('name') }}"
                                     input_placeholder="{{ $head_name }} Name" />
 
-
+                                <div class="col-sm-10 pl-5 pt-2">
+                                    <input type="checkbox" class="form-check-input" name="default" value="1"
+                                        id="default" />
+                                    <label class="form-check-label" for="default">Is Default</label>
+                                </div>
                             </div>
 
                             <!-- /.row -->

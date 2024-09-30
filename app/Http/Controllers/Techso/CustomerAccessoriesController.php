@@ -12,9 +12,9 @@ use App\Http\Controllers\Controller;
 
 class CustomerAccessoriesController extends Controller
 {
-    private $head_name='Customer Accessories';
-    private $route_name='customer-accessories';
-    private $snake_name='customer_accessories';
+    private $head_name = 'Customer Accessories';
+    private $route_name = 'customer-accessories';
+    private $snake_name = 'customer_accessories';
 
     public function __construct()
     {
@@ -33,14 +33,14 @@ class CustomerAccessoriesController extends Controller
         $createdByUsers = $customer_accessories->sortBy('createdBy')->pluck('createdBy')->unique();
         $updatedByUsers = $customer_accessories->sortBy('updatedBy')->pluck('updatedBy')->unique();
         return view('back_end.techso.masters.customer_accessories.index')->with(
-           [
-               'head_name'=>$this->head_name,
-               'route_name'=>$this->route_name,
-               'customer_accessories' => $customer_accessories,
-               'createdByUsers' => $createdByUsers,
-               'updatedByUsers' => $updatedByUsers,
-           ]
-       );
+            [
+                'head_name' => $this->head_name,
+                'route_name' => $this->route_name,
+                'customer_accessories' => $customer_accessories,
+                'createdByUsers' => $createdByUsers,
+                'updatedByUsers' => $updatedByUsers,
+            ]
+        );
     }
 
     public function customerAccessoriesGet()
@@ -49,62 +49,64 @@ class CustomerAccessoriesController extends Controller
         $customerAccessories = CustomerAccessories::all();
         return Datatables::of($customerAccessories)
 
-        ->setRowId(function ($customerAccessories) {
-            return $customerAccessories->id;
+            ->setRowId(function ($customerAccessories) {
+                return $customerAccessories->id;
+            })
+            ->setRowClass(function (CustomerAccessories $customerAccessories) {
+                return ($customerAccessories->default == 1) ? 'text-info' : '';
             })
 
             ->editColumn('status', function (CustomerAccessories $customerAccessories) {
 
-                $active='<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
-                $inActive='<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';
+                $active = '<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
+                $inActive = '<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';
 
                 $activeId = ($customerAccessories->status);
 
-                    if($activeId==1){
-                        $activeId = $active;
-                    }
-                    else {
-                        $activeId = $inActive;
-                    }
-                    return $activeId;
+                if ($activeId == 1) {
+                    $activeId = $active;
+                } else {
+                    $activeId = $inActive;
+                }
+                return $activeId;
             })
 
 
-        ->editColumn('created_by', function (CustomerAccessories $customerAccessories) {
+            ->editColumn('created_by', function (CustomerAccessories $customerAccessories) {
 
-            return ucwords($customerAccessories->CreatedBy->name);
-        })
+                return ucwords($customerAccessories->CreatedBy->name);
+            })
 
 
-        ->editColumn('updated_by', function (CustomerAccessories $customerAccessories) {
+            ->editColumn('updated_by', function (CustomerAccessories $customerAccessories) {
 
-            return ucwords($customerAccessories->UpdatedBy->name);
-        })
-        ->addColumn('created_at', function (CustomerAccessories $customerAccessories) {
-            return $customerAccessories->created_at->format('d-M-Y h:m');
-        })
-        ->addColumn('updated_at', function (CustomerAccessories $customerAccessories) {
+                return ucwords($customerAccessories->UpdatedBy->name);
+            })
+            ->addColumn('created_at', function (CustomerAccessories $customerAccessories) {
+                return $customerAccessories->created_at->format('d-M-Y h:m');
+            })
+            ->addColumn('updated_at', function (CustomerAccessories $customerAccessories) {
 
-            return $customerAccessories->updated_at->format('d-M-Y h:m');
-        })
+                return $customerAccessories->updated_at->format('d-M-Y h:m');
+            })
 
-        ->addColumn('editLink', function (CustomerAccessories $customerAccessories) {
+            ->addColumn('editLink', function (CustomerAccessories $customerAccessories) {
 
-            $editLink ='<a href="'. route('customer-accessories.edit', $customerAccessories->id) .'" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
-               return $editLink;
-        })
-        ->addColumn('deleteLink', function (CustomerAccessories $customerAccessories) {
-           $CSRFToken = "csrf_field()";
-            $deleteLink ='
-                        <button class="btn btn-link delete-customer_accessories" data-customer_accessories_id="'.$customerAccessories->id.'" type="submit"><i
+                $editLink = '<a href="' . route('customer-accessories.edit', $customerAccessories->id) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
+                return $editLink;
+            })
+            ->addColumn('deleteLink', function (CustomerAccessories $customerAccessories) {
+                $CSRFToken = "csrf_field()";
+                $deleteLink = '
+                        <button class="btn btn-link delete-customer_accessories" data-customer_accessories_id="' . $customerAccessories->id . '" type="submit"><i
                                 class="fa-solid fa-trash-can text-danger"></i>
                         </button>';
-               return $deleteLink;
-        })
+                return $deleteLink;
+            })
 
 
-       ->rawColumns(['status','editLink','deleteLink'])
-        ->toJson();
+            ->rawColumns(['status', 'editLink', 'deleteLink'])
+            ->toJson();
     }
 
     /**
@@ -114,8 +116,8 @@ class CustomerAccessoriesController extends Controller
     {
         return view('back_end.techso.masters.customer_accessories.create')->with(
             [
-                'head_name'=>$this->head_name,
-                'route_name'=>$this->route_name,
+                'head_name' => $this->head_name,
+                'route_name' => $this->route_name,
             ]
         );
     }
@@ -136,10 +138,9 @@ class CustomerAccessoriesController extends Controller
         $customerAccessories->name = $request->name;
 
 
-        if ($request->status==0)
-            {
-                $customerAccessories->status==0;
-            }
+        if ($request->status == 0) {
+            $customerAccessories->status == 0;
+        }
 
         $customerAccessories->status = $request->status;
 
@@ -149,7 +150,7 @@ class CustomerAccessoriesController extends Controller
         $customerAccessories->save();
 
         return redirect()->route('customer-accessories.index')
-                        ->with('message_store', 'CustomerAccessories Created Successfully');
+            ->with('message_store', 'CustomerAccessories Created Successfully');
     }
 
     /**
@@ -168,9 +169,9 @@ class CustomerAccessoriesController extends Controller
         $customer_accessories = CustomerAccessories::find($id);
         return view('back_end.techso.masters.customer_accessories.edit')->with(
             [
-                'head_name'=>$this->head_name,
-                'route_name'=>$this->route_name,
-                'customer_accessories'=>$customer_accessories,
+                'head_name' => $this->head_name,
+                'route_name' => $this->route_name,
+                'customer_accessories' => $customer_accessories,
             ]
         );
     }
@@ -178,7 +179,7 @@ class CustomerAccessoriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -191,10 +192,9 @@ class CustomerAccessoriesController extends Controller
         $customerAccessories->name = $request->name;
 
 
-        if ($request->status==0)
-            {
-                $customerAccessories->status==0;
-            }
+        if ($request->status == 0) {
+            $customerAccessories->status == 0;
+        }
 
         $customerAccessories->status = $request->status;
 
@@ -203,13 +203,13 @@ class CustomerAccessoriesController extends Controller
         $customerAccessories->save();
 
         return redirect()->route('customer-accessories.index')
-                        ->with('message_store', 'CustomerAccessories Updated Successfully');
+            ->with('message_store', 'CustomerAccessories Updated Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-   public function destroy($id)
+    public function destroy($id)
     {
         $customerAccessories  = CustomerAccessories::findOrFail($id);
         $customerAccessories->delete();

@@ -189,7 +189,7 @@
                     targets: 0
                 }],
                 "order": [
-                    [1, 'asc']
+                    [7, 'desc']
                 ],
                 // colum serial number order with id --->
                 columns: [

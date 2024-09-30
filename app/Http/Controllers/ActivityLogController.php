@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use Spatie\Activitylog\Models\Activity;
+// use Spatie\Activitylog\Models\Activity;
 
-class ActivitylogController extends Controller
+class ActivityLogController extends Controller
 {
     public function __construct()
     {
@@ -23,22 +24,23 @@ class ActivitylogController extends Controller
     public function index()
     {
         $activityLogs = Activity::all();
-        return view('back_end.users_management.activity-log.index',compact('activityLogs'))->with('i');
+        return view('back_end.users_management.activity-log.index', compact('activityLogs'))->with('i');
     }
     public function show($id)
     {
         $activityLog = Activity::find($id);
         $users = User::all();
-        return view('back_end.users_management.activity-log.show',compact('activityLog','users'));
+        return view('back_end.users_management.activity-log.show', compact('activityLog', 'users'));
     }
     public function activityLogsGet()
     {
 
-        $activity = Activity::all();
+        // $activity = Activity::all();
+        $activity = Activity::orderBy(column: 'log_name', direction: 'asc')->get();
         return Datatables::of($activity)
 
-        ->setRowId(function ($activity) {
-            return $activity->id;
+            ->setRowId(function ($activity) {
+                return $activity->id;
             })
 
 
@@ -56,11 +58,11 @@ class ActivitylogController extends Controller
             })
             ->addColumn('viewLink', function (Activity $activity) {
 
-                $viewLink ='<a href="'. route('activityLogs.show', $activity->id) .'" class="ml-2"><i class="fa-solid fa fa-eye"></i></a>';
-                   return $viewLink;
+                $viewLink = '<a href="' . route('activityLogs.show', $activity->id) . '" class="ml-2"><i class="fa-solid fa fa-eye"></i></a>';
+                return $viewLink;
             })
 
-           ->rawColumns(['status','viewLink','created_user'])
+            ->rawColumns(['status', 'viewLink', 'created_user'])
             ->toJson();
     }
 }

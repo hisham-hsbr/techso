@@ -47,10 +47,10 @@
                     <!-- /.card-body -->
                     <div class="">
                         @can('Job Type Import')
-                            <button type="submit" class="btn btn-primary float-right ml-1">Import</button>
+                            <button type="submit" class="float-right ml-1 btn btn-primary">Import</button>
                         @endcan
                         <a type="button" href="{{ route('job-types.index') }}"
-                            class="btn btn-warning float-right ml-1">Back</a>
+                            class="float-right ml-1 btn btn-warning">Back</a>
                     </div>
                     <!-- /.card-footer -->
                     </form>

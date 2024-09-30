@@ -23,10 +23,9 @@ class BrandController extends Controller
         $this->middleware('auth');
 
         $this->middleware('permission:Brand Read', ['only' => ['index']]);
-        $this->middleware('permission:Brand Create', ['only' => ['create','store']]);
-        $this->middleware('permission:Brand Edit', ['only' => ['Edit','Update']]);
+        $this->middleware('permission:Brand Create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Brand Edit', ['only' => ['Edit', 'Update']]);
         $this->middleware('permission:Brand Delete', ['only' => ['destroy']]);
-
     }
 
     public function index()
@@ -34,7 +33,7 @@ class BrandController extends Controller
         $brands = Brand::all();
         $createdByUsers = $brands->sortBy('createdBy')->pluck('createdBy')->unique();
         $updatedByUsers = $brands->sortBy('updatedBy')->pluck('updatedBy')->unique();
-        return view('back_end.techso.masters.brands.index',compact('brands','createdByUsers','updatedByUsers'))->with('i');
+        return view('back_end.techso.masters.brands.index', compact('brands', 'createdByUsers', 'updatedByUsers'))->with('i');
     }
 
     public function brandsGet()
@@ -43,62 +42,64 @@ class BrandController extends Controller
         $brands = Brand::all();
         return Datatables::of($brands)
 
-        ->setRowId(function ($brand) {
-            return $brand->id;
+            ->setRowId(function ($brand) {
+                return $brand->id;
+            })
+            ->setRowClass(function (Brand $brand) {
+                return ($brand->default == 1) ? 'text-info' : '';
             })
 
             ->editColumn('status', function (Brand $brand) {
 
-                $active='<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
-                $inActive='<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';
+                $active = '<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
+                $inActive = '<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';
 
                 $activeId = ($brand->status);
 
-                    if($activeId==1){
-                        $activeId = $active;
-                    }
-                    else {
-                        $activeId = $inActive;
-                    }
-                    return $activeId;
+                if ($activeId == 1) {
+                    $activeId = $active;
+                } else {
+                    $activeId = $inActive;
+                }
+                return $activeId;
             })
 
 
-        ->editColumn('created_by', function (Brand $brand) {
+            ->editColumn('created_by', function (Brand $brand) {
 
-            return ucwords($brand->CreatedBy->name);
-        })
+                return ucwords($brand->CreatedBy->name);
+            })
 
 
-        ->editColumn('updated_by', function (Brand $brand) {
+            ->editColumn('updated_by', function (Brand $brand) {
 
-            return ucwords($brand->UpdatedBy->name);
-        })
-        ->addColumn('created_at', function (Brand $brand) {
-            return $brand->created_at->format('d-M-Y h:m');
-        })
-        ->addColumn('updated_at', function (Brand $brand) {
+                return ucwords($brand->UpdatedBy->name);
+            })
+            ->addColumn('created_at', function (Brand $brand) {
+                return $brand->created_at->format('d-M-Y h:m');
+            })
+            ->addColumn('updated_at', function (Brand $brand) {
 
-            return $brand->updated_at->format('d-M-Y h:m');
-        })
+                return $brand->updated_at->format('d-M-Y h:m');
+            })
 
-        ->addColumn('editLink', function (Brand $brand) {
+            ->addColumn('editLink', function (Brand $brand) {
 
-            $editLink ='<a href="'. route('brands.edit', $brand->id) .'" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
-               return $editLink;
-        })
-        ->addColumn('deleteLink', function (Brand $brand) {
-           $CSRFToken = "csrf_field()";
-            $deleteLink ='
-                        <button class="btn btn-link delete-brand" data-brand_id="'.$brand->id.'" type="submit"><i
+                $editLink = '<a href="' . route('brands.edit', $brand->id) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
+                return $editLink;
+            })
+            ->addColumn('deleteLink', function (Brand $brand) {
+                $CSRFToken = "csrf_field()";
+                $deleteLink = '
+                        <button class="btn btn-link delete-brand" data-brand_id="' . $brand->id . '" type="submit"><i
                                 class="fa-solid fa-trash-can text-danger"></i>
                         </button>';
-               return $deleteLink;
-        })
+                return $deleteLink;
+            })
 
 
-       ->rawColumns(['status','editLink','deleteLink'])
-        ->toJson();
+            ->rawColumns(['status', 'editLink', 'deleteLink'])
+            ->toJson();
     }
 
     /**
@@ -110,31 +111,31 @@ class BrandController extends Controller
     }
 
     public function brandsImport()
-     {
-         return view('back_end.techso.masters.brands.import');
-     }
+    {
+        return view('back_end.techso.masters.brands.import');
+    }
 
-     public function brandsDownload()
-     {
-         $path=public_path('downloads/sample_excels/brands_import_sample.xlsx');
-         return response()->download($path);
-     }
+    public function brandsDownload()
+    {
+        $path = public_path('downloads/sample_excels/brands_import_sample.xlsx');
+        return response()->download($path);
+    }
 
-     public function brandsUpload(Request $request)
-     {
+    public function brandsUpload(Request $request)
+    {
         $request->validate([
-            'data'=>'required'
+            'data' => 'required'
         ]);
 
         try {
-            Excel::import(new BrandImport,$request->file('data'));
+            Excel::import(new BrandImport, $request->file('data'));
             return redirect()->route('brands.index')
-            ->with('message_store', 'Brands Import Successfully');
+                ->with('message_store', 'Brands Import Successfully');
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-             $failures = $e->failures();
-             return redirect()->back()->with('import_errors',$failures);
+            $failures = $e->failures();
+            return redirect()->back()->with('import_errors', $failures);
         }
-     }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -152,10 +153,9 @@ class BrandController extends Controller
         $brand->name = $request->name;
 
 
-        if ($request->status==0)
-            {
-                $brand->status==0;
-            }
+        if ($request->status == 0) {
+            $brand->status == 0;
+        }
 
         $brand->status = $request->status;
 
@@ -165,7 +165,7 @@ class BrandController extends Controller
         $brand->save();
 
         return redirect()->route('brands.index')
-                        ->with('message_store', 'Brand Created Successfully');
+            ->with('message_store', 'Brand Created Successfully');
     }
 
     /**
@@ -182,7 +182,7 @@ class BrandController extends Controller
     public function edit($id)
     {
         $brand = Brand::find($id);
-        return view('back_end.techso.masters.brands.edit',compact('brand'));
+        return view('back_end.techso.masters.brands.edit', compact('brand'));
     }
 
     /**
@@ -201,10 +201,9 @@ class BrandController extends Controller
         $brand->name = $request->name;
 
 
-        if ($request->status==0)
-            {
-                $brand->status==0;
-            }
+        if ($request->status == 0) {
+            $brand->status == 0;
+        }
 
         $brand->status = $request->status;
 
@@ -213,7 +212,7 @@ class BrandController extends Controller
         $brand->save();
 
         return redirect()->route('brands.index')
-                        ->with('message_store', 'Brand Updated Successfully');
+            ->with('message_store', 'Brand Updated Successfully');
     }
 
     /**
@@ -225,6 +224,5 @@ class BrandController extends Controller
         $brand->delete();
 
         return redirect()->route('brands.index')->with('message_update', 'Brand Deleted Successfully');
-
     }
 }

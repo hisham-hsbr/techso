@@ -84,6 +84,12 @@
                                     </div>
                                 </div>
 
+                                <div class="pt-2 pl-5 col-sm-10">
+                                    <input type="checkbox" class="form-check-input" name="default" value="1" id="default"
+                                        @if ($customer->default == 1) {{ 'checked' }} @endif />
+                                    <label class="form-check-label" for="default">Is Default</label>
+                                </div>
+
 
 
                             </div>
@@ -93,7 +99,7 @@
 
                         <div class="card-body">
                             <!-- /.card-header -->
-                            <div class="col-sm-10 pl-5 pt-2">
+                            <div class="pt-2 pl-5 col-sm-10">
                                 <input type="checkbox" class="form-check-input" name="status" value="1" id="status"
                                     @if ($customer->status == 1) {{ 'checked' }} @endif />
                                 <label class="form-check-label" for="status">Active</label>
@@ -102,10 +108,10 @@
                         <!-- /.card-body -->
                         <div class="">
                             @can('Customer Update')
-                                <button type="submit" class="btn btn-primary float-right ml-1">Update</button>
+                                <button type="submit" class="float-right ml-1 btn btn-primary">Update</button>
                             @endcan
                             <a type="button" href="{{ route('customers.index') }}"
-                                class="btn btn-warning float-right ml-1">Back</a>
+                                class="float-right ml-1 btn btn-warning">Back</a>
                         </div>
                         <!-- /.card-footer -->
                     </form>

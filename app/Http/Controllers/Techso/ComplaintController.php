@@ -38,15 +38,18 @@ class ComplaintController extends Controller
 
     public function complaintsGet()
     {
-
+        // $default = Complaint::withTrashed()->where('default', 1);
         $complaints = Complaint::all();
         return Datatables::of($complaints)
 
             ->setRowId(function ($complaint) {
                 return $complaint->id;
             })
+            ->setRowClass(function (Complaint $complaint) {
+                return ($complaint->default == 1) ? 'text-info' : '';
+            })
 
-            ->editColumn('status', function (Complaint $complaint) {
+            ->editColumn('status', content: function (Complaint $complaint) {
 
                 $active = '<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
                 $inActive = '<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';

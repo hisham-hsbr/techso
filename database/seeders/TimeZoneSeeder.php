@@ -13,6 +13,7 @@ class TimeZoneSeeder extends Seeder
      */
     public function run(): void
     {
+        TimeZone::create(['utc_code' => 'UTC-5', 'time_zone' => 'America/Toronto', 'country' => 'Canada', 'cities' => 'Toronto, Montréal, Ottawa, Mississauga, Québec', 'description' => '', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
         TimeZone::create(['utc_code' => 'UTC-11', 'time_zone' => 'Pacific/Midway', 'country' => 'United States Minor Outlying Islands', 'cities' => '', 'description' => '', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
         TimeZone::create(['utc_code' => 'UTC-11', 'time_zone' => 'Pacific/Niue', 'country' => 'Niue', 'cities' => 'Alofi', 'description' => '', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
         $run_test_seeder_disable = env('RUN_TEST_SEEDER_DISABLE');

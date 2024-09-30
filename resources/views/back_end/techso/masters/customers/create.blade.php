@@ -83,7 +83,11 @@
                                             placeholder="Enter description ..."></textarea>
                                     </div>
                                 </div>
-
+                                <div class="col-sm-10 pl-5 pt-2">
+                                    <input type="checkbox" class="form-check-input" name="default" value="1"
+                                        id="default" />
+                                    <label class="form-check-label" for="default">Is Default</label>
+                                </div>
 
 
 
@@ -95,8 +99,8 @@
                         <div class="card-body">
                             <!-- /.card-header -->
                             <div class="col-sm-10 pl-5 pt-2">
-                                <input type="checkbox" class="form-check-input" name="status" value="1" id="status"
-                                    @if (Auth::user()->settings['default_status'] == 1) {{ 'checked' }} @endif />
+                                <input type="checkbox" class="form-check-input" name="status" value="1"
+                                    id="status" @if (Auth::user()->settings['default_status'] == 1) {{ 'checked' }} @endif />
                                 <label class="form-check-label" for="status">Active</label>
                             </div>
                         </div>

@@ -10,10 +10,6 @@ use Spatie\Activitylog\Models\Activity as SpatieActivitylog;
 class Activity extends SpatieActivitylog
 {
 
-
-
-    // --------
-
     public function activityUser()
     {
         return $this->belongsTo(User::class, 'causer_id');

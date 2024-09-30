@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
@@ -19,21 +19,20 @@ class RoleController extends Controller
         $this->middleware('auth');
 
         $this->middleware('permission:Role Read', ['only' => ['index']]);
-        $this->middleware('permission:Role Create', ['only' => ['create','store']]);
-        $this->middleware('permission:Role Edit', ['only' => ['Edit','Update']]);
+        $this->middleware('permission:Role Create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Role Edit', ['only' => ['Edit', 'Update']]);
         $this->middleware('permission:Role Delete', ['only' => ['destroy']]);
-
     }
 
     public function index()
     {
-        if(Auth::user()->hasRole('Developer')){
+        if (Auth::user()->hasRole('Developer')) {
             $roles = Role::all();
-        }else{
-            $roles = Role::where('id','>',1)->get();
+        } else {
+            $roles = Role::where('id', '>', 1)->get();
         }
 
-        return view('back_end.users_management.roles.index',compact('roles'))->with('i');
+        return view('back_end.users_management.roles.index', compact('roles'))->with('i');
     }
 
     /**
@@ -42,7 +41,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all()->groupBy('parent');
-        return view('back_end.users_management.roles.create',compact('permissions'));
+        return view('back_end.users_management.roles.create', compact('permissions'));
     }
 
     /**
@@ -56,12 +55,11 @@ class RoleController extends Controller
         ]);
 
 
-            $role = new Role();
-            $role->name = $request->name;
+        $role = new Role();
+        $role->name = $request->name;
 
-        if ($request->status==0)
-        {
-            $role->status==0;
+        if ($request->status == 0) {
+            $role->status == 0;
         }
 
         $role->status = $request->status;
@@ -106,12 +104,11 @@ class RoleController extends Controller
         ]);
 
 
-            $role = Role::find($id);
-            $role->name = $request->name;
+        $role = Role::find($id);
+        $role->name = $request->name;
 
-        if ($request->status==0)
-        {
-            $role->status==0;
+        if ($request->status == 0) {
+            $role->status == 0;
         }
 
         $role->status = $request->status;
@@ -129,11 +126,10 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-         $role  = Role::findOrFail($id);
+        $role  = Role::findOrFail($id);
         $role->delete();
 
         return redirect()->route('roles.index')
-                ->with('message_update', 'Role Deleted Successfully');
+            ->with('message_update', 'Role Deleted Successfully');
     }
-
 }

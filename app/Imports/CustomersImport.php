@@ -2,13 +2,13 @@
 
 namespace App\Imports;
 
-use App\Models\Techso\Brand;
+use App\Models\Techso\Customer;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Illuminate\Support\Facades\Auth;
 
-class BrandImport implements ToModel, WithHeadingRow, WithValidation
+class CustomersImport implements ToModel, WithHeadingRow, WithValidation
 {
     /**
      * @param array $row
@@ -17,25 +17,24 @@ class BrandImport implements ToModel, WithHeadingRow, WithValidation
      */
     public function model(array $row)
     {
-        $brand = new Brand([
-            "code" => $row['brand_code'],
-            "name" => $row['brand_name'],
+        $customer = new Customer([
+            "code" => $row['customer_code'],
+            "name" => $row['customer_name'],
             "status" => $row['status'],
             "created_by" => Auth::user()->id,
             "updated_by" => Auth::user()->id,
         ]);
-        return $brand;
+        return $customer;
     }
-
     public function rules(): array
     {
         return [
-            'brand_code' => 'required|unique:brands,code',
-            'brand_name' => 'required',
+            'customer_code' => 'required|unique:customers,code',
+            'customer_name' => 'required',
 
             // Above is alias for as it always validates in batches
-            '*.brand_code' => 'required|unique:brands,code',
-            '*.brand_name' => 'required',
+            '*.customer_code' => 'required|unique:customers,code',
+            '*.customer_name' => 'required',
         ];
     }
 }
