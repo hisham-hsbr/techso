@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Permission\Models\Permission as SpatiePermission;
 
-class Permission extends Model
+
+class Permission extends SpatiePermission
 {
     use HasFactory, LogsActivity;
 

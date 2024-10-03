@@ -28,7 +28,7 @@
                                         <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-primary btn-sm"
                                             href="{{ route('customers.create') }}" button_icon="fa fa-add" button_name="Add" />
                                     @endcan {{-- Customer Create End --}}
-                                    @can('Customer Import')
+                                    @can('Customer Excel Import')
                                         <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-warning btn-sm"
                                             href="{{ route('customers.import') }}" button_icon="fa fa-upload"
                                             button_name="Import" />
@@ -43,11 +43,11 @@
                                             button_name="Refresh" />
                                     @endcan {{-- Customer Read --}}
                                 </x-layouts.div-clearfix>
-                                @can('Customer Table')
+                                @can('Customer Read')
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                @can('Customer Table')
+                                                @can('Customer Read')
                                                     <th>Sn</th>
                                                 @endcan
                                                 @can('Customer Read Name')
@@ -170,7 +170,7 @@
                             "X-CSRF-TOKEN": $("input[name='_token']").val()
                         });
                         if (isReady) {
-                            fetch("/admin/fixancare/masters/customers/destroy" +
+                            fetch("/admin/techso/masters/customers/destroy" +
                                 customerID, {
                                     method: 'DELETE',
                                     headers: myHeaders,
@@ -195,7 +195,7 @@
                                 "showMethod": "fadeIn",
                                 "hideMethod": "fadeOut"
                             };
-                            toastr.error("Brand Deleting.....");
+                            toastr.error("Customer Deleting.....");
                         }
 
                     });
@@ -235,11 +235,11 @@
                 // <--- colum serial number order with id
                 "columnDefs": [{
                     searchable: false,
-                    orderable: false,
+                    orderable: true,
                     targets: 0
                 }],
                 "order": [
-                    [1, 'asc']
+                    [1, 'desc']
                 ],
                 // colum serial number order with id --->
                 columns: [

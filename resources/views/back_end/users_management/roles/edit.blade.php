@@ -25,7 +25,7 @@
                 </div>
                 <!-- left column -->
                 <div class="col-md-10">
-                    <form role="form" action="{{ route('roles.update', $role->id) }}" method="post"
+                    <form role="form" action="{{ route('roles.update', encrypt($role->id)) }}" method="post"
                         enctype="multipart/form-data" id="quickForm">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}

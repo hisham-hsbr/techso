@@ -34,12 +34,14 @@
     'input_class',
     'input_value',
     'input_placeholder',
+    'input_onkeyup' => null, // Adding the onkeyup event as an optional prop
 ])
 
 <div class="form-group {{ $div_class }}">
     <label for="{{ $label_for }}" class="{{ $lable_class }} col-form-label">{{ $label_name }}</label>
     <input type="{{ $input_type }}" name="{{ $input_name }}" id="{{ $input_id }}" style="{{ $input_style }}"
-        class="form-control{{ $input_class }}" value="{{ $input_value }}" placeholder="{{ $input_placeholder }}">
+        class="form-control{{ $input_class }}" value="{{ $input_value }}" placeholder="{{ $input_placeholder }}"
+        @if ($input_onkeyup) onkeyup="{{ $input_onkeyup }}" @endif>
 </div>
 
 

@@ -51,8 +51,8 @@ class UserController extends Controller
         }
         return Datatables::of($users)
 
-            ->setRowId(function ($User) {
-                return $User->id;
+            ->setRowId(function ($user) {
+                return encrypt($user->id);
             })
 
             ->editColumn('status', function (User $user) {
@@ -145,13 +145,13 @@ class UserController extends Controller
 
             ->addColumn('editLink', function (User $user) {
 
-                $editLink = '<a href="' . route('users.edit', $user->id) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
+                $editLink = '<a href="' . route('users.edit', encrypt($user->id)) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
                 return $editLink;
             })
             ->addColumn('deleteLink', function (User $user) {
                 $CSRFToken = "csrf_field()";
                 $deleteLink = '
-                        <button class="btn btn-link delete-user" data-user_id="' . $user->id . '" type="submit"><i
+                        <button class="btn btn-link delete-user" data-user_id="' . encrypt($user->id) . '" type="submit"><i
                                 class="fa-solid fa-trash-can text-danger"></i>
                         </button>';
                 return $deleteLink;
@@ -268,6 +268,8 @@ class UserController extends Controller
     public function profileUpdate(Request $request)
     {
         $id = Auth::user()->id;
+        $id = decrypt($id);
+
         $this->validate($request, [
             'name' => 'required',
             'last_name' => 'required',
@@ -374,6 +376,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $id = decrypt($id);
         $bloods = Blood::where('status', 1)->get();
         $time_zones = TimeZone::where('status', 1)->get();
         $country_list = DB::table('country_state_district_cities')
@@ -396,6 +399,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $id = decrypt($id);
         $this->validate($request, [
             'name' => 'required',
             'last_name' => 'required',
@@ -494,6 +498,7 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
+        $id = decrypt($id);
         $user  = User::findOrFail($id);
         $user->delete();
         return redirect()->route('users.index')
@@ -511,6 +516,7 @@ class UserController extends Controller
 
         $path = Storage::disk('public')->putFileAs('images/avatars/users', $file, $file_name);
         $id = Auth::user()->id;
+        $id = decrypt($id);
         $user  = User::findOrFail($id);
         $user->avatar = $path;
         $user->update();
@@ -528,6 +534,7 @@ class UserController extends Controller
 
         $path = "";
         $id = Auth::user()->id;
+        $id = decrypt($id);
         $user  = User::findOrFail($id);
         $user->avatar = $path;
         $user->update();

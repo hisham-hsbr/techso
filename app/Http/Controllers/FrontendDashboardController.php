@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Image;
-use App\Models\Fixancare\MobileService;
+use App\Models\Techso\Service;
 
 class FrontendDashboardController extends Controller
 {
@@ -19,14 +19,12 @@ class FrontendDashboardController extends Controller
 
         $track_test = $_GET['job_number'];
 
-         $job_numbers = MobileService::where('job_number','LIKE',$track_test)->get();
-         if ($track_test == "") {
+        $job_numbers = Service::where('job_number', 'LIKE', $track_test)->get();
+        if ($track_test == "") {
 
-          return view('front_end.tr');
-            }
-            else {
-          return view('front_end.track',compact('job_numbers'));
-
+            return view('front_end.tr');
+        } else {
+            return view('front_end.track', compact('job_numbers'));
         }
     }
     public function trackSearchPhone()
@@ -34,27 +32,25 @@ class FrontendDashboardController extends Controller
 
         $track_test = $_GET['phone_number'];
 
-         $phone_numbers = MobileService::where('contact_number','LIKE',$track_test)->get();
-         if ($track_test == "") {
+        $phone_numbers = Service::where('contact_number', 'LIKE', $track_test)->get();
+        if ($track_test == "") {
 
-          return view('front_end.tr');
-            }
-            else {
-          return view('front_end.track',compact('phone_numbers'));
-
+            return view('front_end.tr');
+        } else {
+            return view('front_end.track', compact('phone_numbers'));
         }
     }
     public function portfolioDetails($id)
     {
         $image = Image::find($id);
-        return view('front_end.portfolio-details',compact('image'));
+        return view('front_end.portfolio-details', compact('image'));
     }
     public function index()
     {
         $images = Image::all();
         $images_portfolio = Image::all()
-                            ->where('type', 'portfolio')
-                            ->groupBy('group');
-        return view('front_end.welcome',compact('images','images_portfolio'))->with('i');
+            ->where('type', 'portfolio')
+            ->groupBy('group');
+        return view('front_end.welcome', compact('images', 'images_portfolio'))->with('i');
     }
 }

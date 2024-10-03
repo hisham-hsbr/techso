@@ -22,11 +22,13 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            @can('User Menu')
+                            @can('Permission Create')
                                 <x-layouts.div-clearfix>
                                     <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-primary"
                                         href="{{ route('roles.create') }}" button_icon="fa fa-add" button_name="Add" />
                                 </x-layouts.div-clearfix>
+                            @endcan
+                            @can('Permission Read')
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -39,8 +41,12 @@
                                             <th>Updated At</th>
                                             <th>Created By</th>
                                             <th>Updated By</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
+                                            @can('Permission Edit')
+                                                <th>Edit</th>
+                                            @endcan
+                                            @can('Permission Delete')
+                                                <th>Delete</th>
+                                            @endcan
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,21 +73,26 @@
                                                 <td>{{ $role->updatedBy->name }}</td>
                                                 <td>{{ $role->created_at->format('d-M-Y , h:i:s A') }}</td>
                                                 <td>{{ $role->updated_at->format('d-M-Y , h:i:s A') }}</td>
-                                                <td>
-                                                    <a href="{{ route('roles.edit', $role->id) }}" class="ml-2">
-                                                        <i class="fa-solid fa-edit"></i>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <form method="POST" action="{{ route('roles.destroy', $role->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn" type="submit"><i
-                                                                class="fa-solid fa-trash-can text-danger"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
+                                                @can('Permission Edit')
+                                                    <td>
+                                                        <a href="{{ route('roles.edit', encrypt($role->id)) }}" class="ml-2">
+                                                            <i class="fa-solid fa-edit"></i>
+                                                        </a>
+                                                    </td>
+                                                @endcan
+                                                @can('Permission Delete')
+                                                    <td>
+                                                        <form method="POST"
+                                                            action="{{ route('roles.destroy', encrypt($role->id)) }}"
+                                                            onsubmit="return confirm('Are you sure?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn" type="submit"><i
+                                                                    class="fa-solid fa-trash-can text-danger"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                @endcan
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -96,8 +107,12 @@
                                             <th>Updated At</th>
                                             <th>Created By</th>
                                             <th>Updated By</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
+                                            @can('Permission Edit')
+                                                <th>Edit</th>
+                                            @endcan
+                                            @can('Permission Delete')
+                                                <th>Delete</th>
+                                            @endcan
                                         </tr>
                                     </tfoot>
                                 </table>

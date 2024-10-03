@@ -8,17 +8,17 @@ Route::middleware('auth')->group(function () {
 
     //customers
     Route::controller('Techso\CustomerController')->prefix('/admin/techso/masters/customers')->name('customers.')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::patch('/update/{id}', 'update')->name('update');
-        Route::post('/store', 'store')->name('store');
-        Route::delete('/destroy{id}', 'destroy')->name('destroy');
-        Route::get('/get', 'customersGet')->name('get');
-        Route::get('/pdf/{id}', 'customersPDF')->name('pdf');
-        Route::get('/import', 'customersImport')->name('import');
-        Route::post('/upload', 'customersUpload')->name('upload');
-        Route::get('/download', 'customersDownload')->name('download');
+        Route::get('/', 'index')->name('index')->middleware('permission:Customer Read');
+        Route::get('/create', 'create')->name('create')->middleware('permission:Customer Create');
+        Route::get('/edit/{id}', 'edit')->name('edit')->middleware('permission:Customer Edit');
+        Route::patch('/update/{id}', 'update')->name('update')->middleware('permission:Customer Edit');
+        Route::post('/store', 'store')->name('store')->middleware('permission:Customer Create');
+        Route::delete('/destroy{id}', 'destroy')->name('destroy')->middleware('permission:Customer Delete');
+        Route::get('/get', 'customersGet')->name('get')->middleware('permission:Customer Read');
+        Route::get('/pdf/{id}', 'customersPDF')->name('pdf')->middleware('permission:Customer Print PDF');
+        Route::get('/excel-import', 'customersExcelImport')->name('import')->middleware('permission:Customer Excel Import');
+        Route::post('/excel-upload', 'customersExcelUpload')->name('upload')->middleware('permission:Customer Excel Import');
+        Route::get('/excel-sample-download', 'customersExcelSampleDownload')->name('download')->middleware('permission:Customer Excel Import');
     });
 
     //brands

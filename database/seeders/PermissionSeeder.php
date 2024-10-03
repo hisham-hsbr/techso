@@ -335,36 +335,35 @@ class PermissionSeeder extends Seeder
             Permission::create(['name' => 'Job Status Table Column Visible', 'parent' => 'Job Status', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
             // End <= Job Status
 
-            // Start => Mobile Model
-            Permission::create(['name' => 'Mobile Model Read', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Create', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Edit', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Update', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Delete', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Settings', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Import', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Table', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Print PDF', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            // Start => Customer
+            Permission::create(['name' => 'Customer Read', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Create', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Edit', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Delete', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Settings', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Excel Import', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Table', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Print PDF', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
 
-            Permission::create(['name' => 'Mobile Model Read Code', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Read Name', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Read Brand', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Name', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Contact Name', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Contact Number', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
 
-            Permission::create(['name' => 'Mobile Model Read Description', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Read Edit Description', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Description', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Edit Description', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
 
-            Permission::create(['name' => 'Mobile Model Read Status', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Read Created By', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Read Created At', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Read Updated By', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Read Updated At', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Status', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Created By', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Created At', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Updated By', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Read Updated At', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
 
-            Permission::create(['name' => 'Mobile Model Table Export Excel', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Table Export PDF', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Table Print', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Table Copy', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            Permission::create(['name' => 'Mobile Model Table Column Visible', 'parent' => 'Mobile Model', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
-            // End <= Mobile Model
+            Permission::create(['name' => 'Customer Table Export Excel', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Table Export PDF', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Table Print', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Table Copy', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Customer Table Column Visible', 'parent' => 'Customer', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            // End <= Customer
 
             // Start => Brand
             Permission::create(['name' => 'Brand Read', 'parent' => 'Brand', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
@@ -431,6 +430,38 @@ class PermissionSeeder extends Seeder
             Permission::create(['name' => 'Image Controller Table Copy', 'parent' => 'Image Controller', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
             Permission::create(['name' => 'Image Controller Table Column Visible', 'parent' => 'Image Controller', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
             // End <= Image Controller
+
+            // Start => Product
+            Permission::create(['name' => 'Product Read', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Create', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Edit', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Delete', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Settings', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Excel Import', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Table', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Print PDF', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Filter', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+
+            Permission::create(['name' => 'Product Read Code', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Read Name', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Read Product Type', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Read Brand', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+
+            Permission::create(['name' => 'Product Read Description', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Read Edit Description', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+
+            Permission::create(['name' => 'Product Read Status', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Read Created By', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Read Created At', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Read Updated By', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Read Updated At', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+
+            Permission::create(['name' => 'Product Table Export Excel', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Table Export PDF', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Table Print', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Table Copy', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            Permission::create(['name' => 'Product Table Column Visible', 'parent' => 'Product', 'guard_name' => 'web', 'status' => '1', 'created_by' => '1', 'updated_by' => '1']);
+            // End <= Product
 
         }
     }

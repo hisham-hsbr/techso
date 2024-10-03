@@ -61,6 +61,8 @@ class RoleController extends Controller
         if ($request->status == 0) {
             $role->status == 0;
         }
+        // Set the guard_name to default (web or another guard as defined in auth config)
+        $role->guard_name = config('auth.defaults.guard');
 
         $role->status = $request->status;
 
@@ -68,8 +70,10 @@ class RoleController extends Controller
         $role->updated_by = Auth::user()->id;
 
         $role->save();
+        // $role->syncPermissions($request->input('permissions'));
 
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions($request->permission);
+
 
         return redirect()->route('roles.index')->with('message_store', "{$request->name} -  Role Created Successfully");
     }
@@ -87,6 +91,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $id = decrypt($id);
         $role        = Role::find($id);
         $role        = $role->load('permissions');
         $permissions = Permission::all()->groupBy('parent');
@@ -98,6 +103,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id = decrypt($id);
         $this->validate($request, [
             'name' => "required|unique:roles,name,$id",
             'permission' => 'required',
@@ -126,6 +132,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $id = decrypt($id);
         $role  = Role::findOrFail($id);
         $role->delete();
 

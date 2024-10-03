@@ -22,7 +22,7 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            @can('User Read')
+
                                 <x-layouts.div-clearfix>
                                     @can('User Create')
                                         <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-primary"
@@ -178,7 +178,6 @@
                                         </tfoot>
                                     </table>
                                 @endcan {{-- User Read End --}}
-                            @endcan {{-- User Menu End --}}
                         </div>
                         <!-- /.card-body -->
                     </div>

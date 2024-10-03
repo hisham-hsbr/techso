@@ -20,76 +20,74 @@ class PermissionController extends Controller
         $this->middleware('auth');
 
         $this->middleware('permission:Permission Read', ['only' => ['index']]);
-        $this->middleware('permission:Permission Create', ['only' => ['create','store']]);
-        $this->middleware('permission:Permission Edit', ['only' => ['Edit','Update']]);
+        $this->middleware('permission:Permission Create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Permission Edit', ['only' => ['Edit', 'Update']]);
         $this->middleware('permission:Permission Delete', ['only' => ['destroy']]);
-
     }
 
     public function index()
     {
 
-        if(Auth::user()->hasRole('Developer')){
+        if (Auth::user()->hasRole('Developer')) {
             $permissions = Permission::all();
-        }else{
-            $permissions = Permission::where('id','>',2)->get();
+        } else {
+            $permissions = Permission::where('id', '>', 2)->get();
         }
-        return view('back_end.users_management.permissions.index',compact('permissions'))->with('i');
+        return view('back_end.users_management.permissions.index', compact('permissions'))->with('i');
     }
 
     public function permissionsGet()
     {
         return Datatables::of(Permission::query())
 
-        ->setRowId(function ($permission) {
-            return $permission->id;
+            ->setRowId(function ($permission) {
+                return $permission->id;
             })
 
-        ->editColumn('status', function (Permission $permission) {
+            ->editColumn('status', function (Permission $permission) {
 
-            $active='<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
-            $inActive='<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';
+                $active = '<span style="background-color: #04AA6D;color: white;padding: 3px;width:100px;">Active</span>';
+                $inActive = '<span style="background-color: #ff9800;color: white;padding: 3px;width:100px;">In Active</span>';
 
-            $activeId = ($permission->status);
+                $activeId = ($permission->status);
 
-                if($activeId==1){
+                if ($activeId == 1) {
                     $activeId = $active;
-                }
-                else {
+                } else {
                     $activeId = $inActive;
                 }
                 return $activeId;
-        })
-        ->addColumn('created_at', function (Permission $permission) {
-            return $permission->created_at->format('d-M-Y h:m');
-        })
-        ->addColumn('updated_at', function (Permission $permission) {
+            })
+            ->addColumn('created_at', function (Permission $permission) {
+                return $permission->created_at->format('d-M-Y h:m');
+            })
+            ->addColumn('updated_at', function (Permission $permission) {
 
-            return $permission->updated_at->format('d-M-Y h:m');
-        })
-        ->editColumn('created_by', function (Permission $permission) {
+                return $permission->updated_at->format('d-M-Y h:m');
+            })
+            ->editColumn('created_by', function (Permission $permission) {
 
-            return ucwords($permission->CreatedBy->name);
-        })
-        ->editColumn('updated_by', function (Permission $permission) {
-        return ucwords($permission->UpdatedBy->name);
-        })
-        ->addColumn('editLink', function (Permission $permission) {
+                return ucwords($permission->CreatedBy->name);
+            })
+            ->editColumn('updated_by', function (Permission $permission) {
+                return ucwords($permission->UpdatedBy->name);
+            })
+            ->addColumn('editLink', function (Permission $permission) {
 
-            $editLink ='<a href="'. route('permissions.edit', $permission->id) .'" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
-               return $editLink;
-        })
-        ->addColumn('deleteLink', function (Permission $permission) {
-           $CSRFToken = "csrf_field()";
-            $deleteLink ='
-                                           <button class="btn btn-link delete-permission" data-permission_id="'.$permission->id.'" type="submit"><i
+                $editLink = '<a href="' . route('permissions.edit', $permission->id) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
+                return $editLink;
+            })
+            ->addColumn('deleteLink', function (Permission $permission) {
+                $CSRFToken = "csrf_field()";
+                $deleteLink = '
+                                           <button class="btn btn-link delete-permission" data-permission_id="' . $permission->id . '" type="submit"><i
                                                    class="fa-solid fa-trash-can text-danger"></i>
                                            </button>';
-               return $deleteLink;
-        })
+                return $deleteLink;
+            })
 
-       ->rawColumns(['status','editLink','deleteLink'])
-        ->toJson();
+            ->rawColumns(['status', 'editLink', 'deleteLink'])
+            ->toJson();
     }
 
 
@@ -113,16 +111,16 @@ class PermissionController extends Controller
 
     public function permissionsDownload()
     {
-        $path=public_path('downloads/sample_excels/permissions_import_sample.xlsx');
+        $path = public_path('downloads/sample_excels/permissions_import_sample.xlsx');
         return response()->download($path);
     }
 
     public function permissionsUpload(Request $request)
     {
         // dd($request->all());
-        Excel::import(new PermissionsImport,$request->file('data'));
+        Excel::import(new PermissionsImport, $request->file('data'));
         return redirect()->route('permissions.index')
-        ->with('message_store', 'Permission Import Successfully');
+            ->with('message_store', 'Permission Import Successfully');
     }
 
     public function store(Request $request)
@@ -140,10 +138,9 @@ class PermissionController extends Controller
         $permission->guard_name = "web";
 
 
-        if ($request->status==0)
-            {
-                $permission->status==0;
-            }
+        if ($request->status == 0) {
+            $permission->status == 0;
+        }
 
         $permission->status = $request->status;
 
@@ -153,7 +150,7 @@ class PermissionController extends Controller
         $permission->save();
 
         return redirect()->route('permissions.index')
-                        ->with('message_store', 'Permission Created Successfully');
+            ->with('message_store', 'Permission Created Successfully');
     }
 
     /**
@@ -169,6 +166,7 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
+        $id = decrypt($id);
         $permission  = Permission::find($id);
         return view('back_end.users_management.permissions.edit', compact('permission'));
     }
@@ -178,6 +176,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id = decrypt($id);
         $this->validate($request, [
             'name' => 'required',
             'parent' => 'required',
@@ -190,10 +189,9 @@ class PermissionController extends Controller
         $permission->guard_name = "web";
 
 
-        if ($request->status==0)
-            {
-                $permission->status==0;
-            }
+        if ($request->status == 0) {
+            $permission->status == 0;
+        }
 
         $permission->status = $request->status;
 
@@ -202,7 +200,7 @@ class PermissionController extends Controller
         $permission->save();
 
         return redirect()->route('permissions.index')
-                        ->with('message_store', 'Permission Updated Successfully');
+            ->with('message_store', 'Permission Updated Successfully');
     }
 
     /**
@@ -211,10 +209,11 @@ class PermissionController extends Controller
     public function destroy($id)
     {
 
-         $permission  = Permission::findOrFail($id);
+        $id = decrypt($id);
+        $permission  = Permission::findOrFail($id);
         $permission->delete();
 
         return redirect()->route('permissions.index')
-                ->with('message_update', 'Permission Deleted Successfully');
+            ->with('message_update', 'Permission Deleted Successfully');
     }
 }

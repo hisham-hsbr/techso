@@ -18,9 +18,10 @@ class CustomersImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {
         $customer = new Customer([
-            "code" => $row['customer_code'],
-            "name" => $row['customer_name'],
-            "status" => $row['status'],
+            "name" => $row['customer_company_name'],
+            "contact_name" => $row['customer_contact_name'],
+            "phone_1" => $row['customer_phone_1'],
+            "status" => isset($row['status']) ? $row['status'] : 1,
             "created_by" => Auth::user()->id,
             "updated_by" => Auth::user()->id,
         ]);
@@ -29,12 +30,12 @@ class CustomersImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'customer_code' => 'required|unique:customers,code',
-            'customer_name' => 'required',
+            'customer_phone_1' => 'required|unique:customers,phone_1',
+            'customer_contact_name' => 'required',
 
             // Above is alias for as it always validates in batches
-            '*.customer_code' => 'required|unique:customers,code',
-            '*.customer_name' => 'required',
+            '*.customer_phone_1' => 'required|unique:customers,phone_1',
+            '*.customer_contact_name' => 'required',
         ];
     }
 }

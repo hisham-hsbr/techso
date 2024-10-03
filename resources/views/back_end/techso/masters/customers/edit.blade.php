@@ -31,7 +31,7 @@
             <!-- left column -->
             <div class="col-md-10">
                 @can('Customer Edit')
-                    <form role="form" action="{{ route('customers.update', $customer->id) }}" method="post"
+                    <form role="form" action="{{ route('customers.update', encrypt($customer->id)) }}" method="post"
                         enctype="multipart/form-data" id="quickForm">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
@@ -107,11 +107,13 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="">
-                            @can('Customer Update')
+                            @can('Customer Edit')
                                 <button type="submit" class="float-right ml-1 btn btn-primary">Update</button>
                             @endcan
-                            <a type="button" href="{{ route('customers.index') }}"
-                                class="float-right ml-1 btn btn-warning">Back</a>
+                            @can('Customer Read')
+                                <a type="button" href="{{ route('customers.index') }}"
+                                    class="float-right ml-1 btn btn-warning">Back</a>
+                            @endcan
                         </div>
                         <!-- /.card-footer -->
                     </form>

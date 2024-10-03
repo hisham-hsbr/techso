@@ -48,5 +48,17 @@ class DeveloperUserSeeder extends Seeder
             'updated_by' => '1',
             'status' => '1'
         ]);
+        User::create([
+            'name' => 'Mubeer',
+            'last_name' => 'Techso',
+            'dob' => '1990-10-24',
+            'phone1' => '966568587218',
+            'gender' => 'male',
+            'email' => 'techsoksa@gmail.com',
+            'password' => bcrypt('techsoksa@gmail'),
+            'created_by' => '1',
+            'updated_by' => '1',
+            'status' => '1'
+        ]);
     }
 }

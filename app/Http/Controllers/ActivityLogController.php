@@ -28,6 +28,7 @@ class ActivityLogController extends Controller
     }
     public function show($id)
     {
+        $id = decrypt($id);
         $activityLog = Activity::find($id);
         $users = User::all();
         return view('back_end.users_management.activity-log.show', compact('activityLog', 'users'));
@@ -40,7 +41,7 @@ class ActivityLogController extends Controller
         return Datatables::of($activity)
 
             ->setRowId(function ($activity) {
-                return $activity->id;
+                return encrypt($activity->id);
             })
 
 
@@ -58,7 +59,7 @@ class ActivityLogController extends Controller
             })
             ->addColumn('viewLink', function (Activity $activity) {
 
-                $viewLink = '<a href="' . route('activityLogs.show', $activity->id) . '" class="ml-2"><i class="fa-solid fa fa-eye"></i></a>';
+                $viewLink = '<a href="' . route('activityLogs.show', encrypt($activity->id)) . '" class="ml-2"><i class="fa-solid fa fa-eye"></i></a>';
                 return $viewLink;
             })
 

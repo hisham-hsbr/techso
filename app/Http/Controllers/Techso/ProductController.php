@@ -60,7 +60,10 @@ class ProductController extends Controller
         return Datatables::of($products)
 
             ->setRowId(function ($product) {
-                return $product->id;
+                return encrypt($product->id);
+            })
+            ->setRowClass(function (Product $product) {
+                return ($product->default == 1) ? 'text-info' : '';
             })
 
             ->editColumn('status', function (Product $product) {
@@ -108,13 +111,13 @@ class ProductController extends Controller
 
             ->addColumn('editLink', function (Product $product) {
 
-                $editLink = '<a href="' . route('products.edit', $product->id) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
+                $editLink = '<a href="' . route('products.edit', encrypt($product->id)) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
                 return $editLink;
             })
             ->addColumn('deleteLink', function (Product $product) {
                 $CSRFToken = "csrf_field()";
                 $deleteLink = '
-                         <button class="btn btn-link delete-product" data-product_id="' . $product->id . '" type="submit"><i
+                         <button class="btn btn-link delete-product" data-product_id="' . encrypt($product->id) . '" type="submit"><i
                                  class="fa-solid fa-trash-can text-danger"></i>
                          </button>';
                 return $deleteLink;
@@ -188,7 +191,6 @@ class ProductController extends Controller
         ]);
         $product = new Product();
 
-
         $product->code  = $request->code;
         $product->name = $request->name;
         $product->local_name = $request->local_name;
@@ -197,6 +199,11 @@ class ProductController extends Controller
         $product->product_type_id = $request->product_type_id;
         $product->brand_id = $request->brand_id;
 
+        if ($request->default) {
+            Product::where('default', 1)->update(['default' => null]);
+        }
+
+        $product->default = $request->default;
 
         if ($request->status == 0) {
             $product->status == 0;
@@ -226,6 +233,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $id = decrypt($id);
         $product = Product::find($id);
         $product_types = ProductType::all();
         $brands = Brand::all();
@@ -245,6 +253,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id = decrypt($id);
         $this->validate($request, [
             'name' => 'required',
             'code' => "required|unique:products,code,$id",
@@ -262,6 +271,15 @@ class ProductController extends Controller
         $product->product_type_id = $request->product_type_id;
         $product->brand_id = $request->brand_id;
 
+        if ($request->default) {
+            Product::where('default', 1)
+                ->where('id', '!=', $id)
+                ->update(['default' => null]);
+
+            $product->default = 1;
+        } else {
+            $product->default = null;
+        }
 
         if ($request->status == 0) {
             $product->status == 0;
@@ -282,6 +300,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $id = decrypt($id);
         $product  = Product::findOrFail($id);
         $product->delete();
 

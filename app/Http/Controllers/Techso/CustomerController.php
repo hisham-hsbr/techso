@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Techso;
 
+use App\Imports\CustomersImport;
 use App\Models\Techso\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class CustomerController extends Controller
         return Datatables::of($customers)
 
             ->setRowId(function ($customer) {
-                return $customer->id;
+                return encrypt($customer->id);
             })
             ->setRowClass(function (Customer $customer) {
                 return ($customer->default == 1) ? 'text-info' : '';
@@ -79,13 +80,13 @@ class CustomerController extends Controller
 
             ->addColumn('editLink', function (Customer $customer) {
 
-                $editLink = '<a href="' . route('customers.edit', $customer->id) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
+                $editLink = '<a href="' . route('customers.edit', encrypt($customer->id)) . '" class="ml-2"><i class="fa-solid fa-edit"></i></a>';
                 return $editLink;
             })
             ->addColumn('deleteLink', function (Customer $customer) {
                 $CSRFToken = "csrf_field()";
                 $deleteLink = '
-                         <button class="btn btn-link delete-customer" data-customer_id="' . $customer->id . '" type="submit"><i
+                         <button class="btn btn-link delete-customer" data-customer_id="' . encrypt($customer->id) . '" type="submit"><i
                                  class="fa-solid fa-trash-can text-danger"></i>
                          </button>';
                 return $deleteLink;
@@ -107,25 +108,25 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function customerImport()
+    public function customersExcelImport()
     {
-        return view('back_end.fixancare.customers.import');
+        return view('back_end.techso.masters.customers.import');
     }
 
-    public function customerDownload()
+    public function customersExcelSampleDownload()
     {
         $path = public_path('downloads/sample_excels/customers_import_sample.xlsx');
         return response()->download($path);
     }
 
-    public function customerUpload(Request $request)
+    public function customersExcelUpload(Request $request)
     {
         $request->validate([
             'data' => 'required'
         ]);
 
         try {
-            Excel::import(new CustomerImport, $request->file('data'));
+            Excel::import(new CustomersImport, $request->file('data'));
             return redirect()->route('customers.index')
                 ->with('message_store', 'Customers Import Successfully');
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
@@ -187,6 +188,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
+        $id = decrypt($id);
         $customer = Customer::find($id);
         return view('back_end.techso.masters.customers.edit', compact('customer'));
     }
@@ -196,6 +198,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id = decrypt($id);
         $this->validate($request, [
             'phone_1' => "required|unique:customers,phone_1,$id",
             'name' => 'required',
@@ -212,12 +215,16 @@ class CustomerController extends Controller
         $customer->address = $request->address;
         $customer->description = $request->description;
 
-        if ($request->default == 0) {
-            $customer->default = 0;
+        if ($request->default) {
+            Customer::where('default', 1)
+                ->where('id', '!=', $id)
+                ->update(['default' => null]);
+
+            $customer->default = 1;
         } else {
-            Customer::where('default', 1)->update(['default' => null]);
+            $customer->default = null;
         }
-        $customer->default = $request->default;
+
 
         if ($request->status == 0) {
             $customer->status == 0;
@@ -238,6 +245,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
+        $id = decrypt($id);
         $customer  = Customer::findOrFail($id);
         $customer->delete();
 

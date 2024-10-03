@@ -20,7 +20,7 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <!-- Sidebar user (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="pb-3 mt-3 mb-3 user-panel d-flex">
         <div class="image">
             <x-user.user-profile-image />
         </div>
@@ -84,256 +84,254 @@
                 @endcanany <!-- Developer Settings End -->
 
             @endcanany <!-- Masters Menu End -->
-            @canany(['Admin Settings', 'User Settings', 'User Read', 'Blood Read', 'Permission Read'])
+            @if (Request::is('admin/*'))
                 <x-sidebar.sidebar-nav-header head="Admin Section" />
+            @endif
 
-                <!-- Masters Menu Start -->
-                @canany(['Blood Read'])
-                    <x-sidebar.sidebar-nav-level head="Masters" href="#"
-                        menu_open="{{ request()->is('admin/masters*') ? 'menu-open' : '' }}"
-                        active="{{ request()->is('admin/masters/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
-                        drop_icon="fas fa-angle-left">
-                        <!-- Blood Menu Start -->
-                        @can('Blood Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Bloods" href="{{ route('bloods.index') }}" menu_open=""
-                                active="{{ request()->is('admin/masters/bloods*') ? 'active' : '' }}" menu_icon="fa fa-tint"
-                                drop_icon="" />
-                        @endcan <!-- Blood Menu End -->
-                    </x-sidebar.sidebar-nav-level>
-                @endcanany <!-- Masters Menu End -->
+            <!-- Masters Menu Start -->
+            @canany(['Blood Read'])
+                <x-sidebar.sidebar-nav-level head="Masters" href="#"
+                    menu_open="{{ request()->is('admin/masters*') ? 'menu-open' : '' }}"
+                    active="{{ request()->is('admin/masters/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
+                    drop_icon="fas fa-angle-left">
+                    <!-- Blood Menu Start -->
+                    @can('Blood Read')
+                        <x-sidebar.sidebar-nav-multi-level head="Bloods" href="{{ route('bloods.index') }}" menu_open=""
+                            active="{{ request()->is('admin/masters/bloods*') ? 'active' : '' }}" menu_icon="fa fa-tint"
+                            drop_icon="" />
+                    @endcan <!-- Blood Menu End -->
+                </x-sidebar.sidebar-nav-level>
+            @endcanany <!-- Masters Menu End -->
 
-                <!-- settings Menu Start -->
-                @canany(['Admin Settings', 'Blood Bank Settings'])
-                    <x-sidebar.sidebar-nav-level head="Settings" href="#"
-                        menu_open="{{ request()->is('admin/settings*') ? 'menu-open' : '' }}"
-                        active="{{ request()->is('admin/settings/*') ? 'active' : '' }}" menu_icon="fa fa-cogs"
-                        drop_icon="fas fa-angle-left">
-                        <!-- Admin Settings Start -->
-                        @can('Admin Settings')
-                            <x-sidebar.sidebar-nav-multi-level head="Admin Settings" href="{{ route('admin-settings.index') }}"
-                                menu_open="" active="{{ request()->is('admin/settings/admin-settings*') ? 'active' : '' }}"
-                                menu_icon="fa fa-wrench" drop_icon="" />
-                        @endcan <!-- Admin Settings End -->
-                        <!-- Blood Bank Settings Start -->
-                        @can('Blood Bank Settings')
-                            <x-sidebar.sidebar-nav-multi-level head="Blood Bank Settings"
-                                href="{{ route('blood-bank-settings.index') }}" menu_open=""
-                                active="{{ request()->is('admin/settings/blood-bank-settings*') ? 'active' : '' }}"
-                                menu_icon="fa fa-wrench" drop_icon="" />
-                        @endcan <!-- Blood Bank Settings End -->
-                    </x-sidebar.sidebar-nav-level>
-                @endcanany <!-- settings Menu End -->
+            <!-- settings Menu Start -->
+            @canany(['Admin Settings', 'Blood Bank Settings'])
+                <x-sidebar.sidebar-nav-level head="Settings" href="#"
+                    menu_open="{{ request()->is('admin/settings*') ? 'menu-open' : '' }}"
+                    active="{{ request()->is('admin/settings/*') ? 'active' : '' }}" menu_icon="fa fa-cogs"
+                    drop_icon="fas fa-angle-left">
+                    <!-- Admin Settings Start -->
+                    @can('Admin Settings')
+                        <x-sidebar.sidebar-nav-multi-level head="Admin Settings" href="{{ route('admin-settings.index') }}"
+                            menu_open="" active="{{ request()->is('admin/settings/admin-settings*') ? 'active' : '' }}"
+                            menu_icon="fa fa-wrench" drop_icon="" />
+                    @endcan <!-- Admin Settings End -->
+                    <!-- Blood Bank Settings Start -->
+                    @can('Blood Bank Settings')
+                        <x-sidebar.sidebar-nav-multi-level head="Blood Bank Settings"
+                            href="{{ route('blood-bank-settings.index') }}" menu_open=""
+                            active="{{ request()->is('admin/settings/blood-bank-settings*') ? 'active' : '' }}"
+                            menu_icon="fa fa-wrench" drop_icon="" />
+                    @endcan <!-- Blood Bank Settings End -->
+                </x-sidebar.sidebar-nav-level>
+            @endcanany <!-- settings Menu End -->
 
 
-                <!-- Users Management Start -->
-                @canany(['User Read', 'Role Read', 'Permission Read', 'Activity Logs Read'])
-                    <x-sidebar.sidebar-nav-level head="Users Management" href="#"
-                        menu_open="{{ request()->is('admin/users-management*') ? 'menu-open' : '' }}"
-                        active="{{ request()->is('admin/users-management/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
-                        drop_icon="fas fa-angle-left">
-                        <!-- User Menu Start -->
-                        @can('User Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Users" href="{{ route('users.index') }}" menu_open=""
-                                active="{{ request()->is('admin/users-management/users*') ? 'active' : '' }}"
-                                menu_icon="fa fa-users" drop_icon="" />
-                        @endcan <!-- User Menu End -->
-                        <!-- Role Menu -->
-                        @can('Role Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Roles" href="{{ route('roles.index') }}" menu_open=""
-                                active="{{ request()->is('admin/users-management/roles*') ? 'active' : '' }}"
-                                menu_icon="fa fa-user-secret" drop_icon="" />
-                        @endcan <!-- Role Menu End -->
-                        <!-- Permission Menu -->
-                        @can('Permission Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Permission" href="{{ route('permissions.index') }}"
-                                menu_open=""
-                                active="{{ request()->is('admin/users-management/permissions*') ? 'active' : '' }}"
-                                menu_icon="fa fa-lock" drop_icon="" />
-                        @endcan <!-- Permission Menu End -->
-                        <!-- Menu Activity Logs -->
-                        @can('Activity Logs Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Activity Logs" href="{{ route('activityLogs.index') }}"
-                                menu_open=""
-                                active="{{ request()->is('admin/users-management/activity-logs*') ? 'active' : '' }}"
-                                menu_icon="fa fa-history" drop_icon="" />
-                        @endcan <!-- Activity Logs Menu End -->
-                    </x-sidebar.sidebar-nav-level>
-                @endcanany <!-- Users Management end -->
+            <!-- Users Management Start -->
+            @canany(['User Read', 'Role Read', 'Permission Read', 'Activity Logs Read'])
+                <x-sidebar.sidebar-nav-level head="Users Management" href="#"
+                    menu_open="{{ request()->is('admin/users-management*') ? 'menu-open' : '' }}"
+                    active="{{ request()->is('admin/users-management/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
+                    drop_icon="fas fa-angle-left">
+                    <!-- User Menu Start -->
+                    @can('User Read')
+                        <x-sidebar.sidebar-nav-multi-level head="Users" href="{{ route('users.index') }}" menu_open=""
+                            active="{{ request()->is('admin/users-management/users*') ? 'active' : '' }}"
+                            menu_icon="fa fa-users" drop_icon="" />
+                    @endcan <!-- User Menu End -->
+                    <!-- Role Menu -->
+                    @can('Role Read')
+                        <x-sidebar.sidebar-nav-multi-level head="Roles" href="{{ route('roles.index') }}" menu_open=""
+                            active="{{ request()->is('admin/users-management/roles*') ? 'active' : '' }}"
+                            menu_icon="fa fa-user-secret" drop_icon="" />
+                    @endcan <!-- Role Menu End -->
+                    <!-- Permission Menu -->
+                    @can('Permission Read')
+                        <x-sidebar.sidebar-nav-multi-level head="Permission" href="{{ route('permissions.index') }}"
+                            menu_open=""
+                            active="{{ request()->is('admin/users-management/permissions*') ? 'active' : '' }}"
+                            menu_icon="fa fa-lock" drop_icon="" />
+                    @endcan <!-- Permission Menu End -->
+                    <!-- Menu Activity Logs -->
+                    @can('Activity Logs Read')
+                        <x-sidebar.sidebar-nav-multi-level head="Activity Logs" href="{{ route('activityLogs.index') }}"
+                            menu_open=""
+                            active="{{ request()->is('admin/users-management/activity-logs*') ? 'active' : '' }}"
+                            menu_icon="fa fa-history" drop_icon="" />
+                    @endcan <!-- Activity Logs Menu End -->
+                </x-sidebar.sidebar-nav-level>
+            @endcanany <!-- Users Management end -->
 
-                <!-- Techso -->
+            <!-- Techso -->
 
-                <!-- techso Start -->
-                @canany(['Service Read', 'Sale Read', 'Customer Read', 'Brand Read', 'Complaint Read'])
-                    <x-sidebar.sidebar-nav-level head="Techso" href="#"
-                        menu_open="{{ request()->is('admin/techso*') ? 'menu-open' : '' }}"
-                        active="{{ request()->is('admin/techso/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
-                        drop_icon="fas fa-angle-left">
+            <!-- techso Start -->
+            @canany(['Service Read', 'Sale Read', 'Customer Read', 'Brand Read', 'Complaint Read'])
+                <x-sidebar.sidebar-nav-level head="Techso" href="#"
+                    menu_open="{{ request()->is('admin/techso*') ? 'menu-open' : '' }}"
+                    active="{{ request()->is('admin/techso/*') ? 'active' : '' }}" menu_icon="fa fa-folder-open"
+                    drop_icon="fas fa-angle-left">
 
-                        @can('Service Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Service" href="{{ route('services.index') }}"
-                                menu_open="" active="{{ request()->is('admin/techso/services*') ? 'active' : '' }}"
-                                menu_icon="fa fa-toolbox" drop_icon="" />
-                        @endcan
-                        @can('Purchase Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Purchase" href="{{ route('purchase-registers.index') }}"
-                                menu_open="" active="{{ request()->is('admin/techso/purchases*') ? 'active' : '' }}"
-                                menu_icon="fa fa-cart-shopping" drop_icon="" />
-                        @endcan
-                        @can('Sale Read')
-                            <x-sidebar.sidebar-nav-multi-level head="Sale" href="{{ route('sales-registers.index') }}"
-                                menu_open="" active="{{ request()->is('admin/techso/sales*') ? 'active' : '' }}"
-                                menu_icon="fa fa-cart-shopping" drop_icon="" />
-                        @endcan
-                        {{-- @can('Image Controller Read')
+                    @can('Service Read')
+                        <x-sidebar.sidebar-nav-multi-level head="Service" href="{{ route('services.index') }}"
+                            menu_open="" active="{{ request()->is('admin/techso/services*') ? 'active' : '' }}"
+                            menu_icon="fa fa-toolbox" drop_icon="" />
+                    @endcan
+                    @can('Purchase Read')
+                        <x-sidebar.sidebar-nav-multi-level head="Purchase" href="{{ route('purchase-registers.index') }}"
+                            menu_open="" active="{{ request()->is('admin/techso/purchases*') ? 'active' : '' }}"
+                            menu_icon="fa fa-cart-shopping" drop_icon="" />
+                    @endcan
+                    @can('Sale Read')
+                        <x-sidebar.sidebar-nav-multi-level head="Sale" href="{{ route('sales-registers.index') }}"
+                            menu_open="" active="{{ request()->is('admin/techso/sales*') ? 'active' : '' }}"
+                            menu_icon="fa fa-cart-shopping" drop_icon="" />
+                    @endcan
+                    {{-- @can('Image Controller Read')
                             <x-sidebar.sidebar-nav-multi-level head="Image Controller" href="{{ route('images.index') }}"
                                 menu_open="" active="{{ request()->is('admin/techso/image*') ? 'active' : '' }}"
                                 menu_icon="fa fa-images" drop_icon="" />
                         @endcan  --}}
 
 
-                        <!-- techso masters Start -->
-                        @canany(['customer Read', 'Job Type Read', 'Work Status Read', 'Job Status Read', 'Complaint Read',
-                            'Brand Read'])
-                            <x-sidebar.sidebar-nav-multi-level head="Masters" href="#"
-                                menu_open="{{ request()->is('admin/techso/masters*') ? 'menu-open' : '' }}"
-                                active="{{ request()->is('admin/techso/masters/*') ? 'active' : '' }}"
-                                menu_icon="fa fa-folder-tree" drop_icon="fas fa-angle-left">
+                    <!-- techso masters Start -->
+                    @canany(['Customer Read', 'Job Type Read', 'Work Status Read', 'Job Status Read', 'Complaint Read',
+                        'Brand Read'])
+                        <x-sidebar.sidebar-nav-multi-level head="Masters" href="#"
+                            menu_open="{{ request()->is('admin/techso/masters*') ? 'menu-open' : '' }}"
+                            active="{{ request()->is('admin/techso/masters/*') ? 'active' : '' }}"
+                            menu_icon="fa fa-folder-tree" drop_icon="fas fa-angle-left">
 
-                                @can('Customer Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Customers" href="{{ route('customers.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/techso/masters/customers*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                                @can('Product Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Products" href="{{ route('products.index') }}"
-                                        menu_open="" active="{{ request()->is('admin/techso/masters/products*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                                @can('Brand Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Brands" href="{{ route('brands.index') }}"
-                                        menu_open="" active="{{ request()->is('admin/techso/masters/brands*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                                @can('Complaint Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Complaints" href="{{ route('complaints.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/techso/masters/complaints*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                                @can('Job Status Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Job Statuses" href="{{ route('job-statuses.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/techso/masters/job-statuses*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                                @can('Job Type Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Job Types" href="{{ route('job-types.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/techso/masters/job-types*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                                @can('Product Type Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Product Types" href="{{ route('product-types.index') }}"
-                                        menu_open=""
-                                        active="{{ request()->is('admin/techso/masters/product-types*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                                @can('Customer Accessories Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Customer Accessories"
-                                        href="{{ route('customer-accessories.index') }}" menu_open=""
-                                        active="{{ request()->is('admin/techso/masters/customer-accessories*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                            </x-sidebar.sidebar-nav-multi-level>
-                        @endcanany
-                        <!-- techso masters end -->
-                        <!-- techso Inventory Start -->
-                        @canany(['Stock Valuation Read', 'Stock Reports Read'])
-                            <x-sidebar.sidebar-nav-multi-level head="Inventory" href="#"
-                                menu_open="{{ request()->is('admin/techso/inventory*') ? 'menu-open' : '' }}"
-                                active="{{ request()->is('admin/techso/inventory/*') ? 'active' : '' }}"
-                                menu_icon="fa fa-folder-tree" drop_icon="fas fa-angle-left">
+                            @can('Customer Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Customers" href="{{ route('customers.index') }}"
+                                    menu_open=""
+                                    active="{{ request()->is('admin/techso/masters/customers*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                            @can('Product Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Products" href="{{ route('products.index') }}"
+                                    menu_open="" active="{{ request()->is('admin/techso/masters/products*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                            @can('Brand Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Brands" href="{{ route('brands.index') }}"
+                                    menu_open="" active="{{ request()->is('admin/techso/masters/brands*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                            @can('Complaint Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Complaints" href="{{ route('complaints.index') }}"
+                                    menu_open=""
+                                    active="{{ request()->is('admin/techso/masters/complaints*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                            @can('Job Status Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Job Statuses" href="{{ route('job-statuses.index') }}"
+                                    menu_open=""
+                                    active="{{ request()->is('admin/techso/masters/job-statuses*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                            @can('Job Type Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Job Types" href="{{ route('job-types.index') }}"
+                                    menu_open=""
+                                    active="{{ request()->is('admin/techso/masters/job-types*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                            @can('Product Type Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Product Types" href="{{ route('product-types.index') }}"
+                                    menu_open=""
+                                    active="{{ request()->is('admin/techso/masters/product-types*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                            @can('Customer Accessories Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Customer Accessories"
+                                    href="{{ route('customer-accessories.index') }}" menu_open=""
+                                    active="{{ request()->is('admin/techso/masters/customer-accessories*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                        </x-sidebar.sidebar-nav-multi-level>
+                    @endcanany
+                    <!-- techso masters end -->
+                    <!-- techso Inventory Start -->
+                    @canany(['Stock Valuation Read', 'Stock Reports Read'])
+                        <x-sidebar.sidebar-nav-multi-level head="Inventory" href="#"
+                            menu_open="{{ request()->is('admin/techso/inventory*') ? 'menu-open' : '' }}"
+                            active="{{ request()->is('admin/techso/inventory/*') ? 'active' : '' }}"
+                            menu_icon="fa fa-folder-tree" drop_icon="fas fa-angle-left">
 
-                                @can('Stock Valuation Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Stock Valuation"
-                                        href="{{ route('inventories.stock.valuation') }}" menu_open=""
-                                        active="{{ request()->is('admin/techso/inventory/stock-valuation*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                                @can('Stock Reports Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Stock Ledger"
-                                        href="{{ route('inventories.stock.ledger') }}" menu_open=""
-                                        active="{{ request()->is('admin/techso/inventory/stock-ledger*') ? 'active' : '' }}"
-                                        menu_icon="fa fa-asterisk" drop_icon="" />
-                                @endcan
-                            </x-sidebar.sidebar-nav-multi-level>
-                        @endcanany
-                        <!-- techso Inventory end -->
-                        <!-- techso financial Start -->
-                        @canany(['Ledger Read', 'Stock Reports Read'])
-                            <x-sidebar.sidebar-nav-multi-level head="financial" href="#"
+                            @can('Stock Valuation Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Stock Valuation"
+                                    href="{{ route('inventories.stock.valuation') }}" menu_open=""
+                                    active="{{ request()->is('admin/techso/inventory/stock-valuation*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                            @can('Stock Reports Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Stock Ledger"
+                                    href="{{ route('inventories.stock.ledger') }}" menu_open=""
+                                    active="{{ request()->is('admin/techso/inventory/stock-ledger*') ? 'active' : '' }}"
+                                    menu_icon="fa fa-asterisk" drop_icon="" />
+                            @endcan
+                        </x-sidebar.sidebar-nav-multi-level>
+                    @endcanany
+                    <!-- techso Inventory end -->
+                    <!-- techso financial Start -->
+                    @canany(['Ledger Read', 'Stock Reports Read'])
+                        <x-sidebar.sidebar-nav-multi-level head="financial" href="#"
+                            menu_open="{{ request()->is('admin/techso/financial*') ? 'menu-open' : '' }}"
+                            active="{{ request()->is('admin/techso/financial/*') ? 'active' : '' }}"
+                            menu_icon="fa-solid fa-coins" drop_icon="fas fa-angle-left">
+
+                            <x-sidebar.sidebar-nav-multi-level head="Transection" href="#"
                                 menu_open="{{ request()->is('admin/techso/financial*') ? 'menu-open' : '' }}"
                                 active="{{ request()->is('admin/techso/financial/*') ? 'active' : '' }}"
-                                menu_icon="fa-solid fa-coins" drop_icon="fas fa-angle-left">
+                                menu_icon="fa-solid fa-down-left-and-up-right-to-center" drop_icon="fas fa-angle-left">
 
-                                <x-sidebar.sidebar-nav-multi-level head="Transection" href="#"
+                                <x-sidebar.sidebar-nav-multi-level head="Cash and Bank" href="#"
                                     menu_open="{{ request()->is('admin/techso/financial*') ? 'menu-open' : '' }}"
                                     active="{{ request()->is('admin/techso/financial/*') ? 'active' : '' }}"
-                                    menu_icon="fa-solid fa-down-left-and-up-right-to-center" drop_icon="fas fa-angle-left">
+                                    menu_icon="fa-solid fa-money-bills" drop_icon="fas fa-angle-left">
 
-                                    <x-sidebar.sidebar-nav-multi-level head="Cash and Bank" href="#"
-                                        menu_open="{{ request()->is('admin/techso/financial*') ? 'menu-open' : '' }}"
-                                        active="{{ request()->is('admin/techso/financial/*') ? 'active' : '' }}"
-                                        menu_icon="fa-solid fa-money-bills" drop_icon="fas fa-angle-left">
+                                    @can('Receipts Read')
+                                        <x-sidebar.sidebar-nav-multi-level head="Receipts"
+                                            href="{{ route('inventories.stock.valuation') }}" menu_open=""
+                                            active="{{ request()->is('admin/techso/financial/stock-valuation*') ? 'active' : '' }}"
+                                            menu_icon="fa-solid fa-receipt" drop_icon="" />
+                                    @endcan
+                                    @can('Cash Payment Read')
+                                        <x-sidebar.sidebar-nav-multi-level head="Cash Payment"
+                                            href="{{ route('inventories.stock.ledger') }}" menu_open=""
+                                            active="{{ request()->is('admin/techso/financial/stock-ledger*') ? 'active' : '' }}"
+                                            menu_icon="fa-solid fa-money-bill-wave" drop_icon="" />
+                                    @endcan
+                                </x-sidebar.sidebar-nav-multi-level>
 
-                                        @can('Receipts Read')
-                                            <x-sidebar.sidebar-nav-multi-level head="Receipts"
-                                                href="{{ route('inventories.stock.valuation') }}" menu_open=""
-                                                active="{{ request()->is('admin/techso/financial/stock-valuation*') ? 'active' : '' }}"
-                                                menu_icon="fa-solid fa-receipt" drop_icon="" />
-                                        @endcan
-                                        @can('Cash Payment Read')
-                                            <x-sidebar.sidebar-nav-multi-level head="Cash Payment"
-                                                href="{{ route('inventories.stock.ledger') }}" menu_open=""
-                                                active="{{ request()->is('admin/techso/financial/stock-ledger*') ? 'active' : '' }}"
-                                                menu_icon="fa-solid fa-money-bill-wave" drop_icon="" />
-                                        @endcan
-                                    </x-sidebar.sidebar-nav-multi-level>
-
-                                    {{-- @can('Ledger Read')
+                                {{-- @can('Ledger Read')
                                         <x-sidebar.sidebar-nav-multi-level head="Ledger"
                                             href="{{ route('inventories.stock.valuation') }}" menu_open=""
                                             active="{{ request()->is('admin/techso/financial/stock-valuation*') ? 'active' : '' }}"
                                             menu_icon="fa-solid fa-file-invoice-dollar" drop_icon="" />
                                     @endcan --}}
-                                    @can('Stock Reports Read')
-                                        <x-sidebar.sidebar-nav-multi-level head="Stock Ledger"
-                                            href="{{ route('inventories.stock.ledger') }}" menu_open=""
-                                            active="{{ request()->is('admin/techso/financial/stock-ledger*') ? 'active' : '' }}"
-                                            menu_icon="fa fa-asterisk" drop_icon="" />
-                                    @endcan
-                                </x-sidebar.sidebar-nav-multi-level>
-
-
-
-
-                                @can('Ledger Read')
-                                    <x-sidebar.sidebar-nav-multi-level head="Ledger"
-                                        href="{{ route('inventories.stock.valuation') }}" menu_open=""
-                                        active="{{ request()->is('admin/techso/financial/stock-valuation*') ? 'active' : '' }}"
-                                        menu_icon="fa-solid fa-file-invoice-dollar" drop_icon="" />
+                                @can('Stock Reports Read')
+                                    <x-sidebar.sidebar-nav-multi-level head="Stock Ledger"
+                                        href="{{ route('inventories.stock.ledger') }}" menu_open=""
+                                        active="{{ request()->is('admin/techso/financial/stock-ledger*') ? 'active' : '' }}"
+                                        menu_icon="fa fa-asterisk" drop_icon="" />
                                 @endcan
                             </x-sidebar.sidebar-nav-multi-level>
-                        @endcanany
-                        <!-- techso financial end -->
-
-                    </x-sidebar.sidebar-nav-level>
-                @endcanany
-                <!-- techso end -->
 
 
-            @endcanany <!-- Admin Aection Menu -->
+
+
+                            @can('Ledger Read')
+                                <x-sidebar.sidebar-nav-multi-level head="Ledger"
+                                    href="{{ route('inventories.stock.valuation') }}" menu_open=""
+                                    active="{{ request()->is('admin/techso/financial/stock-valuation*') ? 'active' : '' }}"
+                                    menu_icon="fa-solid fa-file-invoice-dollar" drop_icon="" />
+                            @endcan
+                        </x-sidebar.sidebar-nav-multi-level>
+                    @endcanany
+                    <!-- techso financial end -->
+
+                </x-sidebar.sidebar-nav-level>
+            @endcanany
+            <!-- techso end -->
         </ul>
     </nav>
     <!-- sidebar-menu -->

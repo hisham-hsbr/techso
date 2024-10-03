@@ -31,8 +31,8 @@
             </div>
             <!-- left column -->
             <div class="col-md-10">
-                @can('Product Type Edit')
-                    <form role="form" action="{{ route('products.update', $product->id) }}" method="post"
+                @can('Product Edit')
+                    <form role="form" action="{{ route('products.update', encrypt($product->id)) }}" method="post"
                         enctype="multipart/form-data" id="quickForm">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
@@ -46,9 +46,8 @@
                                     input_class="" input_value="{{ $product->code }}" input_placeholder="Enter code" />
 
                                 <x-form.form-group-label-input div_class="col-sm-4" label_for="name" lable_class="required"
-                                    label_name="Product Type Name" input_type="text" input_name="name" input_id="name"
-                                    input_style="" input_class="" input_value="{{ $product->name }}"
-                                    input_placeholder="Product Type Name" />
+                                    label_name="Product Name" input_type="text" input_name="name" input_id="name" input_style=""
+                                    input_class="" input_value="{{ $product->name }}" input_placeholder="Product Type Name" />
 
                                 <x-form.form-group-label-input div_class="col-sm-4" label_for="local_name"
                                     lable_class="required" label_name="Product Local Name" input_type="text"
@@ -85,6 +84,11 @@
                                         </option>
                                     @endforeach
                                 </x-form.form-group-label-select>
+                                <div class="pt-2 pl-5 col-sm-10">
+                                    <input type="checkbox" class="form-check-input" name="default" value="1" id="default"
+                                        @if ($product->default == 1) {{ 'checked' }} @endif />
+                                    <label class="form-check-label" for="default">Is Default</label>
+                                </div>
 
                             </div>
 
@@ -93,7 +97,7 @@
 
                         <div class="card-body">
                             <!-- /.card-header -->
-                            <div class="col-sm-10 pl-5 pt-2">
+                            <div class="pt-2 pl-5 col-sm-10">
                                 <input type="checkbox" class="form-check-input" name="status" value="1" id="status"
                                     @if ($product->status == 1) {{ 'checked' }} @endif />
                                 <label class="form-check-label" for="status">Active</label>
@@ -101,11 +105,11 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="">
-                            @can('Product Type Update')
-                                <button type="submit" class="btn btn-primary float-right ml-1">Update</button>
+                            @can('Product Update')
+                                <button type="submit" class="float-right ml-1 btn btn-primary">Update</button>
                             @endcan
                             <a type="button" href="{{ route('product-types.index') }}"
-                                class="btn btn-warning float-right ml-1">Back</a>
+                                class="float-right ml-1 btn btn-warning">Back</a>
                         </div>
                         <!-- /.card-footer -->
                     </form>

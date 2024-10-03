@@ -38,7 +38,7 @@
                 </div>
                 <!-- left column -->
                 <div class="col-md-10">
-                    <form role="form" action="{{ route('users.update', $user->id) }}" method="post"
+                    <form role="form" action="{{ route('users.update', encrypt($user->id)) }}" method="post"
                         enctype="multipart/form-data" id="quickForm">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
@@ -138,7 +138,7 @@
                                                 value="{{ $user->email }}" placeholder="Enter email">
                                         </div>
 
-                                        <div class="col-sm-10 p-4">
+                                        <div class="p-4 col-sm-10">
                                             <input type="checkbox" class="form-check-input" name="changePassword"
                                                 value="1" id="changePassword" />
                                             <label class="form-check-label" for="changePassword">Change Password</label>
@@ -282,7 +282,7 @@
                             </div>
                             <!-- /.row -->
 
-                            <div class="col-sm-10 pl-5 pt-2">
+                            <div class="pt-2 pl-5 col-sm-10">
                                 <input type="checkbox" class="form-check-input" name="status" value="1"
                                     id="status" @if ($user->status == 1) {{ 'checked' }} @endif />
                                 <label class="form-check-label" for="status">Active</label>
@@ -296,7 +296,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-3 pl-5 pt-2">
+                                    <div class="pt-2 pl-5 col-sm-3">
                                         <input type="checkbox" class="form-check-input" name="personal_settings"
                                             value="1" id="personal_settings"
                                             @if ($user->settings['personal_settings'] == 1) {{ 'checked' }} @endif />
@@ -314,30 +314,30 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-3 pl-5 pt-2">
+                                    <div class="pt-2 pl-5 col-sm-3">
                                         <input type="checkbox" class="form-check-input" name="card_header" value="1"
                                             id="card_header" @if ($user->settings['card_header'] == 1) {{ 'checked' }} @endif />
                                         <label class="form-check-label" for="card_header">Page Card Header</label>
                                     </div>
-                                    <div class="col-sm-3 pl-5 pt-2">
+                                    <div class="pt-2 pl-5 col-sm-3">
                                         <input type="checkbox" class="form-check-input" name="card_footer" value="1"
                                             id="card_footer" @if ($user->settings['card_footer'] == 1) {{ 'checked' }} @endif />
                                         <label class="form-check-label" for="card_footer">Page Card Footer</label>
                                     </div>
-                                    <div class="col-sm-3 pl-5 pt-2">
+                                    <div class="pt-2 pl-5 col-sm-3">
                                         <input type="checkbox" class="form-check-input" name="sidebar_collapse"
                                             value="1" id="sidebar_collapse"
                                             @if ($user->settings['sidebar_collapse'] == 1) {{ 'checked' }} @endif />
                                         <label class="form-check-label" for="sidebar_collapse">Sidebar Collapse</label>
                                     </div>
-                                    <div class="col-sm-3 pl-5 pt-2">
+                                    <div class="pt-2 pl-5 col-sm-3">
                                         <input type="checkbox" class="form-check-input" name="dark_mode" value="1"
                                             id="dark_mode" @if ($user->settings['dark_mode'] == 1) {{ 'checked' }} @endif />
                                         <label class="form-check-label" for="dark_mode">Dark Mode</label>
                                     </div>
                                     <br>
                                     <br>
-                                    <div class="col-sm-8 pl-4 pt-2">
+                                    <div class="pt-2 pl-4 col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <label for="permission_view" class="required col-form-label ">Permission
@@ -370,10 +370,10 @@
                         <div class="">
                             @can('User Update')
                                 <button type="submit" id="modal-default"
-                                    class="btn btn-primary float-right ml-1">Update</button>
+                                    class="float-right ml-1 btn btn-primary">Update</button>
                             @endcan
                             <a type="button" href="{{ route('roles.index') }}"
-                                class="btn btn-warning float-right ml-1">Back</a>
+                                class="float-right ml-1 btn btn-warning">Back</a>
                         </div>
                         <!-- /.card-footer -->
                     </form>
@@ -384,7 +384,7 @@
             </div>
             <div class="row">
 
-                <div class="col-10 mt-3">
+                <div class="mt-3 col-10">
                     <br>
                     <x-form.button button_type="" button_oneclick="copyToClipboard()" button_class="btn btn-success btn-xs"
                         button_icon="fa fa-clipboard" button_name="   Copy User Name & Password" />

@@ -26,7 +26,7 @@
 
         <div class="row">
             <div class="col-md-1">
-
+                <i class="fa-solid fa-circle-info"></i>
             </div>
             <!-- left column -->
             <div class="col-md-10">
@@ -37,7 +37,6 @@
                         <div class="card-body">
                             <!-- /.card-header -->
                             <div class="row">
-
 
                                 {{-- <x-form.form-group-label-input div_class="col-sm-4" label_for="code" lable_class="required"
                                     label_name="Code" input_type="text" input_name="code" input_id="code" input_style=""
@@ -83,11 +82,13 @@
                                             placeholder="Enter description ..."></textarea>
                                     </div>
                                 </div>
-                                <div class="col-sm-10 pl-5 pt-2">
+                                <div class="pt-2 pl-5 col-sm-10">
                                     <input type="checkbox" class="form-check-input" name="default" value="1"
                                         id="default" />
                                     <label class="form-check-label" for="default">Is Default</label>
                                 </div>
+
+                                <input type="text" id="test" name=test>
 
 
 
@@ -98,7 +99,7 @@
 
                         <div class="card-body">
                             <!-- /.card-header -->
-                            <div class="col-sm-10 pl-5 pt-2">
+                            <div class="pt-2 pl-5 col-sm-10">
                                 <input type="checkbox" class="form-check-input" name="status" value="1"
                                     id="status" @if (Auth::user()->settings['default_status'] == 1) {{ 'checked' }} @endif />
                                 <label class="form-check-label" for="status">Active</label>
@@ -107,10 +108,14 @@
                         <!-- /.card-body -->
                         <div class="">
                             @can('Customer Create')
-                                <button type="submit" class="btn btn-primary float-right ml-1">Save</button>
+                                <button type="submit" id="saveButton" class="float-right ml-1 btn btn-primary"><u>S</u>ave <span
+                                        style="font-size: .7em; text-align: center;">(Ctrl + S)</span></button>
                             @endcan
-                            <a type="button" href="{{ route('customers.index') }}"
-                                class="btn btn-warning float-right ml-1">Back</a>
+                            @can('Customer Read')
+                                <a type="button" href="{{ route('customers.index') }}" id="backButton"
+                                    class="float-right ml-1 btn btn-warning">Back<span
+                                        style="font-size: .7em; text-align: center;">(Ctrl + b)</span></a>
+                            @endcan
                         </div>
                         <!-- /.card-footer -->
                     </form>
@@ -136,6 +141,11 @@
     <x-links.footer-link-jquery-validation />
 
     <x-techso.validation.customer-jquery-validation />
+    <x-script.keyboard-shortcut key="s" button_id="saveButton" type="alt" event="click" />
+    <x-script.keyboard-shortcut key="b" button_id="backButton" type="ctrl&alt" event="click" />
+    <x-script.keyboard-shortcut key="m" button_id="test" type="ctrl&alt" event="focus" />
+
+
 
 
 @endsection

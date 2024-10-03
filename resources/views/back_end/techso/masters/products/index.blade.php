@@ -30,186 +30,185 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            @can('Product Read')
-                                <x-layouts.div-clearfix>
-                                    @can('Product Create')
-                                        <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-primary btn-sm"
-                                            href="{{ route('products.create') }}" button_icon="fa fa-add" button_name="Add" />
-                                    @endcan {{-- Product Create End --}}
-                                    @can('Product Import')
-                                        <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-warning btn-sm"
-                                            href="{{ route('products.import') }}" button_icon="fa fa-upload" button_name="Import" />
-                                    @endcan {{-- Product Create End --}}
-                                    @can('Product Settings')
-                                        <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-default btn-sm"
-                                            href="" button_icon="fa fa-cog" button_name="Settings" />
-                                    @endcan {{-- Product Settings End --}}
-                                    @can('Product Table')
-                                        <x-form.button button_type="" button_oneclick="Refresh()"
-                                            button_class="btn btn-success btn-sm" button_icon="fa fa-refresh"
-                                            button_name="Refresh" />
-                                    @endcan {{-- Product Table --}}
-                                </x-layouts.div-clearfix>
+
+                            <x-layouts.div-clearfix>
+                                @can('Product Create')
+                                    <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-primary btn-sm"
+                                        href="{{ route('products.create') }}" button_icon="fa fa-add" button_name="Add" />
+                                @endcan {{-- Product Create End --}}
+                                @can('Product Import')
+                                    <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-warning btn-sm"
+                                        href="{{ route('products.import') }}" button_icon="fa fa-upload" button_name="Import" />
+                                @endcan {{-- Product Create End --}}
+                                @can('Product Settings')
+                                    <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-default btn-sm"
+                                        href="" button_icon="fa fa-cog" button_name="Settings" />
+                                @endcan {{-- Product Settings End --}}
+                                @can('Product Table')
+                                    <x-form.button button_type="" button_oneclick="Refresh()"
+                                        button_class="btn btn-success btn-sm" button_icon="fa fa-refresh"
+                                        button_name="Refresh" />
+                                @endcan {{-- Product Table --}}
+                            </x-layouts.div-clearfix>
 
 
-                                @can('Product Filter')
-                                    <div class="col-md-12">
-                                        <div class="card card-success collapsed-card">
-                                            <div class="card-header">
+                            @can('Product Filter')
+                                <div class="col-md-12">
+                                    <div class="card card-success collapsed-card">
+                                        <div class="card-header">
 
-                                                <h3 class="card-title"><i class="fa-solid fa-filter"></i> Filter</h3>
-                                                <div class="card-tools">
-                                                    {{-- <x-form.button button_type="" button_oneclick="Refresh()"
+                                            <h3 class="card-title"><i class="fa-solid fa-filter"></i> Filter</h3>
+                                            <div class="card-tools">
+                                                {{-- <x-form.button button_type="" button_oneclick="Refresh()"
                                                     button_class="btn btn-success btn-sm"
                                                     button_icon="fa-solid fa-filter-circle-xmark" button_name="Refresh" /> --}}
-                                                    <button type="" class="btn btn-tool" onClick="Reset()"><i
-                                                            class="fa-solid fa-filter-circle-xmark"></i> Reset
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                                                            class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                                <!-- /.card-tools -->
+                                                <button type="" class="btn btn-tool" onClick="Reset()"><i
+                                                        class="fa-solid fa-filter-circle-xmark"></i> Reset
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                                        class="fas fa-plus"></i>
+                                                </button>
                                             </div>
-                                            <!-- /.card-header -->
-                                            <div class="card-body">
-                                                <div id="myFilter" class="row">
-                                                    @can('Product Read Code')
-                                                        <div class="form-group col-sm-4">
-                                                            <label class="col-form-label">Code</label>
-                                                            <input type="text" class="form-control filter-input" id="code"
-                                                                placeholder="Search Code" data-column="1" />
-                                                        </div>
-                                                    @endcan
-                                                    @can('Product Read Name')
-                                                        <div class="form-group col-sm-4">
-                                                            <label class="col-form-label">Name</label>
-                                                            <input type="text" class="form-control filter-input" id="name"
-                                                                placeholder="Search Name" data-column="2" />
-                                                        </div>
-                                                    @endcan
-                                                    @can('Product Read Created By')
-                                                        <div class="form-group col-sm-4">
-                                                            <label class="col-form-label">Created By</label>
-                                                            <select data-column="6" class="form-control select2 filter-select">
-                                                                <option value="">Select Created By</option>
-                                                                @foreach ($createdByUsers as $createdByUser)
-                                                                    <option value="{{ $createdByUser->name }}">
-                                                                        {{ $createdByUser->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    @endcan
-                                                    @can('Product Read Updated By')
-                                                        <div class="form-group col-sm-4">
-                                                            <label class="col-form-label">Updated By</label>
-                                                            <select data-column="7" class="form-control select2 filter-select">
-                                                                <option value="">Select Updated By</option>
-                                                                @foreach ($updatedByUsers as $updatedByUser)
-                                                                    <option value="{{ $updatedByUser->name }}">
-                                                                        {{ $updatedByUser->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    @endcan
-                                                </div>
-                                            </div>
-                                            <!-- /.card-body -->
+                                            <!-- /.card-tools -->
                                         </div>
-                                        <!-- /.card -->
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div id="myFilter" class="row">
+                                                @can('Product Read Code')
+                                                    <div class="form-group col-sm-4">
+                                                        <label class="col-form-label">Code</label>
+                                                        <input type="text" class="form-control filter-input" id="code"
+                                                            placeholder="Search Code" data-column="1" />
+                                                    </div>
+                                                @endcan
+                                                @can('Product Read Name')
+                                                    <div class="form-group col-sm-4">
+                                                        <label class="col-form-label">Name</label>
+                                                        <input type="text" class="form-control filter-input" id="name"
+                                                            placeholder="Search Name" data-column="2" />
+                                                    </div>
+                                                @endcan
+                                                @can('Product Read Created By')
+                                                    <div class="form-group col-sm-4">
+                                                        <label class="col-form-label">Created By</label>
+                                                        <select data-column="6" class="form-control select2 filter-select">
+                                                            <option value="">Select Created By</option>
+                                                            @foreach ($createdByUsers as $createdByUser)
+                                                                <option value="{{ $createdByUser->name }}">
+                                                                    {{ $createdByUser->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                @endcan
+                                                @can('Product Read Updated By')
+                                                    <div class="form-group col-sm-4">
+                                                        <label class="col-form-label">Updated By</label>
+                                                        <select data-column="7" class="form-control select2 filter-select">
+                                                            <option value="">Select Updated By</option>
+                                                            @foreach ($updatedByUsers as $updatedByUser)
+                                                                <option value="{{ $updatedByUser->name }}">
+                                                                    {{ $updatedByUser->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                @endcan
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
                                     </div>
-                                @endcan
+                                    <!-- /.card -->
+                                </div>
+                            @endcan
 
-                                @can('Product Table')
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                @can('Product Read')
-                                                    <th>Sn</th>
-                                                @endcan
-                                                @can('Product Read Code')
-                                                    <th width="10%">code</th>
-                                                @endcan
-                                                @can('Product Read Name')
-                                                    <th width="20%">Name</th>
-                                                @endcan
-                                                @can('Product Read Product Type')
-                                                    <th width="20%">Product Type</th>
-                                                @endcan
-                                                @can('Product Read Brand')
-                                                    <th width="20%">Brand</th>
-                                                @endcan
-                                                @can('Product Read Status')
-                                                    <th width="10%">Status</th>
-                                                @endcan
-                                                @can('Product Read Created At')
-                                                    <th width="20%">Created At</th>
-                                                @endcan
-                                                @can('Product Read Updated At')
-                                                    <th width="20%">Updated At</th>
-                                                @endcan
-                                                @can('Product Read Created By')
-                                                    <th width="20%">Created By</th>
-                                                @endcan
-                                                @can('Product Read Updated By')
-                                                    <th width="20%">Updated By</th>
-                                                @endcan
-                                                @can('Product Edit')
-                                                    <th>Edit</th>
-                                                @endcan
-                                                @can('Product Delete')
-                                                    <th>Delete</th>
-                                                @endcan
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{-- ---- --}}
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                @can('Product Read')
-                                                    <th>Sn</th>
-                                                @endcan
-                                                @can('Product Read Code')
-                                                    <th width="10%">code</th>
-                                                @endcan
-                                                @can('Product Read Name')
-                                                    <th width="20%">Name</th>
-                                                @endcan
-                                                @can('Product Read Product Type')
-                                                    <th width="20%">Product Type</th>
-                                                @endcan
-                                                @can('Product Read Brand')
-                                                    <th width="20%">Brand</th>
-                                                @endcan
-                                                @can('Product Read Status')
-                                                    <th width="10%">Status</th>
-                                                @endcan
-                                                @can('Product Read Created At')
-                                                    <th width="20%">Created At</th>
-                                                @endcan
-                                                @can('Product Read Updated At')
-                                                    <th width="20%">Updated At</th>
-                                                @endcan
-                                                @can('Product Read Created By')
-                                                    <th width="20%">Created By</th>
-                                                @endcan
-                                                @can('Product Read Updated By')
-                                                    <th width="20%">Updated By</th>
-                                                @endcan
-                                                @can('Product Edit')
-                                                    <th>Edit</th>
-                                                @endcan
-                                                @can('Product Delete')
-                                                    <th>Delete</th>
-                                                @endcan
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                    @endcan{{-- Product Table end --}}
-                                @endcan {{-- Product Read end --}}
+                            @can('Product Read')
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            @can('Product Read')
+                                                <th>Sn</th>
+                                            @endcan
+                                            @can('Product Read Code')
+                                                <th width="10%">code</th>
+                                            @endcan
+                                            @can('Product Read Name')
+                                                <th width="20%">Name</th>
+                                            @endcan
+                                            @can('Product Read Product Type')
+                                                <th width="20%">Product Type</th>
+                                            @endcan
+                                            @can('Product Read Brand')
+                                                <th width="20%">Brand</th>
+                                            @endcan
+                                            @can('Product Read Status')
+                                                <th width="10%">Status</th>
+                                            @endcan
+                                            @can('Product Read Created At')
+                                                <th width="20%">Created At</th>
+                                            @endcan
+                                            @can('Product Read Updated At')
+                                                <th width="20%">Updated At</th>
+                                            @endcan
+                                            @can('Product Read Created By')
+                                                <th width="20%">Created By</th>
+                                            @endcan
+                                            @can('Product Read Updated By')
+                                                <th width="20%">Updated By</th>
+                                            @endcan
+                                            @can('Product Edit')
+                                                <th>Edit</th>
+                                            @endcan
+                                            @can('Product Delete')
+                                                <th>Delete</th>
+                                            @endcan
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- ---- --}}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            @can('Product Read')
+                                                <th>Sn</th>
+                                            @endcan
+                                            @can('Product Read Code')
+                                                <th width="10%">code</th>
+                                            @endcan
+                                            @can('Product Read Name')
+                                                <th width="20%">Name</th>
+                                            @endcan
+                                            @can('Product Read Product Type')
+                                                <th width="20%">Product Type</th>
+                                            @endcan
+                                            @can('Product Read Brand')
+                                                <th width="20%">Brand</th>
+                                            @endcan
+                                            @can('Product Read Status')
+                                                <th width="10%">Status</th>
+                                            @endcan
+                                            @can('Product Read Created At')
+                                                <th width="20%">Created At</th>
+                                            @endcan
+                                            @can('Product Read Updated At')
+                                                <th width="20%">Updated At</th>
+                                            @endcan
+                                            @can('Product Read Created By')
+                                                <th width="20%">Created By</th>
+                                            @endcan
+                                            @can('Product Read Updated By')
+                                                <th width="20%">Updated By</th>
+                                            @endcan
+                                            @can('Product Edit')
+                                                <th>Edit</th>
+                                            @endcan
+                                            @can('Product Delete')
+                                                <th>Delete</th>
+                                            @endcan
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                @endcan{{-- Product Table end --}}
                             </div>
                             <!-- /.card-body -->
                         </div>

@@ -97,15 +97,15 @@
                                                         <select class="form-control select2" name="product_id" id="product_id">
                                                             <option disabled selected>-- Select Product --</option>
                                                             @foreach ($products as $product)
-                                                                <option
+                                                                {{-- <option
                                                                     {{ old('product_id') == $product->id ? 'selected' : '' }}
                                                                     value="{{ $product->id }}">
                                                                     {{ $product->name }}
+                                                                </option> --}}
+                                                                <option value="{{ $product->id }}"
+                                                                    {{ old('product_id', $product->default == 1 ? $product->id : '') == $product->id ? 'selected' : '' }}>
+                                                                    {{ $product->name }}
                                                                 </option>
-                                                                {{-- <option value="{{ $product->id }}"
-                                                            {{ old('product_id', $product->default == 1 ? $product->id : '') == $product->id ? 'selected' : '' }}>
-                                                            {{ $product->name }}
-                                                        </option> --}}
                                                             @endforeach
                                                         </select>
                                                     </div>

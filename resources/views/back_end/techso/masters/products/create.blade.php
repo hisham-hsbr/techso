@@ -34,14 +34,14 @@
                             <!-- /.card-header -->
                             <div class="row">
 
-
                                 <x-form.form-group-label-input div_class="col-sm-4" label_for="code" lable_class="required"
                                     label_name="Code" input_type="text" input_name="code" input_id="code" input_style=""
                                     input_class="" input_value="{{ old('code') }}" input_placeholder="Enter code" />
 
                                 <x-form.form-group-label-input div_class="col-sm-4" label_for="name" lable_class="required"
                                     label_name="Product Name" input_type="text" input_name="name" input_id="name" input_style=""
-                                    input_class="" input_value="{{ old('name') }}" input_placeholder="Product Name" />
+                                    input_class="" input_value="{{ old('name') }}" input_placeholder="Product Name"
+                                    input_onkeyup="generateCode()" />
 
                                 <x-form.form-group-label-input div_class="col-sm-4" label_for="local_name"
                                     lable_class="required" label_name="Product Local Name" input_type="text"
@@ -79,7 +79,7 @@
                                         </option>
                                     @endforeach
                                 </x-form.form-group-label-select>
-                                <div class="col-sm-10 pl-5 pt-2">
+                                <div class="pt-2 pl-5 col-sm-10">
                                     <input type="checkbox" class="form-check-input" name="default" value="1"
                                         id="default" />
                                     <label class="form-check-label" for="default">Is Default</label>
@@ -92,7 +92,7 @@
 
                         <div class="card-body">
                             <!-- /.card-header -->
-                            <div class="col-sm-10 pl-5 pt-2">
+                            <div class="pt-2 pl-5 col-sm-10">
                                 <input type="checkbox" class="form-check-input" name="status" value="1" id="status"
                                     @if (Auth::user()->settings['default_status'] == 1) {{ 'checked' }} @endif />
                                 <label class="form-check-label" for="status">Active</label>
@@ -101,10 +101,10 @@
                         <!-- /.card-body -->
                         <div class="">
                             @can('Product Create')
-                                <button type="submit" class="btn btn-primary float-right ml-1">Save</button>
+                                <button type="submit" class="float-right ml-1 btn btn-primary">Save</button>
                             @endcan
                             <a type="button" href="{{ route('products.index') }}"
-                                class="btn btn-warning float-right ml-1">Back</a>
+                                class="float-right ml-1 btn btn-warning">Back</a>
                         </div>
                         <!-- /.card-footer -->
                     </form>
@@ -127,53 +127,10 @@
 
     <x-message.message />
     <x-links.footer-link-select-two />
-    <x-links.footer-link-jquery-validation />
+    <x-techso.validation.product-jquery-validation />
+    <x-script.code-generate name="name" code="code" />
 
-    <script>
-        $(function() {
-            // $.validator.setDefaults({
-            //     submitHandler: function() {
-            //         alert("Form successful submitted!");
-            //     }
-            // });
-            jQuery.validator.addMethod("noSpace", function(value, element) {
-                return value.indexOf(" ") < 0 && value != "";
-            });
-            $('#quickForm').validate({
-                rules: {
-                    name: {
-                        required: true,
-                    },
-                    code: {
-                        required: true,
-                        noSpace: true,
-                        alphanumeric: true
-                    },
-                },
-                messages: {
-                    name: {
-                        required: "Please Enter Name",
-                    },
-                    code: {
-                        required: "Please Enter Code",
-                        noSpace: "No space between the code",
-                        alphanumeric: "No special characters the code",
-                    },
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-        });
-    </script>
+
 
 
 @endsection

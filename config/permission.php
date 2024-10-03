@@ -2,6 +2,11 @@
 
 return [
 
+
+    'defaults' => [
+        'guard_name' => 'web', // Ensure this is the correct guard
+    ],
+
     'models' => [
 
         /*
@@ -13,7 +18,8 @@ return [
          * `Spatie\Permission\Contracts\Permission` contract.
          */
 
-        'permission' => Spatie\Permission\Models\Permission::class,
+        // 'permission' => Spatie\Permission\Models\Permission::class,
+        'permission' => App\Models\Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which

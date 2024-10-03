@@ -1,11 +1,11 @@
 @extends('back_end.layouts.app')
 
-@section('PageHead', 'Job Type Import')
+@section('PageHead', 'Customer Excel Import')
 
-@section('PageTitle', 'Job Type Import')
+@section('PageTitle', 'Customer Excel Import')
 @section('pageNavHeader')
     <li class="breadcrumb-item"><a href="{{ route('back-end.dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('job-types.index') }}">Job Types</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Customers</a></li>
     <li class="breadcrumb-item active">Import</li>
 @endsection
 
@@ -13,7 +13,7 @@
 
 @endsection
 
-@section('actionTitle', 'Job Type Import')
+@section('actionTitle', 'Customer Excel Import')
 @section('mainContent')
     <div class="container-fluid">
 
@@ -23,22 +23,22 @@
             </div>
             <!-- left column -->
             <div class="col-md-10">
-                @can('Job Type Import')
+                @can('Customer Excel Import')
                     <div class="card-body">
 
-                        <form method="post" action="{{ route('job-types.upload') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('customers.upload') }}" enctype="multipart/form-data">
                             @csrf
                             {{ csrf_field() }}
 
-                            <label class="form-label">Select a Job Type Excel File :</label>
+                            <label class="form-label">Select a Customer Excel File :</label>
 
                             <input class="" id="data" name="data" type="file" required autofocus
                                 autocomplete="data" />
 
                             <br>
                             <br>
-                            Download <a href="{{ route('job-types.download') }}"><i class="fa fa-file-excel"></i> Sample Job
-                                Type Excel</a> for Import
+                            Download <a href="{{ route('customers.download') }}"><i class="fa fa-file-excel"></i> Sample
+                                Customers Excel</a> for Import
 
 
                             <x-message.excel-import-errors />
@@ -46,11 +46,13 @@
 
                     <!-- /.card-body -->
                     <div class="">
-                        @can('Job Type Import')
+                        @can('Customer Excel Import')
                             <button type="submit" class="float-right ml-1 btn btn-primary">Import</button>
                         @endcan
-                        <a type="button" href="{{ route('job-types.index') }}"
-                            class="float-right ml-1 btn btn-warning">Back</a>
+                        @can('Customer Read')
+                            <a type="button" href="{{ route('customers.index') }}"
+                                class="float-right ml-1 btn btn-warning">Back</a>
+                        @endcan
                     </div>
                     <!-- /.card-footer -->
                     </form>
