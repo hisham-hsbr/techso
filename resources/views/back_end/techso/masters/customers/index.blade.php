@@ -22,25 +22,39 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
+
+
                             @can('Customer Read')
                                 <x-layouts.div-clearfix>
+                                    <x-alert.alert-info model_title="Customer Create" icon_class="fa-solid fa-circle-info"
+                                        model_class="modal-lg">
+                                        <p><u>Keyboard Shortcuts</u></p>
+                                        <x-form.table-code>
+                                            <x-form.table-code-tr action="Add Customer" code="Ctrl+Alt + A" />
+                                            <x-form.table-code-tr action="Import Customer" code="Ctrl+Alt + I" />
+                                            <x-form.table-code-tr action="Customer Settings" code="Ctrl+Alt + S" />
+                                            <x-form.table-code-tr action="Customer Table Refresh" code="Alt + R" />
+                                        </x-form.table-code>
+                                    </x-alert.alert-info>
                                     @can('Customer Create')
-                                        <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-primary btn-sm"
-                                            href="{{ route('customers.create') }}" button_icon="fa fa-add" button_name="Add" />
+                                        <x-form.button-href button_type="" button_oneclick="" id="create"
+                                            button_class="btn btn-primary btn-sm" href="{{ route('customers.create') }}"
+                                            button_icon="fa fa-add" button_name="A̲dd" />
                                     @endcan {{-- Customer Create End --}}
                                     @can('Customer Excel Import')
-                                        <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-warning btn-sm"
-                                            href="{{ route('customers.import') }}" button_icon="fa fa-upload"
-                                            button_name="Import" />
+                                        <x-form.button-href button_type="" button_oneclick="" id="import"
+                                            button_class="btn btn-warning btn-sm" href="{{ route('customers.import') }}"
+                                            button_icon="fa fa-upload" button_name="I̲mport" />
                                     @endcan {{-- Customer Create End --}}
                                     @can('Customer Settings')
-                                        <x-form.button-href button_type="" button_oneclick="" button_class="btn btn-default btn-sm"
-                                            href="" button_icon="fa fa-cog" button_name="Settings" />
+                                        <x-form.button-href button_type="" button_oneclick="" id="settings"
+                                            button_class="btn btn-default btn-sm" href="" button_icon="fa fa-cog"
+                                            button_name="S̲ettings" />
                                     @endcan {{-- Customer Settings End --}}
                                     @can('Customer Read')
-                                        <x-form.button button_type="" button_oneclick="Refresh()"
+                                        <x-form.button button_type="" button_oneclick="Refresh()" id="refresh"
                                             button_class="btn btn-success btn-sm" button_icon="fa fa-refresh"
-                                            button_name="Refresh" />
+                                            button_name="R̲efresh" />
                                     @endcan {{-- Customer Read --}}
                                 </x-layouts.div-clearfix>
                                 @can('Customer Read')
@@ -146,7 +160,10 @@
     <x-message.table-update />
 
     <x-links.footer-links-dataTable />
-
+    <x-script.keyboard-shortcut key="a" button_id="create" type="ctrl&alt" event="click" />
+    <x-script.keyboard-shortcut key="i" button_id="import" type="ctrl&alt" event="click" />
+    <x-script.keyboard-shortcut key="s" button_id="settings" type="ctrl&alt" event="click" />
+    <x-script.keyboard-shortcut key="r" button_id="refresh" type="ctrl&alt" event="click" />
     <script>
         $(function() {
             var table = $("#example1").DataTable({

@@ -1,5 +1,6 @@
-@props(['button_type', 'button_oneclick', 'button_icon', 'button_name', 'button_class'])
-<button type="{{ $button_type }}" onClick="{{ $button_oneclick }}" class="{{ $button_class }} float-right ml-1 mb-1">
+@props(['button_type', 'button_oneclick', 'button_icon', 'button_name', 'button_class', 'id'])
+<button type="{{ $button_type }}" onClick="{{ $button_oneclick }}" class="{{ $button_class }} float-right ml-1 mb-1"
+    @if (isset($id)) id="{{ $id }}" @endif>
     <i class="{{ $button_icon }}" aria-hidden="true"></i> {{ $button_name }}
 </button>
 

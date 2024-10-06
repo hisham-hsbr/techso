@@ -46,3 +46,7 @@ p.hidden {
 p.mix {
     border-style: dotted dashed solid double;
 }
+
+.underline {
+    text-decoration: underline;
+}
