@@ -21,6 +21,7 @@ use App\Models\Techso\CustomerAccessories;
 use Illuminate\Support\Facades\Notification;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Notifications\InvoicePaid;
 
 class ServiceController extends Controller
 {
@@ -74,21 +75,24 @@ class ServiceController extends Controller
     }
     public function serviceNotification(Request $request)
     {
-        $users = User::all();
-        $delay = Carbon::now()->addSeconds(10);
-        // User::find(2)->notify(new JobRegister)->delay($delay);
-        // User::find(1)->notify(new JobRegister);
-        Notification::send($users, new JobRegister($request));
+        $user = User::find(2);
+        // $user = User::all();
+        // $delay = Carbon::now()->addSeconds(10);
+        // // User::find(2)->notify(new JobRegister)->delay($delay);
+        // // User::find(1)->notify(new JobRegister);
+        // // Notification::send($users, new JobRegister($request));
         // Notification::send($users, new JobRegister);
-        // $data="hai mr hisham";
+        // $data = "hai mr hisham";
 
         // Notification::route('mail', 'hisham9393@gmail.com')
-        //     // ->route('vonage', '5555555555')
-        //     // ->route('slack', '#slack-channel')
-        //     // ->route('broadcast', [new Channel('channel-name')])
-        //     // ->notify(new JobRegister);
+        //     ->route('vonage', '5555555555')
+        //     ->route('slack', '#slack-channel')
+        //     ->route('broadcast', [new Channel('channel-name')])
+        //     ->notify(new JobRegister);
         //     ->notify(new JobRegister($data));
 
+
+        $user->notify(new InvoicePaid());
         return redirect()->route('services.index')
             ->with('message_store', 'Notification send Successfully');
     }
